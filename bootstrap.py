@@ -13,7 +13,7 @@ class Bootstrapper:
         self.ready = False
         self.data = {}
 
-    # --- master bootstrap function
+    # --- master bootstrap functionlcn i
     def intitialize(self):
         print("[Bootstrapper]: Starting checks...")
 
