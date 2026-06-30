@@ -15,7 +15,7 @@ class Bootstrapper:
 
     # --- master bootstrap functionlcn i
     def intitialize(self):
-        print("[Bootstrapper]: Starting checks...")
+        print("[bootstrap]: Starting checks...")
 
         # --- attempt to fetch data
         try:
@@ -29,7 +29,7 @@ class Bootstrapper:
                 raise RuntimeError(f"[Bootstrapper]: Missing required key in license: {key}")
 
         # --- debug completion and return params to main.py
-        print("[Bootstrapper]: Checks complete.")
+        print("[bootstrap]: Checks complete.")
         print(self.data)
 
         self.ready = True

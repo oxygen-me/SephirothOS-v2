@@ -1,9 +1,10 @@
 # --- imports
 import sys
-from PySide6.QtWidgets import QApplication
+from PySide6.QtWidgets import QApplication, QMessageBox
 import json
 from bootstrap import Bootstrapper
 from eventbus import mainBus
+from gitfetch import GITFetch
 
 from core.app import AppShell
 
@@ -11,22 +12,36 @@ viable_editions = ["[1] Basic", "[2] Workplace", "[3] Premium", "[4] Ultimate"]
 
 # --- main function
 def main():
-    print("[Main]: Start initiated")
+    print("[main]: Start initiated")
 
     # --- create app
     app = QApplication(sys.argv)
 
     # --- attempt handshake
-    print("[Main]: Attempting handshake...")
+    print("[main]: Attempting handshake...")
 
     boot = Bootstrapper()
     ready, lcn = boot.intitialize()
 
     # --- parse return
     if not ready:
-        raise RuntimeError("[Main] Bootstrap failed!")
+        raise RuntimeError("[main] Bootstrap failed!")
 
-    print("[Main]: Handshake finalized")
+    print("[main]: Handshake finalized")
+
+    # --- attempt fetch
+    print("[main]: Attempting fetch...")
+
+    fetcht = GITFetch()
+    success, osversion = fetcht.version_fetch()
+
+    # --- parse return
+    if not success:
+        QMessageBox.warning(None,
+                            "Hold up!",
+                            "We were unable to fetch some data from GitHub. If there's a new version, you might not be able to install it. We don't care if you don't care. If you DO happen to care, check your internet or something. I don't fucking know.",
+                                    QMessageBox.StandardButton.Ok,
+                                    QMessageBox.StandardButton.Ok)
 
     # --- bus user exit
     mainBus.quitRequested.connect(app.quit)
