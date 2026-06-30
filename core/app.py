@@ -4,12 +4,8 @@ from PySide6.QtCore import Qt
 
 # --- create app class
 class AppShell(QWidget):
-    def __init__(self, lcn=None, config=None):
+    def __init__(self, config=None):
         super().__init__()
-
-        # --- immediately store reference
-        self.lcn = lcn
-        lcn = self.lcn
 
         # --- set fullscreen by default
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
