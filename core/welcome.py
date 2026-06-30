@@ -56,7 +56,6 @@ class WelcomePage(QWidget):
         self.mainlayout = QVBoxLayout()
         self.mainlayout.setContentsMargins(40, 40, 40, 40)
         self.mainlayout.setSpacing(0)
-        self.setLayout(self.mainlayout)
 
         # --- welcome label
         self.welcomelabel = QLabel("Welcome to SephirothOS")
@@ -64,3 +63,4 @@ class WelcomePage(QWidget):
         self.mainlayout.addWidget(self.welcomelabel)
 
         self.mainlayout.addStretch()
+        self.setLayout(self.mainlayout)
