@@ -47,14 +47,14 @@ def main():
 
     # --- create window depending on thing
     if lcn["edition"] not in viable_editions:
-        raise PermissionError("Edition invalid!")
+        raise PermissionError("Invalid edition. Do not tamper or pirate my shit.")
 
     if lcn["flag"] == "seth67":
         from core.welcome import WelcomeWindow
         intro = WelcomeWindow(lcn=lcn)
         intro.show()
     else:
-        window = AppShell(lcn=lcn) # todo: add config json stuff later
+        window = AppShell(lcn=lcn) # todo: add config JSON stuff later
         window.show()
 
     sys.exit(app.exec())
