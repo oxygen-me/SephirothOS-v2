@@ -1,7 +1,6 @@
 # --- imports
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QStackedWidget
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QPainter, QLinearGradient, QColor
 
 # --- create welcome class
 class WelcomeWindow(QWidget):

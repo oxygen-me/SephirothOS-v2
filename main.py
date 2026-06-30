@@ -1,7 +1,6 @@
 # --- imports
 import sys
 from PySide6.QtWidgets import QApplication, QMessageBox
-import json
 from bootstrap import Bootstrapper
 from eventbus import mainBus
 from gitfetch import GITFetch

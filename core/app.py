@@ -1,7 +1,6 @@
 # --- imports
-from PySide6.QtGui import QPixmap, QPainter
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QStackedWidget, QSizePolicy
-from PySide6.QtCore import Qt, QRect
+from PySide6.QtWidgets import QWidget, QVBoxLayout
+from PySide6.QtCore import Qt
 
 # --- create app class
 class AppShell(QWidget):
