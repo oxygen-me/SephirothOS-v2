@@ -1,6 +1,6 @@
 import requests
 
-class GITFetch:
+class GitFetch:
     def __init__(self):
         self.osversion = ""
         self.success = False

@@ -3,7 +3,7 @@ import sys
 from PySide6.QtWidgets import QApplication, QMessageBox
 from bootstrap import Bootstrapper
 from eventbus import mainBus
-from gitfetch import GITFetch
+from gitfetch import GitFetch
 
 from core.app import AppShell
 
@@ -31,7 +31,7 @@ def main():
     # --- attempt fetch
     print("[main]: Attempting fetch...")
 
-    fetcht = GITFetch()
+    fetcht = GitFetch()
     success, osversion = fetcht.version_fetch()
 
     # --- parse return
