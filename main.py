@@ -54,7 +54,7 @@ def main():
         intro = WelcomeWindow(lcn=lcn)
         intro.show()
     else:
-        window = AppShell(lcn=lcn) # todo: add config later
+        window = AppShell(lcn=lcn) # todo: add config json stuff later
         window.show()
 
     sys.exit(app.exec())

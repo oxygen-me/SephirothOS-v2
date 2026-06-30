@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="ui rework to new placeholder">
-      <change afterPath="$PROJECT_DIR$/gitfetch.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bootstrap.py" beforeDir="false" afterPath="$PROJECT_DIR$/bootstrap.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-    </list>
+    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="last-minute optimization" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -88,7 +83,7 @@
       <workItem from="1782778466500" duration="11782000" />
       <workItem from="1782794928337" duration="5000" />
       <workItem from="1782795215507" duration="27000" />
-      <workItem from="1782795385242" duration="1846000" />
+      <workItem from="1782795385242" duration="2093000" />
     </task>
     <task id="LOCAL-00001" summary="establish // main.py created">
       <option name="closed" value="true" />
@@ -122,7 +117,23 @@
       <option name="project" value="LOCAL" />
       <updated>1782794124934</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="added gitfetch // added warning">
+      <option name="closed" value="true" />
+      <created>1782797293016</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1782797293016</updated>
+    </task>
+    <task id="LOCAL-00006" summary="last-minute optimization">
+      <option name="closed" value="true" />
+      <created>1782797469814</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1782797469814</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -144,7 +155,9 @@
     <MESSAGE value="first render" />
     <MESSAGE value="wallpaper placeholder added" />
     <MESSAGE value="ui rework to new placeholder" />
-    <option name="LAST_COMMIT_MESSAGE" value="ui rework to new placeholder" />
+    <MESSAGE value="added gitfetch // added warning" />
+    <MESSAGE value="last-minute optimization" />
+    <option name="LAST_COMMIT_MESSAGE" value="last-minute optimization" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Code$main.coverage" NAME="main Coverage Results" MODIFIED="1782797231210" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
