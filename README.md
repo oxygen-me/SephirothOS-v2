@@ -1,5 +1,5 @@
 # SephirothOS
 
-It's back!
+Temporarily on hold.
 
 ---
