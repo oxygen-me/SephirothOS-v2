@@ -1,5 +1,5 @@
 # SephirothOS
 
-Temporarily on hold.
+Temporarily on hold while out of town.
 
 ---
