@@ -38,7 +38,7 @@ class WelcomeWindow(QWidget):
         self.contentlayout.setSpacing(0)
         self.contentarea.setLayout(self.contentlayout)
 
-        # --- stacks
+        # --- stack
         self.stack = QStackedWidget()
         self.contentlayout.addWidget(self.stack)
 
