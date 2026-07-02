@@ -1,6 +1,7 @@
 # --- imports
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QStackedWidget
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QStackedWidget, QHBoxLayout, QPushButton
 from PySide6.QtCore import Qt
+from PySide6.QtGui import QMovie
 
 # --- create welcome class
 class WelcomeWindow(QWidget):
@@ -51,16 +52,3 @@ class WelcomePage(QWidget):
 
         # --- init style
         self.setStyleSheet("background-color: transparent;")
-
-        # --- layout
-        self.mainlayout = QVBoxLayout()
-        self.mainlayout.setContentsMargins(40, 40, 40, 40)
-        self.mainlayout.setSpacing(0)
-
-        # --- welcome label
-        self.welcomelabel = QLabel("Welcome to SephirothOS")
-        self.welcomelabel.setStyleSheet("background-color: transparent; color: white; font-weight: bold; font-family: Segoe UI; font-size: 84px; font-style: italic;")
-        self.mainlayout.addWidget(self.welcomelabel)
-
-        self.mainlayout.addStretch()
-        self.setLayout(self.mainlayout)
