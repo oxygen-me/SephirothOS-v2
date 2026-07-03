@@ -1,5 +1,9 @@
 # --- imports
+import os
 import sys
+import subprocess
+import json
+from pathlib import Path
 from PySide6.QtWidgets import QApplication, QMessageBox
 from bootstrap import Bootstrapper
 from eventbus import mainBus
@@ -8,6 +12,8 @@ from gitfetch import GitFetch
 from core.app import AppShell
 
 viable_editions = ["[1] Basic", "[2] Workplace", "[3] Premium", "[4] Ultimate"]
+lcn_path = Path(str(os.getenv('APPDATA'))) / 'SephirothOS' / 'license.json'
+VERSION = "0.1.1"
 
 # --- main function
 def main():
@@ -28,6 +34,28 @@ def main():
 
     print("[main]: Handshake finalized")
 
+    # --- check update flag at root level
+    with open(lcn_path)  as f:
+        data = json.load(f)
+
+        if data.get("upd"):
+
+            print("[main]: Detected ongoing update")
+            print("[main]: Cleaning up...")
+
+            if os.path.exists("elevator.new.exe"):
+                try:
+                    os.remove("elevator.exe")
+                except FileNotFoundError:
+                    pass
+
+                os.replace("elevator.new.exe", "elevator.exe")
+
+            data["upd"] = False
+
+            with open(lcn_path, "w")  as f:
+                json.dump(data, f, indent=4)
+
     # --- attempt fetch
     print("[main]: Attempting fetch...")
 
@@ -44,6 +72,15 @@ def main():
 
     # --- bus user exit
     mainBus.quitRequested.connect(app.quit)
+
+    if VERSION != osversion:
+        subprocess.Popen([
+            "elevator.exe",
+            "--pid",
+            str(os.getpid())
+        ])
+
+        sys.exit(0)
 
     # --- create window depending on thing
     if lcn["edition"] not in viable_editions:
