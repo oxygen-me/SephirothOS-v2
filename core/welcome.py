@@ -382,5 +382,5 @@ class AccountPage(QWidget):
                 self.statuslabel.setText("")
                 self.usernameallowed = True
         else:
-            self.statuslabel.setText("")
+            self.statuslabel.setText("Username field is empty. Please enter a username to continue.")
             self.usernameallowed = False
