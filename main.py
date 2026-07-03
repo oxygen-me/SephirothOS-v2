@@ -13,7 +13,10 @@ from core.app import AppShell
 
 viable_editions = ["[1] Basic", "[2] Workplace", "[3] Premium", "[4] Ultimate"]
 lcn_path = Path(str(os.getenv('APPDATA'))) / 'SephirothOS' / 'license.json'
-VERSION = "0.1.1"
+VERSION = "0.2.3"
+
+print(f"[main]: Running version {VERSION}")
+print(f"Running from: {sys.executable}")
 
 # --- main function
 def main():
@@ -72,6 +75,12 @@ def main():
 
     # --- bus user exit
     mainBus.quitRequested.connect(app.quit)
+
+    print("=" * 50)
+    print(f"VERSION   : {VERSION!r}")
+    print(f"osversion : {osversion!r}")
+    print(f"Equal?    : {VERSION == osversion}")
+    print("=" * 50)
 
     if VERSION != osversion:
         subprocess.Popen([
