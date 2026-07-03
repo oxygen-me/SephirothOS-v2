@@ -1,4 +1,5 @@
 # --- imports
+from PySide6.QtGui import QPixmap
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QStackedWidget, QHBoxLayout, QPushButton, QLineEdit, \
     QComboBox
 from PySide6.QtCore import Qt
@@ -400,8 +401,9 @@ class SettingsPage(QWidget):
         self.title.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 72px; font-weight: bold;")
 
         # --- subtitle
+        self.pixmap = QPixmap("assets/CadenceAteThem.png")
         self.subtitle = QLabel()
-        self.subtitle.setWordWrap(True)
+        self.subtitle.setPixmap(self.pixmap)
 
         self.subtitle.setText("")
         self.subtitle.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 24px; font-weight: 400;")
