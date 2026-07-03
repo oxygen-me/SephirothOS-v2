@@ -1,9 +1,13 @@
 # --- imports
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QStackedWidget, QHBoxLayout, QPushButton, \
-    QGraphicsDropShadowEffect, QComboBox, QButtonGroup, QCheckBox
+    QGraphicsDropShadowEffect, QComboBox, QButtonGroup, QCheckBox, QLineEdit
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QMovie, QPixmap, QColor
 
+# --- globaL vars
+username = ""
+password = ""
+password2 = ""
 
 # --- create welcome class
 class WelcomeWindow(QWidget):
@@ -47,6 +51,7 @@ class WelcomeWindow(QWidget):
         self.stack.addWidget(WelcomePage(self.stack))
         self.stack.addWidget(LanguagePage(self.stack))
         self.stack.addWidget(ThemePage(self.stack))
+        self.stack.addWidget(AccountPage(self.stack))
 
         self.stack.setCurrentIndex(0)
 
@@ -277,3 +282,133 @@ class ThemePage(QWidget):
     def next_page(self):
         next_index = self.stack.currentIndex() + 1
         self.stack.setCurrentIndex(next_index)
+
+class AccountPage(QWidget):
+    def __init__(self, stack):
+        super().__init__()
+
+        self.stack = stack
+
+        # --- init style
+        self.setStyleSheet("background-color: transparent;")
+
+        # --- title
+        self.title = QLabel("Create an account")
+        self.title.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 72px; font-weight: bold;")
+
+        # --- subtitle
+        self.subtitle = QLabel()
+        self.subtitle.setWordWrap(True)
+
+        self.subtitle.setText("I don't have a good subtitle for this one, so fuck you. I bet you smell like crude oil.")
+        self.subtitle.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 24px; font-weight: 400;")
+
+        # --- account row
+        self.accountrow = QHBoxLayout()
+        self.accountrow.setContentsMargins(0, 0, 0, 0)
+        self.accountrow.setSpacing(20)
+
+        # --- account label
+        self.accountlabel = QLabel("Username:")
+        self.accountlabel.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 16px; font-weight: 400;")
+        self.accountrow.addWidget(self.accountlabel)
+
+        # --- username input
+        self.username = QLineEdit()
+        self.username.setStyleSheet("background-color: #15161a; color: white; font-family: Segoe UI; font-size: 16px; font-weight: 400;")
+        self.username.textChanged.connect(self.username_changed)
+        self.accountrow.addWidget(self.username)
+
+        # --- password row
+        self.passwordrow = QHBoxLayout()
+        self.passwordrow.setContentsMargins(0, 0, 0, 0)
+        self.passwordrow.setSpacing(20)
+
+        # --- password label
+        self.passwordlabel = QLabel("Password:")
+        self.passwordlabel.setStyleSheet(
+            "background-color: transparent; color: white; font-family: Segoe UI; font-size: 16px; font-weight: 400;")
+        self.passwordrow.addWidget(self.passwordlabel)
+
+        # --- password input
+        self.password = QLineEdit()
+        self.password.setStyleSheet(
+            "background-color: #15161a; color: white; font-family: Segoe UI; font-size: 16px; font-weight: 400;")
+        self.password.textChanged.connect(self.password_changed)
+        self.passwordrow.addWidget(self.password)
+
+        # --- con password row
+        self.passwordrow2 = QHBoxLayout()
+        self.passwordrow2.setContentsMargins(0, 0, 0, 0)
+        self.passwordrow2.setSpacing(20)
+
+        # --- con password label
+        self.passwordlabel2 = QLabel("Confirm Password:")
+        self.passwordlabel2.setStyleSheet(
+            "background-color: transparent; color: white; font-family: Segoe UI; font-size: 16px; font-weight: 400;")
+        self.passwordrow2.addWidget(self.passwordlabel2)
+
+        # --- con password input
+        self.password2 = QLineEdit()
+        self.password2.setStyleSheet(
+            "background-color: #15161a; color: white; font-family: Segoe UI; font-size: 16px; font-weight: 400;")
+        self.password2.textChanged.connect(self.confirm_password_changed)
+        self.passwordrow2.addWidget(self.password2)
+
+        # --- next button
+        self.nextbtn = QPushButton("Continue")
+        self.nextbtn.setStyleSheet("""
+        QPushButton { background-color: transparent; border: 2px solid #63e45f; color: #63e45f; font-family: Segoe UI; font-size: 24px; font-weight: 400; }
+        QPushButton:hover { background-color: #27292e; }
+        QPushButton:pressed { background-color: #15161a; }
+        """)
+        self.nextbtn.clicked.connect(self.next_page)
+
+        # --- main layout
+        self.mainlayout = QVBoxLayout()
+        self.mainlayout.setContentsMargins(20, 20, 20, 20)
+        self.mainlayout.setSpacing(0)
+
+        # --- div layout
+        self.divlayout = QHBoxLayout()
+        self.divlayout.setContentsMargins(0, 0, 0, 0)
+        self.divlayout.setSpacing(0)
+
+        # --- content layout
+        self.contentlayout = QVBoxLayout()
+        self.contentlayout.setContentsMargins(0, 0, 0, 0)
+        self.contentlayout.setSpacing(20)
+
+        # --- assembly
+        self.setLayout(self.mainlayout)
+        self.mainlayout.addLayout(self.divlayout)
+        self.divlayout.addLayout(self.contentlayout)
+
+        self.contentlayout.addStretch()
+
+        self.contentlayout.addWidget(self.title)
+        self.contentlayout.addWidget(self.subtitle)
+
+        self.contentlayout.addLayout(self.accountrow)
+        self.contentlayout.addLayout(self.passwordrow)
+        self.contentlayout.addLayout(self.passwordrow2)
+
+        self.contentlayout.addWidget(self.nextbtn)
+
+        self.divlayout.addStretch()
+
+    def next_page(self):
+        next_index = self.stack.currentIndex() + 1
+        self.stack.setCurrentIndex(next_index)
+
+    def username_changed(self):
+        global username
+        username = self.username.text()
+
+    def password_changed(self):
+        global password
+        password = self.password.text()
+
+    def confirm_password_changed(self):
+        global password2
+        password2 = self.password2.text()
