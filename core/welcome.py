@@ -3,7 +3,7 @@ from PySide6.QtGui import QPixmap
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QStackedWidget, QHBoxLayout, QPushButton, QLineEdit, \
     QComboBox
 from PySide6.QtCore import Qt
-import string
+
 
 # --- globaL vars
 username1 = ""
@@ -463,13 +463,11 @@ class FinishPage(QWidget):
         self.setStyleSheet("background-color: transparent;")
 
         # --- title
-        self.title = QLabel("Adjust your settings")
+        self.title = QLabel("Your Sephiroth is ready")
         self.title.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 72px; font-weight: bold;")
 
         # --- subtitle
-        self.pixmap = QPixmap("assets/CadenceAteThem.png")
         self.subtitle = QLabel()
-        self.subtitle.setPixmap(self.pixmap)
 
         self.subtitle.setText("")
         self.subtitle.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 24px; font-weight: 400;")
