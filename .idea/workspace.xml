@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="automatic xml adjustment to reflect project logistics">
+    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="change username evaluation to require chars">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/welcome.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/welcome.py" afterDir="false" />
     </list>
@@ -94,7 +94,7 @@
       <workItem from="1782843665891" duration="119000" />
       <workItem from="1783027902006" duration="18950000" />
       <workItem from="1783048092808" duration="10000000" />
-      <workItem from="1783116923661" duration="2468000" />
+      <workItem from="1783116923661" duration="3135000" />
     </task>
     <task id="LOCAL-00001" summary="establish // main.py created">
       <option name="closed" value="true" />
@@ -272,7 +272,23 @@
       <option name="project" value="LOCAL" />
       <updated>1783119264962</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="add username functionality">
+      <option name="closed" value="true" />
+      <created>1783120528117</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1783120528117</updated>
+    </task>
+    <task id="LOCAL-00024" summary="change username evaluation to require chars">
+      <option name="closed" value="true" />
+      <created>1783120697681</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1783120697681</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -310,11 +326,13 @@
     <MESSAGE value="add debug checks&#10;routine ver. change" />
     <MESSAGE value="remove password support temporarily" />
     <MESSAGE value="automatic xml adjustment to reflect project logistics" />
-    <option name="LAST_COMMIT_MESSAGE" value="automatic xml adjustment to reflect project logistics" />
+    <MESSAGE value="add username functionality" />
+    <MESSAGE value="change username evaluation to require chars" />
+    <option name="LAST_COMMIT_MESSAGE" value="change username evaluation to require chars" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Code$welcome.coverage" NAME="welcome Coverage Results" MODIFIED="1783038180673" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
-    <SUITE FILE_PATH="coverage/Code$main.coverage" NAME="main Coverage Results" MODIFIED="1783120338381" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Code$main.coverage" NAME="main Coverage Results" MODIFIED="1783120623050" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Code$app.coverage" NAME="app Coverage Results" MODIFIED="1782708219903" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
   </component>
 </project>
