@@ -1,8 +1,8 @@
 # --- imports
 import os
 import sys
-import subprocess
 import json
+import subprocess
 from pathlib import Path
 from PySide6.QtWidgets import QApplication, QMessageBox
 from bootstrap import Bootstrapper
@@ -13,7 +13,7 @@ from core.app import AppShell
 
 viable_editions = ["[1] Basic", "[2] Workplace", "[3] Premium", "[4] Ultimate"]
 lcn_path = Path(str(os.getenv('APPDATA'))) / 'SephirothOS' / 'license.json'
-VERSION = "0.2.3"
+VERSION = "0.2.2"
 
 print(f"[main]: Running version {VERSION}")
 print(f"Running from: {sys.executable}")
@@ -83,13 +83,20 @@ def main():
     print("=" * 50)
 
     if VERSION != osversion:
-        subprocess.Popen([
-            "elevator.exe",
-            "--pid",
-            str(os.getpid())
-        ])
+        userchoice = QMessageBox.question(None, "Update Available", "I AM FUCKING RENDERING SOMETHING!!!",
+                                          QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                                          QMessageBox.StandardButton.Yes
+                                          )
 
-        sys.exit(0)
+        if userchoice == QMessageBox.StandardButton.Yes:
+            subprocess.Popen([
+                "elevator.exe",
+                "--pid",
+                str(os.getpid())
+            ])
+            sys.exit(0)
+        else:
+            print("[main]: update declined")
 
     # --- create window depending on thing
     if lcn["edition"] not in viable_editions:
