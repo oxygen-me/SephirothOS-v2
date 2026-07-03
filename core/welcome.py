@@ -1,7 +1,9 @@
 # --- imports
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QStackedWidget, QHBoxLayout, QPushButton
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QStackedWidget, QHBoxLayout, QPushButton, \
+    QGraphicsDropShadowEffect, QComboBox, QButtonGroup, QCheckBox
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QMovie
+from PySide6.QtGui import QMovie, QPixmap, QColor
+
 
 # --- create welcome class
 class WelcomeWindow(QWidget):
@@ -43,6 +45,8 @@ class WelcomeWindow(QWidget):
         self.contentlayout.addWidget(self.stack)
 
         self.stack.addWidget(WelcomePage(self.stack))
+        self.stack.addWidget(LanguagePage(self.stack))
+        self.stack.addWidget(ThemePage(self.stack))
 
         self.stack.setCurrentIndex(0)
 
@@ -50,5 +54,226 @@ class WelcomePage(QWidget):
     def __init__(self, stack):
         super().__init__()
 
+        self.stack = stack
+
         # --- init style
         self.setStyleSheet("background-color: transparent;")
+
+        # --- title
+        self.title = QLabel("Welcome to Sephiroth")
+        self.title.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 72px; font-weight: bold;")
+
+        # --- subtitle
+        self.subtitle = QLabel()
+        self.subtitle.setWordWrap(True)
+
+        self.subtitle.setText("SephirothOS is an OS designed with Sephiroth. It is designed by Sephiroths, for Sephiroths, of Sephiroths. I think I lost my left shoe. Please help.")
+        self.subtitle.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 24px; font-weight: 400;")
+
+        # --- next button
+        self.nextbtn = QPushButton("Get Started")
+        self.nextbtn.setStyleSheet("""
+        QPushButton { background-color: transparent; border: 2px solid #63e45f; color: #63e45f; font-family: Segoe UI; font-size: 24px; font-weight: 400; }
+        QPushButton:hover { background-color: #27292e; }
+        QPushButton:pressed { background-color: #15161a; }
+        """)
+        self.nextbtn.clicked.connect(self.next_page)
+
+        # --- main layout
+        self.mainlayout = QVBoxLayout()
+        self.mainlayout.setContentsMargins(20, 20, 20, 20)
+        self.mainlayout.setSpacing(0)
+
+        # --- div layout
+        self.divlayout = QHBoxLayout()
+        self.divlayout.setContentsMargins(0, 0, 0, 0)
+        self.divlayout.setSpacing(0)
+
+        # --- content layout
+        self.contentlayout = QVBoxLayout()
+        self.contentlayout.setContentsMargins(0, 0, 0, 0)
+        self.contentlayout.setSpacing(20)
+
+        # --- assembly
+        self.setLayout(self.mainlayout)
+        self.mainlayout.addLayout(self.divlayout)
+        self.divlayout.addLayout(self.contentlayout)
+
+        self.contentlayout.addStretch()
+
+        self.contentlayout.addWidget(self.title)
+        self.contentlayout.addWidget(self.subtitle)
+        self.contentlayout.addWidget(self.nextbtn)
+
+        self.divlayout.addStretch()
+
+    def next_page(self):
+        next_index = self.stack.currentIndex() + 1
+        self.stack.setCurrentIndex(next_index)
+
+class LanguagePage(QWidget):
+    def __init__(self, stack):
+        super().__init__()
+
+        self.stack = stack
+
+        # --- init style
+        self.setStyleSheet("background-color: transparent;")
+
+        # --- title
+        self.title = QLabel("Select a language")
+        self.title.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 72px; font-weight: bold;")
+
+        # --- subtitle
+        self.subtitle = QLabel()
+        self.subtitle.setWordWrap(True)
+
+        self.subtitle.setText('All languages come with a complimentary BOMB mailed DIRECTLY TO YOUR HOME. Quoth the Sephiroth, "seaux de pisse."')
+        self.subtitle.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 24px; font-weight: 400;")
+
+        # --- selection
+        self.selection = QComboBox()
+
+        languages = [
+            "Normal",
+            "English (Simplified)",
+            "English (Traditional)",
+            "English (French)",
+            "English 2",
+            "Español",
+            "Français",
+            "Deutsch",
+            "Homosexual",
+            "Italiano",
+            "Português",
+            "日本語",
+            "한국어",
+            "中文",
+            "Русский",
+            "Latin",
+            "Sephiroth",
+            "Left Shoe",
+            "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        ]
+
+        self.selection.addItems(languages)
+
+        # --- next button
+        self.nextbtn = QPushButton("Continue")
+        self.nextbtn.setStyleSheet("""
+        QPushButton { background-color: transparent; border: 2px solid #63e45f; color: #63e45f; font-family: Segoe UI; font-size: 24px; font-weight: 400; }
+        QPushButton:hover { background-color: #27292e; }
+        QPushButton:pressed { background-color: #15161a; }
+        """)
+        self.nextbtn.clicked.connect(self.next_page)
+
+        # --- main layout
+        self.mainlayout = QVBoxLayout()
+        self.mainlayout.setContentsMargins(20, 20, 20, 20)
+        self.mainlayout.setSpacing(0)
+
+        # --- div layout
+        self.divlayout = QHBoxLayout()
+        self.divlayout.setContentsMargins(0, 0, 0, 0)
+        self.divlayout.setSpacing(0)
+
+        # --- content layout
+        self.contentlayout = QVBoxLayout()
+        self.contentlayout.setContentsMargins(0, 0, 0, 0)
+        self.contentlayout.setSpacing(20)
+
+        # --- assembly
+        self.setLayout(self.mainlayout)
+        self.mainlayout.addLayout(self.divlayout)
+        self.divlayout.addLayout(self.contentlayout)
+
+        self.contentlayout.addStretch()
+
+        self.contentlayout.addWidget(self.title)
+        self.contentlayout.addWidget(self.subtitle)
+        self.contentlayout.addWidget(self.selection)
+        self.contentlayout.addWidget(self.nextbtn)
+
+        self.divlayout.addStretch()
+
+    def next_page(self):
+        next_index = self.stack.currentIndex() + 1
+        self.stack.setCurrentIndex(next_index)
+
+class ThemePage(QWidget):
+    def __init__(self, stack):
+        super().__init__()
+
+        self.stack = stack
+
+        # --- init style
+        self.setStyleSheet("background-color: transparent;")
+
+        # --- title
+        self.title = QLabel("Choose your theme")
+        self.title.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 72px; font-weight: bold;")
+
+        # --- subtitle
+        self.subtitle = QLabel()
+        self.subtitle.setWordWrap(True)
+
+        self.subtitle.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+        self.subtitle.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 24px; font-weight: 400;")
+
+        # --- selection
+        self.selection = QComboBox()
+
+        self.selection.setStyleSheet("background-color: transparent;")
+
+        themes = [
+            "Dark",
+            "Dark",
+            "Dark",
+            "Piss",
+            "Dark",
+            "Dark",
+        ]
+
+        self.selection.addItems(themes)
+
+        # --- next button
+        self.nextbtn = QPushButton("Continue")
+        self.nextbtn.setStyleSheet("""
+        QPushButton { background-color: transparent; border: 2px solid #63e45f; color: #63e45f; font-family: Segoe UI; font-size: 24px; font-weight: 400; }
+        QPushButton:hover { background-color: #27292e; }
+        QPushButton:pressed { background-color: #15161a; }
+        """)
+        self.nextbtn.clicked.connect(self.next_page)
+
+        # --- main layout
+        self.mainlayout = QVBoxLayout()
+        self.mainlayout.setContentsMargins(20, 20, 20, 20)
+        self.mainlayout.setSpacing(0)
+
+        # --- div layout
+        self.divlayout = QHBoxLayout()
+        self.divlayout.setContentsMargins(0, 0, 0, 0)
+        self.divlayout.setSpacing(0)
+
+        # --- content layout
+        self.contentlayout = QVBoxLayout()
+        self.contentlayout.setContentsMargins(0, 0, 0, 0)
+        self.contentlayout.setSpacing(20)
+
+        # --- assembly
+        self.setLayout(self.mainlayout)
+        self.mainlayout.addLayout(self.divlayout)
+        self.divlayout.addLayout(self.contentlayout)
+
+        self.contentlayout.addStretch()
+
+        self.contentlayout.addWidget(self.title)
+        self.contentlayout.addWidget(self.subtitle)
+        self.contentlayout.addWidget(self.selection)
+        self.contentlayout.addWidget(self.nextbtn)
+
+        self.divlayout.addStretch()
+
+    def next_page(self):
+        next_index = self.stack.currentIndex() + 1
+        self.stack.setCurrentIndex(next_index)
