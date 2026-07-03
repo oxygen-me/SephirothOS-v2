@@ -319,42 +319,6 @@ class AccountPage(QWidget):
         self.username.textChanged.connect(self.username_changed)
         self.accountrow.addWidget(self.username)
 
-        # --- password row
-        self.passwordrow = QHBoxLayout()
-        self.passwordrow.setContentsMargins(0, 0, 0, 0)
-        self.passwordrow.setSpacing(20)
-
-        # --- password label
-        self.passwordlabel = QLabel("Password:")
-        self.passwordlabel.setStyleSheet(
-            "background-color: transparent; color: white; font-family: Segoe UI; font-size: 16px; font-weight: 400;")
-        self.passwordrow.addWidget(self.passwordlabel)
-
-        # --- password input
-        self.password = QLineEdit()
-        self.password.setStyleSheet(
-            "background-color: #15161a; color: white; font-family: Segoe UI; font-size: 16px; font-weight: 400;")
-        self.password.textChanged.connect(self.password_changed)
-        self.passwordrow.addWidget(self.password)
-
-        # --- con password row
-        self.passwordrow2 = QHBoxLayout()
-        self.passwordrow2.setContentsMargins(0, 0, 0, 0)
-        self.passwordrow2.setSpacing(20)
-
-        # --- con password label
-        self.passwordlabel2 = QLabel("Confirm Password:")
-        self.passwordlabel2.setStyleSheet(
-            "background-color: transparent; color: white; font-family: Segoe UI; font-size: 16px; font-weight: 400;")
-        self.passwordrow2.addWidget(self.passwordlabel2)
-
-        # --- con password input
-        self.password2 = QLineEdit()
-        self.password2.setStyleSheet(
-            "background-color: #15161a; color: white; font-family: Segoe UI; font-size: 16px; font-weight: 400;")
-        self.password2.textChanged.connect(self.confirm_password_changed)
-        self.passwordrow2.addWidget(self.password2)
-
         # --- next button
         self.nextbtn = QPushButton("Continue")
         self.nextbtn.setStyleSheet("""
@@ -390,8 +354,6 @@ class AccountPage(QWidget):
         self.contentlayout.addWidget(self.subtitle)
 
         self.contentlayout.addLayout(self.accountrow)
-        self.contentlayout.addLayout(self.passwordrow)
-        self.contentlayout.addLayout(self.passwordrow2)
 
         self.contentlayout.addWidget(self.nextbtn)
 
@@ -404,11 +366,3 @@ class AccountPage(QWidget):
     def username_changed(self):
         global username
         username = self.username.text()
-
-    def password_changed(self):
-        global password
-        password = self.password.text()
-
-    def confirm_password_changed(self):
-        global password2
-        password2 = self.password2.text()
