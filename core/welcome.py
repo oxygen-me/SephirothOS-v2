@@ -1,13 +1,11 @@
 # --- imports
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QStackedWidget, QHBoxLayout, QPushButton, \
-    QGraphicsDropShadowEffect, QComboBox, QButtonGroup, QCheckBox, QLineEdit
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QStackedWidget, QHBoxLayout, QPushButton, QLineEdit, \
+    QComboBox
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QMovie, QPixmap, QColor
+import string
 
 # --- globaL vars
-username = ""
-password = ""
-password2 = ""
+username1 = ""
 
 # --- create welcome class
 class WelcomeWindow(QWidget):
@@ -288,6 +286,7 @@ class AccountPage(QWidget):
         super().__init__()
 
         self.stack = stack
+        self.usernameallowed = False
 
         # --- init style
         self.setStyleSheet("background-color: transparent;")
@@ -318,6 +317,10 @@ class AccountPage(QWidget):
         self.username.setStyleSheet("background-color: #15161a; color: white; font-family: Segoe UI; font-size: 16px; font-weight: 400;")
         self.username.textChanged.connect(self.username_changed)
         self.accountrow.addWidget(self.username)
+
+        # --- status label
+        self.statuslabel = QLabel("Username field is empty. Please enter a username to continue.")
+        self.statuslabel.setStyleSheet("background-color: transparent; color: #ff6547; font-family: Segoe UI; font-size: 16px; font-weight: 400;")
 
         # --- next button
         self.nextbtn = QPushButton("Continue")
@@ -354,15 +357,30 @@ class AccountPage(QWidget):
         self.contentlayout.addWidget(self.subtitle)
 
         self.contentlayout.addLayout(self.accountrow)
+        self.contentlayout.addWidget(self.statuslabel)
 
         self.contentlayout.addWidget(self.nextbtn)
 
         self.divlayout.addStretch()
 
     def next_page(self):
-        next_index = self.stack.currentIndex() + 1
-        self.stack.setCurrentIndex(next_index)
+        if self.usernameallowed:
+            next_index = self.stack.currentIndex() + 1
+            self.stack.setCurrentIndex(next_index)
+        else:
+            pass
 
     def username_changed(self):
-        global username
-        username = self.username.text()
+        global username1
+        username1 = self.username.text()
+
+        if username1 != "":
+            if not username1.isalnum():
+                self.statuslabel.setText("Username can only contain letters and numbers.")
+                self.usernameallowed = False
+            else:
+                self.statuslabel.setText("")
+                self.usernameallowed = True
+        else:
+            self.statuslabel.setText("")
+            self.usernameallowed = False
