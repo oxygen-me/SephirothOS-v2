@@ -13,7 +13,7 @@ from core.app import AppShell
 
 viable_editions = ["[1] Basic", "[2] Workplace", "[3] Premium", "[4] Ultimate"]
 lcn_path = Path(str(os.getenv('APPDATA'))) / 'SephirothOS' / 'license.json'
-VERSION = "0.2.2"
+VERSION = "0.2.4"
 
 print(f"[main]: Running version {VERSION}")
 print(f"Running from: {sys.executable}")
@@ -75,6 +75,7 @@ def main():
 
     # --- bus user exit
     mainBus.quitRequested.connect(app.quit)
+    mainBus.restartRequested.connect(restart_app)
 
     print("=" * 50)
     print(f"VERSION   : {VERSION!r}")
@@ -104,13 +105,17 @@ def main():
 
     if lcn["flag"] == "seth67":
         from core.welcome import WelcomeWindow
-        intro = WelcomeWindow(lcn=lcn)
+        intro = WelcomeWindow()
         intro.show()
     else:
         window = AppShell() # todo: add config JSON stuff later
         window.show()
 
     sys.exit(app.exec())
+
+# --- restart function
+def restart_app():
+    os.execv(sys.executable, [sys.executable] + sys.argv)
 
 # --- run function
 if __name__ == "__main__":
