@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>CadenceAteThem.png</file>
         <file>GangnamStyleRoth.mp4</file>
+        <file>DefaultSoundtrack.mp3</file>
     </qresource>
 </RCC>
