@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="fully arm method MKPFetch">
-      <change afterPath="$PROJECT_DIR$/assets/resources.qrc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/resources_rc.py" afterDir="false" />
+    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="finish todo">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/welcome.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/welcome.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/auth.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,39 +101,8 @@
       <workItem from="1783048092808" duration="10000000" />
       <workItem from="1783116923661" duration="30944000" />
       <workItem from="1783151727655" duration="647000" />
-      <workItem from="1783195850268" duration="923000" />
-    </task>
-    <task id="LOCAL-00029" summary="remove unused assets">
-      <option name="closed" value="true" />
-      <created>1783122053493</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1783122053493</updated>
-    </task>
-    <task id="LOCAL-00030" summary="finish settings page v1">
-      <option name="closed" value="true" />
-      <created>1783122080535</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1783122080535</updated>
-    </task>
-    <task id="LOCAL-00031" summary="create finish page">
-      <option name="closed" value="true" />
-      <created>1783122132294</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1783122132294</updated>
-    </task>
-    <task id="LOCAL-00032" summary="remove benign tumor">
-      <option name="closed" value="true" />
-      <created>1783122190177</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1783122190177</updated>
+      <workItem from="1783195850268" duration="1495000" />
+      <workItem from="1783197416461" duration="353000" />
     </task>
     <task id="LOCAL-00033" summary="add asset">
       <option name="closed" value="true" />
@@ -498,7 +464,39 @@
       <option name="project" value="LOCAL" />
       <updated>1783151155252</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="finished todo">
+      <option name="closed" value="true" />
+      <created>1783196820573</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1783196820573</updated>
+    </task>
+    <task id="LOCAL-00079" summary="finished todo">
+      <option name="closed" value="true" />
+      <created>1783196824481</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1783196824481</updated>
+    </task>
+    <task id="LOCAL-00080" summary="embed raw assets as qrc">
+      <option name="closed" value="true" />
+      <created>1783196852422</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1783196852422</updated>
+    </task>
+    <task id="LOCAL-00081" summary="finish todo">
+      <option name="closed" value="true" />
+      <created>1783196994490</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1783196994490</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -516,9 +514,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="remove processor.py" />
-    <MESSAGE value="finish config loader" />
-    <MESSAGE value="add config storage" />
     <MESSAGE value="added minimal topbar" />
     <MESSAGE value="fish" />
     <MESSAGE value="created package" />
@@ -541,7 +536,10 @@
     <MESSAGE value="create api/marketplace/mkpf.pi" />
     <MESSAGE value="refactor marketplace as mkp" />
     <MESSAGE value="fully arm method MKPFetch" />
-    <option name="LAST_COMMIT_MESSAGE" value="fully arm method MKPFetch" />
+    <MESSAGE value="finished todo" />
+    <MESSAGE value="embed raw assets as qrc" />
+    <MESSAGE value="finish todo" />
+    <option name="LAST_COMMIT_MESSAGE" value="finish todo" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Code$mkpd.coverage" NAME="mkpd Coverage Results" MODIFIED="1783145402166" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/api" />
