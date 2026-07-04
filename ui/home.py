@@ -63,12 +63,14 @@ class HomePage(QWidget):
         # --- create clock object
         self.clock = QLabel()
         self.clock.setStyleSheet(
-            "background-color: transparent; color: white; font-family: Segoe UI; font-size: 48px; font-weight: 500;")
+            "background-color: transparent; color: white; font-family: Segoe UI; font-size: 36px; font-weight: 500;")
+        self.clock.setAlignment(Qt.AlignmentFlag.AlignRight)
 
         # --- create date object
         self.date = QLabel()
         self.date.setStyleSheet(
             "background-color: transparent; color: #808080; font-family: Segoe UI; font-size: 18px; font-weight: 500;")
+        self.date.setAlignment(Qt.AlignmentFlag.AlignRight)
 
         # --- allow updates
         mainBus.clockUpdated.connect(self.onClockUpdated)
@@ -79,6 +81,77 @@ class HomePage(QWidget):
         self.clockbox.addStretch()
 
         self.toprow.addLayout(self.clockbox)
+
+        # --- create sublayout
+        self.seclayout = QHBoxLayout()
+        self.seclayout.setContentsMargins(0, 0, 0, 0)
+        self.seclayout.setSpacing(20)
+        self.mainlayout.addLayout(self.seclayout, 1)
+
+        # --- create left layout
+        self.leftlayout = QVBoxLayout()
+        self.leftlayout.setContentsMargins(0, 0, 0, 0)
+        self.leftlayout.setSpacing(20)
+
+        # --- create topleftlayout
+        self.tllayout = QHBoxLayout()
+        self.tllayout.setContentsMargins(0, 0, 0, 0)
+        self.tllayout.setSpacing(20)
+
+        # --- create bottomleftlayout
+        self.bllayout = QHBoxLayout()
+        self.bllayout.setContentsMargins(0, 0, 0, 0)
+        self.bllayout.setSpacing(20)
+
+        # --- create right layout
+        self.rightlayout = QVBoxLayout()
+        self.rightlayout.setContentsMargins(0, 0, 0, 0)
+        self.rightlayout.setSpacing(20)
+
+        # --- assemble layouts
+        self.seclayout.addLayout(self.leftlayout)
+        self.seclayout.addLayout(self.rightlayout)
+
+        self.leftlayout.addLayout(self.tllayout)
+        self.leftlayout.addLayout(self.bllayout)
+
+        # --- make widgets
+        # --------------------------
+
+        # --- top left
+        self.syswidget = QWidget()
+        self.syswidget.setStyleSheet("background-color: #1d1f22; border-radius: 0px;")
+
+        self.tipwidget = QWidget()
+        self.tipwidget.setStyleSheet("background-color: #1d1f22; border-radius: 0px;")
+
+        self.quotewidget = QWidget()
+        self.quotewidget.setStyleSheet("background-color: #1d1f22; border-radius: 0px;")
+
+        # --- bottom left
+        self.announcementwidget = QWidget()
+        self.announcementwidget.setStyleSheet("background-color: #1d1f22; border-radius: 0px;")
+
+        self.appswidget = QWidget()
+        self.appswidget.setStyleSheet("background-color: #1d1f22; border-radius: 0px;")
+
+        # --- right
+        self.perfwidget = QWidget()
+        self.perfwidget.setStyleSheet("background-color: #1d1f22; border-radius: 0px;")
+
+        self.storagewidget = QWidget()
+        self.storagewidget.setStyleSheet("background-color: #1d1f22; border-radius: 0px;")
+
+        # --- add widgets to layouts
+        self.tllayout.addWidget(self.syswidget)
+        self.tllayout.addWidget(self.tipwidget)
+        self.tllayout.addWidget(self.quotewidget)
+
+        self.bllayout.addWidget(self.announcementwidget)
+        self.bllayout.addWidget(self.appswidget)
+
+        self.rightlayout.addWidget(self.perfwidget)
+        self.rightlayout.addWidget(self.storagewidget)
 
     # --- clock update function
     def onClockUpdated(self, now):
