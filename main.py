@@ -17,7 +17,7 @@ cfg_path = Path(str(os.getenv('APPDATA'))) / 'SephirothOS' / 'config.json'
 VERSION = "prealpha-1"
 
 print(f"[main]: Running version {VERSION}")
-print(f"Running from: {sys.executable}")
+print(f"[main]: Running from: {sys.executable}")
 
 # --- main function
 def main():
@@ -78,11 +78,9 @@ def main():
     mainBus.quitRequested.connect(app.quit)
     mainBus.restartRequested.connect(restart_app)
 
-    print("=" * 50)
-    print(f"VERSION   : {VERSION!r}")
-    print(f"osversion : {osversion!r}")
-    print(f"Equal?    : {VERSION == osversion}")
-    print("=" * 50)
+    print(f"[main]: VERSION {VERSION!r}")
+    print(f"[main]: osversion {osversion!r}")
+    print(f"[main]: Equal {VERSION == osversion}")
 
     if VERSION != osversion:
         userchoice = QMessageBox.question(None, "Update Available", "I AM FUCKING RENDERING SOMETHING!!!",
