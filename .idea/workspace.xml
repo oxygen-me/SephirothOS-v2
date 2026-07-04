@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="remove auth.py">
-      <change afterPath="$PROJECT_DIR$/api/ux/clock.py" afterDir="false" />
+    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="new debug prints and slight adjustments to methods">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eventbus.py" beforeDir="false" afterPath="$PROJECT_DIR$/eventbus.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ui/home.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/home.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/fun/headliners.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/fun/headliners.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,47 +104,7 @@
       <workItem from="1783116923661" duration="30944000" />
       <workItem from="1783151727655" duration="647000" />
       <workItem from="1783195850268" duration="1495000" />
-      <workItem from="1783197416461" duration="5739000" />
-    </task>
-    <task id="LOCAL-00034" summary="create method: restartRequested">
-      <option name="closed" value="true" />
-      <created>1783124661696</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1783124661696</updated>
-    </task>
-    <task id="LOCAL-00035" summary="add method restart_app()&#10;remove lcn passage&#10;change version">
-      <option name="closed" value="true" />
-      <created>1783124729343</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1783124729343</updated>
-    </task>
-    <task id="LOCAL-00036" summary="auto">
-      <option name="closed" value="true" />
-      <created>1783124736118</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1783124736118</updated>
-    </task>
-    <task id="LOCAL-00037" summary="finished pre-alpha welcome.py">
-      <option name="closed" value="true" />
-      <created>1783124762489</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1783124762489</updated>
-    </task>
-    <task id="LOCAL-00038" summary="new package">
-      <option name="closed" value="true" />
-      <created>1783130792482</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1783130792482</updated>
+      <workItem from="1783197416461" duration="6388000" />
     </task>
     <task id="LOCAL-00039" summary="new package">
       <option name="closed" value="true" />
@@ -501,7 +458,47 @@
       <option name="project" value="LOCAL" />
       <updated>1783197991592</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="create and arm clock module">
+      <option name="closed" value="true" />
+      <created>1783205644852</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1783205644852</updated>
+    </task>
+    <task id="LOCAL-00084" summary="add and merge buses">
+      <option name="closed" value="true" />
+      <created>1783205665870</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1783205665870</updated>
+    </task>
+    <task id="LOCAL-00085" summary="add new list `home_subtitles`">
+      <option name="closed" value="true" />
+      <created>1783205682541</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1783205682541</updated>
+    </task>
+    <task id="LOCAL-00086" summary="start curating home page">
+      <option name="closed" value="true" />
+      <created>1783205695577</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1783205695577</updated>
+    </task>
+    <task id="LOCAL-00087" summary="new debug prints and slight adjustments to methods">
+      <option name="closed" value="true" />
+      <created>1783205717738</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1783205717738</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -519,11 +516,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fish" />
-    <MESSAGE value="created package" />
-    <MESSAGE value="created applications.py" />
-    <MESSAGE value="created cli.py" />
-    <MESSAGE value="created home.py" />
     <MESSAGE value="create settings.py" />
     <MESSAGE value="create weather.py" />
     <MESSAGE value="adjust debug prints to remain consistent for readability" />
@@ -544,13 +536,18 @@
     <MESSAGE value="embed raw assets as qrc" />
     <MESSAGE value="finish todo" />
     <MESSAGE value="remove auth.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove auth.py" />
+    <MESSAGE value="create and arm clock module" />
+    <MESSAGE value="add and merge buses" />
+    <MESSAGE value="add new list `home_subtitles`" />
+    <MESSAGE value="start curating home page" />
+    <MESSAGE value="new debug prints and slight adjustments to methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="new debug prints and slight adjustments to methods" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Code$home.coverage" NAME="home Coverage Results" MODIFIED="1783202559984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ui" />
     <SUITE FILE_PATH="coverage/Code$mkpd.coverage" NAME="mkpd Coverage Results" MODIFIED="1783145402166" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/api" />
     <SUITE FILE_PATH="coverage/Code$welcome.coverage" NAME="welcome Coverage Results" MODIFIED="1783121952366" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
-    <SUITE FILE_PATH="coverage/Code$main.coverage" NAME="main Coverage Results" MODIFIED="1783205160093" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Code$main.coverage" NAME="main Coverage Results" MODIFIED="1783206209034" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Code$app.coverage" NAME="app Coverage Results" MODIFIED="1783131358831" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
   </component>
 </project>

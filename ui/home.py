@@ -63,7 +63,7 @@ class HomePage(QWidget):
         # --- create clock object
         self.clock = QLabel()
         self.clock.setStyleSheet(
-            "background-color: transparent; color: white; font-family: Segoe UI; font-size: 36px; font-weight: 500;")
+            "background-color: transparent; color: white; font-family: Segoe UI; font-size: 48px; font-weight: 500;")
 
         # --- create date object
         self.date = QLabel()

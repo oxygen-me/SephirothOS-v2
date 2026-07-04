@@ -10,12 +10,12 @@ window_title = random.choice(window_names)
 
 # --- extra vars
 default_btn_qss = """
-                QPushButton { background-color: #15161a; color: white; font-family: Segoe UI; font-size: 16px; padding-top: 10px; padding-bottom: 10px; }
+                QPushButton { background-color: transparent; color: white; font-family: Segoe UI; font-size: 16px; padding-top: 10px; padding-bottom: 10px; }
                 QPushButton:hover { background-color: #1a1b20; }
-                QPushButton:pressed { background-color: #0e0f12 }
+                QPushButton:pressed { background-color: #1a1b1d }
                 """
 
-selected_btn_qss = "background-color: #0e0f12; color: white; font-family: Segoe UI; font-size: 16px; padding-top: 10px; padding-bottom: 10px;"
+selected_btn_qss = "background-color: #1a1b1d; color: white; font-family: Segoe UI; font-size: 16px; padding-top: 10px; padding-bottom: 10px;"
 
 # --- page imports
 from ui.home import HomePage
@@ -40,33 +40,22 @@ class AppShell(QWidget):
         self.showFullScreen()
 
         # --- set theme
-        self.setStyleSheet("background-color: #15161a; border-radius: 0px;")
+        self.setStyleSheet("background-color: #1d1f22; border-radius: 0px;")
 
         # --- set main layout
         self.mainlayout = QVBoxLayout()
-        self.mainlayout.setContentsMargins(20, 20, 20, 20)
+        self.mainlayout.setContentsMargins(0, 0, 0, 0)
         self.mainlayout.setSpacing(0)
         self.setLayout(self.mainlayout)
 
-        # --- content area creation
-        self.contentarea = QWidget()
-        self.contentarea.setStyleSheet("background-color: #1f2024;")
-        self.mainlayout.addWidget(self.contentarea)
-
-        # --- content layout setup
-        self.contentlayout = QVBoxLayout()
-        self.contentlayout.setContentsMargins(20, 20, 20, 20)
-        self.contentlayout.setSpacing(20)
-        self.contentarea.setLayout(self.contentlayout)
-
         # --- topbar
         self.topbar = QWidget()
-        self.topbar.setStyleSheet("background-color: #15161a;")
+        self.topbar.setStyleSheet("background-color: #111215;")
 
         # --- topbar layout
         self.topbarlayout = QHBoxLayout()
-        self.topbarlayout.setContentsMargins(0, 0, 0, 0)
-        self.topbarlayout.setSpacing(0)
+        self.topbarlayout.setContentsMargins(20, 20, 20, 20)
+        self.topbarlayout.setSpacing(20)
 
         # --- buttons
         self.homebtn = QPushButton("Home")
@@ -87,12 +76,12 @@ class AppShell(QWidget):
 
         # --- arealayout
         self.arealayout = QHBoxLayout()
-        self.arealayout.setContentsMargins(0, 0, 0, 0)
+        self.arealayout.setContentsMargins(20, 20, 20, 20)
         self.arealayout.setSpacing(20)
 
         # --- sidebar
         self.sidebar = QWidget()
-        self.sidebar.setStyleSheet("background-color: #15161a;")
+        self.sidebar.setStyleSheet("background-color: #17191d;")
 
         # --- sidebar layout
         self.sidebarlayout = QVBoxLayout()
@@ -102,11 +91,11 @@ class AppShell(QWidget):
 
         # --- weather
         self.weatherlabel = QLabel("Super Cool Weather")
-        self.weatherlabel.setStyleSheet("background-color: transparent; color: #15161a; font-family: Segoe UI; font-size: 24px; font-weight: 400;")
+        self.weatherlabel.setStyleSheet("background-color: transparent; color: #17191d; font-family: Segoe UI; font-size: 24px; font-weight: 400;")
 
         # --- mainarea
         self.mainarea = QWidget()
-        self.mainarea.setStyleSheet("background-color: #15161a;")
+        self.mainarea.setStyleSheet("background-color: #17191d;")
         self.mainarea.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
         # --- stackarea
@@ -125,9 +114,9 @@ class AppShell(QWidget):
         self.sidebarlayout.addWidget(self.weatherlabel)
         self.sidebarlayout.addStretch()
 
-        self.contentlayout.addWidget(self.topbar)
+        self.mainlayout.addWidget(self.topbar)
 
-        self.contentlayout.addLayout(self.arealayout)
+        self.mainlayout.addLayout(self.arealayout)
         self.arealayout.addWidget(self.sidebar)
         self.arealayout.addWidget(self.mainarea)
 
