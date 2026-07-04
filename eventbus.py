@@ -1,10 +1,14 @@
 # --- imports
 from PySide6.QtCore import QObject, Signal
 
-# shell level sector
-class LowLevelBus(QObject):
+# --- create bus
+class EventBus(QObject):
 
+    # --- system
     quitRequested = Signal()
     restartRequested = Signal()
 
-mainBus = LowLevelBus()
+    # --- ux
+    clockUpdated = Signal(object)
+
+mainBus = EventBus()
