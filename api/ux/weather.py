@@ -2,8 +2,8 @@
 import requests
 
 # --- create Weather class
-
 class Weather:
+
     # --- define weather codes
     WEATHER_CODES = {
         0: "Clear sky",
