@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="begin overhaul of welcome flow">
+    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="create method: restartRequested">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/welcome.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/welcome.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -41,22 +42,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python.app.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;Python.welcome.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/bradl/SephV2Project/Code/assets&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.app.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.welcome.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/bradl/SephV2Project/Code/assets",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\bradl\SephV2Project\Code\assets" />
@@ -92,7 +94,8 @@
       <workItem from="1782799499454" duration="1994000" />
       <workItem from="1782843665891" duration="119000" />
       <workItem from="1783027902006" duration="18950000" />
-      <workItem from="1783048092808" duration="8530000" />
+      <workItem from="1783048092808" duration="10000000" />
+      <workItem from="1783116923661" duration="6648000" />
     </task>
     <task id="LOCAL-00001" summary="establish // main.py created">
       <option name="closed" value="true" />
@@ -230,7 +233,143 @@
       <option name="project" value="LOCAL" />
       <updated>1783048488443</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="continue overhaul welcome flow">
+      <option name="closed" value="true" />
+      <created>1783058595487</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1783058595487</updated>
+    </task>
+    <task id="LOCAL-00019" summary="added updater">
+      <option name="closed" value="true" />
+      <created>1783058615151</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1783058615151</updated>
+    </task>
+    <task id="LOCAL-00020" summary="add debug checks&#10;routine ver. change">
+      <option name="closed" value="true" />
+      <created>1783119204963</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1783119204963</updated>
+    </task>
+    <task id="LOCAL-00021" summary="remove password support temporarily">
+      <option name="closed" value="true" />
+      <created>1783119243291</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1783119243291</updated>
+    </task>
+    <task id="LOCAL-00022" summary="automatic xml adjustment to reflect project logistics">
+      <option name="closed" value="true" />
+      <created>1783119264962</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1783119264962</updated>
+    </task>
+    <task id="LOCAL-00023" summary="add username functionality">
+      <option name="closed" value="true" />
+      <created>1783120528117</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1783120528117</updated>
+    </task>
+    <task id="LOCAL-00024" summary="change username evaluation to require chars">
+      <option name="closed" value="true" />
+      <created>1783120697681</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1783120697681</updated>
+    </task>
+    <task id="LOCAL-00025" summary="add settings page stub">
+      <option name="closed" value="true" />
+      <created>1783121184356</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1783121184356</updated>
+    </task>
+    <task id="LOCAL-00026" summary="add new image">
+      <option name="closed" value="true" />
+      <created>1783121314191</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1783121314191</updated>
+    </task>
+    <task id="LOCAL-00027" summary="init settings page">
+      <option name="closed" value="true" />
+      <created>1783121322636</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1783121322636</updated>
+    </task>
+    <task id="LOCAL-00028" summary="add prompt to update and refine handoff">
+      <option name="closed" value="true" />
+      <created>1783121939033</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1783121939033</updated>
+    </task>
+    <task id="LOCAL-00029" summary="remove unused assets">
+      <option name="closed" value="true" />
+      <created>1783122053493</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1783122053493</updated>
+    </task>
+    <task id="LOCAL-00030" summary="finish settings page v1">
+      <option name="closed" value="true" />
+      <created>1783122080535</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1783122080535</updated>
+    </task>
+    <task id="LOCAL-00031" summary="create finish page">
+      <option name="closed" value="true" />
+      <created>1783122132294</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1783122132294</updated>
+    </task>
+    <task id="LOCAL-00032" summary="remove benign tumor">
+      <option name="closed" value="true" />
+      <created>1783122190177</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1783122190177</updated>
+    </task>
+    <task id="LOCAL-00033" summary="add asset">
+      <option name="closed" value="true" />
+      <created>1783122396062</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1783122396062</updated>
+    </task>
+    <task id="LOCAL-00034" summary="create method: restartRequested">
+      <option name="closed" value="true" />
+      <created>1783124661696</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1783124661696</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -248,13 +387,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="establish // main.py created" />
-    <MESSAGE value="first render" />
-    <MESSAGE value="wallpaper placeholder added" />
-    <MESSAGE value="ui rework to new placeholder" />
-    <MESSAGE value="added gitfetch // added warning" />
-    <MESSAGE value="last-minute optimization" />
-    <MESSAGE value="note tweaks" />
     <MESSAGE value="renamed method" />
     <MESSAGE value="minor optimization" />
     <MESSAGE value="removed pass: lcn" />
@@ -263,11 +395,28 @@
     <MESSAGE value="new image" />
     <MESSAGE value="config modified to reflect current status" />
     <MESSAGE value="begin overhaul of welcome flow" />
-    <option name="LAST_COMMIT_MESSAGE" value="begin overhaul of welcome flow" />
+    <MESSAGE value="continue overhaul welcome flow" />
+    <MESSAGE value="added updater" />
+    <MESSAGE value="add debug checks&#10;routine ver. change" />
+    <MESSAGE value="remove password support temporarily" />
+    <MESSAGE value="automatic xml adjustment to reflect project logistics" />
+    <MESSAGE value="add username functionality" />
+    <MESSAGE value="change username evaluation to require chars" />
+    <MESSAGE value="add settings page stub" />
+    <MESSAGE value="add new image" />
+    <MESSAGE value="init settings page" />
+    <MESSAGE value="add prompt to update and refine handoff" />
+    <MESSAGE value="remove unused assets" />
+    <MESSAGE value="finish settings page v1" />
+    <MESSAGE value="create finish page" />
+    <MESSAGE value="remove benign tumor" />
+    <MESSAGE value="add asset" />
+    <MESSAGE value="create method: restartRequested" />
+    <option name="LAST_COMMIT_MESSAGE" value="create method: restartRequested" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Code$welcome.coverage" NAME="welcome Coverage Results" MODIFIED="1783038180673" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
-    <SUITE FILE_PATH="coverage/Code$main.coverage" NAME="main Coverage Results" MODIFIED="1783058550427" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Code$welcome.coverage" NAME="welcome Coverage Results" MODIFIED="1783121952366" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
+    <SUITE FILE_PATH="coverage/Code$main.coverage" NAME="main Coverage Results" MODIFIED="1783124565256" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Code$app.coverage" NAME="app Coverage Results" MODIFIED="1782708219903" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
   </component>
 </project>

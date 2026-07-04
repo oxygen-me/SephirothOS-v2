@@ -1,8 +1,8 @@
 # --- imports
 import os
 import sys
-import subprocess
 import json
+import subprocess
 from pathlib import Path
 from PySide6.QtWidgets import QApplication, QMessageBox
 from bootstrap import Bootstrapper
@@ -13,7 +13,10 @@ from core.app import AppShell
 
 viable_editions = ["[1] Basic", "[2] Workplace", "[3] Premium", "[4] Ultimate"]
 lcn_path = Path(str(os.getenv('APPDATA'))) / 'SephirothOS' / 'license.json'
-VERSION = "0.1.1"
+VERSION = "0.2.4"
+
+print(f"[main]: Running version {VERSION}")
+print(f"Running from: {sys.executable}")
 
 # --- main function
 def main():
@@ -72,15 +75,29 @@ def main():
 
     # --- bus user exit
     mainBus.quitRequested.connect(app.quit)
+    mainBus.restartRequested.connect(restart_app)
+
+    print("=" * 50)
+    print(f"VERSION   : {VERSION!r}")
+    print(f"osversion : {osversion!r}")
+    print(f"Equal?    : {VERSION == osversion}")
+    print("=" * 50)
 
     if VERSION != osversion:
-        subprocess.Popen([
-            "elevator.exe",
-            "--pid",
-            str(os.getpid())
-        ])
+        userchoice = QMessageBox.question(None, "Update Available", "I AM FUCKING RENDERING SOMETHING!!!",
+                                          QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
+                                          QMessageBox.StandardButton.Yes
+                                          )
 
-        sys.exit(0)
+        if userchoice == QMessageBox.StandardButton.Yes:
+            subprocess.Popen([
+                "elevator.exe",
+                "--pid",
+                str(os.getpid())
+            ])
+            sys.exit(0)
+        else:
+            print("[main]: update declined")
 
     # --- create window depending on thing
     if lcn["edition"] not in viable_editions:
@@ -88,13 +105,17 @@ def main():
 
     if lcn["flag"] == "seth67":
         from core.welcome import WelcomeWindow
-        intro = WelcomeWindow(lcn=lcn)
+        intro = WelcomeWindow()
         intro.show()
     else:
         window = AppShell() # todo: add config JSON stuff later
         window.show()
 
     sys.exit(app.exec())
+
+# --- restart function
+def restart_app():
+    os.execv(sys.executable, [sys.executable] + sys.argv)
 
 # --- run function
 if __name__ == "__main__":

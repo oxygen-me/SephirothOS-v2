@@ -1,24 +1,29 @@
 # --- imports
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QStackedWidget, QHBoxLayout, QPushButton, \
-    QGraphicsDropShadowEffect, QComboBox, QButtonGroup, QCheckBox, QLineEdit
+from PySide6.QtGui import QPixmap
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QStackedWidget, QHBoxLayout, QPushButton, QLineEdit, \
+    QComboBox
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QMovie, QPixmap, QColor
+
+from eventbus import mainBus
+
+from pathlib import Path
+
+import json
+import os
+
+config_path = Path(str(os.getenv('APPDATA'))) / 'SephirothOS' / 'config.json'
+license_path = Path(str(os.getenv('APPDATA'))) / 'SephirothOS' / 'license.json'
+
 
 # --- globaL vars
-username = ""
-password = ""
-password2 = ""
+username1 = ""
 
 # --- create welcome class
 class WelcomeWindow(QWidget):
-    def __init__(self, lcn=None):
+    def __init__(self):
         super().__init__()
 
         self.setWindowTitle("A Greeting Letter From Sephiroth")
-
-        # --- immediately store reference
-        self.lcn = lcn
-        lcn = self.lcn
 
         # --- set fullscreen by default
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
@@ -52,6 +57,8 @@ class WelcomeWindow(QWidget):
         self.stack.addWidget(LanguagePage(self.stack))
         self.stack.addWidget(ThemePage(self.stack))
         self.stack.addWidget(AccountPage(self.stack))
+        self.stack.addWidget(SettingsPage(self.stack))
+        self.stack.addWidget(FinishPage(self.stack))
 
         self.stack.setCurrentIndex(0)
 
@@ -288,6 +295,7 @@ class AccountPage(QWidget):
         super().__init__()
 
         self.stack = stack
+        self.usernameallowed = False
 
         # --- init style
         self.setStyleSheet("background-color: transparent;")
@@ -319,41 +327,9 @@ class AccountPage(QWidget):
         self.username.textChanged.connect(self.username_changed)
         self.accountrow.addWidget(self.username)
 
-        # --- password row
-        self.passwordrow = QHBoxLayout()
-        self.passwordrow.setContentsMargins(0, 0, 0, 0)
-        self.passwordrow.setSpacing(20)
-
-        # --- password label
-        self.passwordlabel = QLabel("Password:")
-        self.passwordlabel.setStyleSheet(
-            "background-color: transparent; color: white; font-family: Segoe UI; font-size: 16px; font-weight: 400;")
-        self.passwordrow.addWidget(self.passwordlabel)
-
-        # --- password input
-        self.password = QLineEdit()
-        self.password.setStyleSheet(
-            "background-color: #15161a; color: white; font-family: Segoe UI; font-size: 16px; font-weight: 400;")
-        self.password.textChanged.connect(self.password_changed)
-        self.passwordrow.addWidget(self.password)
-
-        # --- con password row
-        self.passwordrow2 = QHBoxLayout()
-        self.passwordrow2.setContentsMargins(0, 0, 0, 0)
-        self.passwordrow2.setSpacing(20)
-
-        # --- con password label
-        self.passwordlabel2 = QLabel("Confirm Password:")
-        self.passwordlabel2.setStyleSheet(
-            "background-color: transparent; color: white; font-family: Segoe UI; font-size: 16px; font-weight: 400;")
-        self.passwordrow2.addWidget(self.passwordlabel2)
-
-        # --- con password input
-        self.password2 = QLineEdit()
-        self.password2.setStyleSheet(
-            "background-color: #15161a; color: white; font-family: Segoe UI; font-size: 16px; font-weight: 400;")
-        self.password2.textChanged.connect(self.confirm_password_changed)
-        self.passwordrow2.addWidget(self.password2)
+        # --- status label
+        self.statuslabel = QLabel("Username field is empty. Please enter a username to continue.")
+        self.statuslabel.setStyleSheet("background-color: transparent; color: #ff6547; font-family: Segoe UI; font-size: 16px; font-weight: 400;")
 
         # --- next button
         self.nextbtn = QPushButton("Continue")
@@ -390,8 +366,87 @@ class AccountPage(QWidget):
         self.contentlayout.addWidget(self.subtitle)
 
         self.contentlayout.addLayout(self.accountrow)
-        self.contentlayout.addLayout(self.passwordrow)
-        self.contentlayout.addLayout(self.passwordrow2)
+        self.contentlayout.addWidget(self.statuslabel)
+
+        self.contentlayout.addWidget(self.nextbtn)
+
+        self.divlayout.addStretch()
+
+    def next_page(self):
+        if self.usernameallowed:
+            next_index = self.stack.currentIndex() + 1
+            self.stack.setCurrentIndex(next_index)
+        else:
+            pass
+
+    def username_changed(self):
+        global username1
+        username1 = self.username.text()
+
+        if username1 != "":
+            if not username1.isalnum():
+                self.statuslabel.setText("Username can only contain letters and numbers.")
+                self.usernameallowed = False
+            else:
+                self.statuslabel.setText("")
+                self.usernameallowed = True
+        else:
+            self.statuslabel.setText("Username field is empty. Please enter a username to continue.")
+            self.usernameallowed = False
+
+class SettingsPage(QWidget):
+    def __init__(self, stack):
+        super().__init__()
+
+        self.stack = stack
+
+        # --- init style
+        self.setStyleSheet("background-color: transparent;")
+
+        # --- title
+        self.title = QLabel("Adjust your settings")
+        self.title.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 72px; font-weight: bold;")
+
+        # --- subtitle
+        self.pixmap = QPixmap("assets/CadenceAteThem.png")
+        self.subtitle = QLabel()
+        self.subtitle.setPixmap(self.pixmap)
+
+        # --- next button
+        self.nextbtn = QPushButton("Continue")
+        self.nextbtn.setStyleSheet("""
+        QPushButton { background-color: transparent; border: 2px solid #63e45f; color: #63e45f; font-family: Segoe UI; font-size: 24px; font-weight: 400; }
+        QPushButton:hover { background-color: #27292e; }
+        QPushButton:pressed { background-color: #15161a; }
+        """)
+        self.nextbtn.clicked.connect(self.next_page)
+
+        # --- main layout
+        self.mainlayout = QVBoxLayout()
+        self.mainlayout.setContentsMargins(20, 20, 20, 20)
+        self.mainlayout.setSpacing(0)
+
+        # --- div layout
+        self.divlayout = QHBoxLayout()
+        self.divlayout.setContentsMargins(0, 0, 0, 0)
+        self.divlayout.setSpacing(0)
+
+        # --- content layout
+        self.contentlayout = QVBoxLayout()
+        self.contentlayout.setContentsMargins(0, 0, 0, 0)
+        self.contentlayout.setSpacing(20)
+
+        # --- assembly
+        self.setLayout(self.mainlayout)
+        self.mainlayout.addLayout(self.divlayout)
+        self.divlayout.addLayout(self.contentlayout)
+
+        self.contentlayout.addStretch()
+
+        self.contentlayout.addWidget(self.title)
+        self.contentlayout.addWidget(self.subtitle)
+
+
 
         self.contentlayout.addWidget(self.nextbtn)
 
@@ -401,14 +456,80 @@ class AccountPage(QWidget):
         next_index = self.stack.currentIndex() + 1
         self.stack.setCurrentIndex(next_index)
 
-    def username_changed(self):
-        global username
-        username = self.username.text()
+class FinishPage(QWidget):
+    def __init__(self, stack):
+        super().__init__()
 
-    def password_changed(self):
-        global password
-        password = self.password.text()
+        self.stack = stack
 
-    def confirm_password_changed(self):
-        global password2
-        password2 = self.password2.text()
+        # --- init style
+        self.setStyleSheet("background-color: transparent;")
+
+        # --- title
+        self.title = QLabel("Your Sephiroth is ready")
+        self.title.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 72px; font-weight: bold;")
+
+        # --- subtitle
+        self.subtitle = QLabel()
+        self.subtitle.setWordWrap(True)
+
+        self.subtitle.setText("Wait no. I don't have the title. My name is Denny's Sephiroth. I am legally divorced by the way.")
+        self.subtitle.setStyleSheet(
+            "background-color: transparent; color: white; font-family: Segoe UI; font-size: 24px; font-weight: 400;")
+
+        # --- next button
+        self.nextbtn = QPushButton("Finished")
+        self.nextbtn.setStyleSheet("""
+        QPushButton { background-color: transparent; border: 2px solid #63e45f; color: #63e45f; font-family: Segoe UI; font-size: 24px; font-weight: 400; }
+        QPushButton:hover { background-color: #27292e; }
+        QPushButton:pressed { background-color: #15161a; }
+        """)
+        self.nextbtn.clicked.connect(self.next_page)
+
+        # --- main layout
+        self.mainlayout = QVBoxLayout()
+        self.mainlayout.setContentsMargins(20, 20, 20, 20)
+        self.mainlayout.setSpacing(0)
+
+        # --- div layout
+        self.divlayout = QHBoxLayout()
+        self.divlayout.setContentsMargins(0, 0, 0, 0)
+        self.divlayout.setSpacing(0)
+
+        # --- content layout
+        self.contentlayout = QVBoxLayout()
+        self.contentlayout.setContentsMargins(0, 0, 0, 0)
+        self.contentlayout.setSpacing(20)
+
+        # --- assembly
+        self.setLayout(self.mainlayout)
+        self.mainlayout.addLayout(self.divlayout)
+        self.divlayout.addLayout(self.contentlayout)
+
+        self.contentlayout.addStretch()
+
+        self.contentlayout.addWidget(self.title)
+        self.contentlayout.addWidget(self.subtitle)
+
+
+
+        self.contentlayout.addWidget(self.nextbtn)
+
+        self.divlayout.addStretch()
+
+    def next_page(self):
+
+        toWrite = {"username": username1}
+
+        with open(config_path, "w") as f:
+            json.dump(toWrite, f, indent=4)
+
+        with open(license_path, "r") as f:
+            license_data = json.load(f)
+
+        license_data["flag"] = "sephiroth"
+
+        with open(license_path, "w") as f:
+            json.dump(license_data, f, indent=4)
+
+        mainBus.restartRequested.emit()
