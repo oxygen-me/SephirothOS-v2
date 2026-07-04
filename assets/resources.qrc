@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>CadenceAteThem.png</file>
+        <file>GangnamStyleRoth.mp4</file>
+    </qresource>
+</RCC>

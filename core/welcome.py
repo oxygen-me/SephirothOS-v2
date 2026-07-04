@@ -8,6 +8,8 @@ from eventbus import mainBus
 
 from pathlib import Path
 
+import assets.resources_rc as resources_rc
+
 import json
 import os
 
@@ -408,7 +410,7 @@ class SettingsPage(QWidget):
         self.title.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 72px; font-weight: bold;")
 
         # --- subtitle
-        self.pixmap = QPixmap("assets/CadenceAteThem.png")
+        self.pixmap = QPixmap(":/CadenceAteThem.png")
         self.subtitle = QLabel()
         self.subtitle.setPixmap(self.pixmap)
 
