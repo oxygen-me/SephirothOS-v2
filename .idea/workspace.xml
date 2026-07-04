@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="created auth.py">
-      <change beforePath="$PROJECT_DIR$/api/auth.py" beforeDir="false" />
+    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="create api/marketplace/mkpf.pi">
+      <change afterPath="$PROJECT_DIR$/api/mkp/mkpf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/marketplace/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/mkp/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/marketplace/mkpf.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/marketplace/mkpi.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/mkp/mkpi.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +67,8 @@
       <recent name="C:\Users\bradl\SephV2Project\Code" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\bradl\SephV2Project\Code\api\marketplace" />
+      <recent name="C:\Users\bradl\SephV2Project\Code\api" />
       <recent name="C:\Users\bradl\SephV2Project\Code\utils" />
       <recent name="C:\Users\bradl\SephV2Project\Code" />
       <recent name="C:\Users\bradl\SephV2Project\Code\assets" />
@@ -96,39 +101,7 @@
       <workItem from="1782843665891" duration="119000" />
       <workItem from="1783027902006" duration="18950000" />
       <workItem from="1783048092808" duration="10000000" />
-      <workItem from="1783116923661" duration="29060000" />
-    </task>
-    <task id="LOCAL-00021" summary="remove password support temporarily">
-      <option name="closed" value="true" />
-      <created>1783119243291</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1783119243291</updated>
-    </task>
-    <task id="LOCAL-00022" summary="automatic xml adjustment to reflect project logistics">
-      <option name="closed" value="true" />
-      <created>1783119264962</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1783119264962</updated>
-    </task>
-    <task id="LOCAL-00023" summary="add username functionality">
-      <option name="closed" value="true" />
-      <created>1783120528117</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1783120528117</updated>
-    </task>
-    <task id="LOCAL-00024" summary="change username evaluation to require chars">
-      <option name="closed" value="true" />
-      <created>1783120697681</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1783120697681</updated>
+      <workItem from="1783116923661" duration="30381000" />
     </task>
     <task id="LOCAL-00025" summary="add settings page stub">
       <option name="closed" value="true" />
@@ -490,7 +463,39 @@
       <option name="project" value="LOCAL" />
       <updated>1783148343420</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="auto">
+      <option name="closed" value="true" />
+      <created>1783149798927</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1783149798927</updated>
+    </task>
+    <task id="LOCAL-00071" summary="refactor mkpi">
+      <option name="closed" value="true" />
+      <created>1783149837582</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1783149837582</updated>
+    </task>
+    <task id="LOCAL-00072" summary="create marketplace api dir">
+      <option name="closed" value="true" />
+      <created>1783149847211</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1783149847211</updated>
+    </task>
+    <task id="LOCAL-00073" summary="create api/marketplace/mkpf.pi">
+      <option name="closed" value="true" />
+      <created>1783149913059</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1783149913059</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -508,9 +513,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="new package" />
-    <MESSAGE value="created shell in module `app.py`" />
-    <MESSAGE value="created headliners.py and added some content" />
     <MESSAGE value="start config parsing" />
     <MESSAGE value="create processor.py" />
     <MESSAGE value="remove processor.py" />
@@ -531,14 +533,17 @@
     <MESSAGE value="default home button to selected on launch" />
     <MESSAGE value="adjust spacing" />
     <MESSAGE value="create mkpi.py with full functionality" />
-    <MESSAGE value="auto" />
     <MESSAGE value="created auth.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="created auth.py" />
+    <MESSAGE value="auto" />
+    <MESSAGE value="refactor mkpi" />
+    <MESSAGE value="create marketplace api dir" />
+    <MESSAGE value="create api/marketplace/mkpf.pi" />
+    <option name="LAST_COMMIT_MESSAGE" value="create api/marketplace/mkpf.pi" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Code$mkpd.coverage" NAME="mkpd Coverage Results" MODIFIED="1783145402166" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/api" />
     <SUITE FILE_PATH="coverage/Code$welcome.coverage" NAME="welcome Coverage Results" MODIFIED="1783121952366" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
-    <SUITE FILE_PATH="coverage/Code$main.coverage" NAME="main Coverage Results" MODIFIED="1783149768036" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Code$main.coverage" NAME="main Coverage Results" MODIFIED="1783150634893" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Code$app.coverage" NAME="app Coverage Results" MODIFIED="1783131358831" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
   </component>
 </project>
