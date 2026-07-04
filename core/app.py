@@ -10,8 +10,12 @@ window_title = random.choice(window_names)
 
 # --- create app class
 class AppShell(QWidget):
-    def __init__(self, config=None):
+    def __init__(self, cfgdata=None):
         super().__init__()
+
+        # --- immediately store config
+        self.config = cfgdata
+        cfg = self.config
 
         # --- set title
         self.setWindowTitle(window_title)
