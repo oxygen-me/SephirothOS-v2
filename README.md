@@ -1,3 +1,0 @@
-# SephirothOS
-
-It's back.

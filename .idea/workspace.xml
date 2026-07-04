@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="auto">
-      <change beforePath="$PROJECT_DIR$/processor.py" beforeDir="false" />
+    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="added minimal topbar">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +97,7 @@
       <workItem from="1782843665891" duration="119000" />
       <workItem from="1783027902006" duration="18950000" />
       <workItem from="1783048092808" duration="10000000" />
-      <workItem from="1783116923661" duration="10771000" />
+      <workItem from="1783116923661" duration="15037000" />
     </task>
     <task id="LOCAL-00001" summary="establish // main.py created">
       <option name="closed" value="true" />
@@ -449,7 +451,47 @@
       <option name="project" value="LOCAL" />
       <updated>1783130871437</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="remove processor.py">
+      <option name="closed" value="true" />
+      <created>1783131109477</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1783131109477</updated>
+    </task>
+    <task id="LOCAL-00046" summary="finish config loader">
+      <option name="closed" value="true" />
+      <created>1783131312743</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1783131312743</updated>
+    </task>
+    <task id="LOCAL-00047" summary="add config storage">
+      <option name="closed" value="true" />
+      <created>1783131327282</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1783131327282</updated>
+    </task>
+    <task id="LOCAL-00048" summary="auto">
+      <option name="closed" value="true" />
+      <created>1783131332651</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1783131332651</updated>
+    </task>
+    <task id="LOCAL-00049" summary="added minimal topbar">
+      <option name="closed" value="true" />
+      <created>1783133840434</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1783133840434</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -467,10 +509,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="continue overhaul welcome flow" />
-    <MESSAGE value="added updater" />
-    <MESSAGE value="add debug checks&#10;routine ver. change" />
-    <MESSAGE value="remove password support temporarily" />
     <MESSAGE value="automatic xml adjustment to reflect project logistics" />
     <MESSAGE value="add username functionality" />
     <MESSAGE value="change username evaluation to require chars" />
@@ -491,12 +529,16 @@
     <MESSAGE value="created headliners.py and added some content" />
     <MESSAGE value="start config parsing" />
     <MESSAGE value="create processor.py" />
+    <MESSAGE value="remove processor.py" />
+    <MESSAGE value="finish config loader" />
+    <MESSAGE value="add config storage" />
     <MESSAGE value="auto" />
-    <option name="LAST_COMMIT_MESSAGE" value="auto" />
+    <MESSAGE value="added minimal topbar" />
+    <option name="LAST_COMMIT_MESSAGE" value="added minimal topbar" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Code$welcome.coverage" NAME="welcome Coverage Results" MODIFIED="1783121952366" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
-    <SUITE FILE_PATH="coverage/Code$main.coverage" NAME="main Coverage Results" MODIFIED="1783127069266" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Code$app.coverage" NAME="app Coverage Results" MODIFIED="1782708219903" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
+    <SUITE FILE_PATH="coverage/Code$main.coverage" NAME="main Coverage Results" MODIFIED="1783133773874" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Code$app.coverage" NAME="app Coverage Results" MODIFIED="1783131358831" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
   </component>
 </project>
