@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="added minimal topbar">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="fish">
+      <change afterPath="$PROJECT_DIR$/api/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/ux/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/ux/weather.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ui/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ui/applications.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ui/cli.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ui/home.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ui/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bootstrap.py" beforeDir="false" afterPath="$PROJECT_DIR$/bootstrap.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/welcome.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/welcome.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/fun/headliners.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/fun/headliners.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,15 +107,7 @@
       <workItem from="1782843665891" duration="119000" />
       <workItem from="1783027902006" duration="18950000" />
       <workItem from="1783048092808" duration="10000000" />
-      <workItem from="1783116923661" duration="15037000" />
-    </task>
-    <task id="LOCAL-00001" summary="establish // main.py created">
-      <option name="closed" value="true" />
-      <created>1782624294583</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1782624294583</updated>
+      <workItem from="1783116923661" duration="22811000" />
     </task>
     <task id="LOCAL-00002" summary="first render">
       <option name="closed" value="true" />
@@ -491,7 +493,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783133840434</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="fish">
+      <option name="closed" value="true" />
+      <created>1783135748725</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1783135748725</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -509,7 +519,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="automatic xml adjustment to reflect project logistics" />
     <MESSAGE value="add username functionality" />
     <MESSAGE value="change username evaluation to require chars" />
     <MESSAGE value="add settings page stub" />
@@ -534,11 +543,12 @@
     <MESSAGE value="add config storage" />
     <MESSAGE value="auto" />
     <MESSAGE value="added minimal topbar" />
-    <option name="LAST_COMMIT_MESSAGE" value="added minimal topbar" />
+    <MESSAGE value="fish" />
+    <option name="LAST_COMMIT_MESSAGE" value="fish" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Code$welcome.coverage" NAME="welcome Coverage Results" MODIFIED="1783121952366" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
-    <SUITE FILE_PATH="coverage/Code$main.coverage" NAME="main Coverage Results" MODIFIED="1783133773874" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Code$main.coverage" NAME="main Coverage Results" MODIFIED="1783143384579" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Code$app.coverage" NAME="app Coverage Results" MODIFIED="1783131358831" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
   </component>
 </project>
