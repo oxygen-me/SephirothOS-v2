@@ -30,7 +30,7 @@ class Bootstrapper:
 
         # --- debug completion and return params to main.py
         print("[bootstrap]: Checks complete.")
-        print(self.data)
+        print(f"[bootstrap]: {self.data}")
 
         self.ready = True
         return self.ready, self.data
