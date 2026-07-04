@@ -4,20 +4,26 @@ from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QStackedWidget, QHBo
     QComboBox
 from PySide6.QtCore import Qt
 
+from eventbus import mainBus
+
+from pathlib import Path
+
+import json
+import os
+
+config_path = Path(str(os.getenv('APPDATA'))) / 'SephirothOS' / 'config.json'
+license_path = Path(str(os.getenv('APPDATA'))) / 'SephirothOS' / 'license.json'
+
 
 # --- globaL vars
 username1 = ""
 
 # --- create welcome class
 class WelcomeWindow(QWidget):
-    def __init__(self, lcn=None):
+    def __init__(self):
         super().__init__()
 
         self.setWindowTitle("A Greeting Letter From Sephiroth")
-
-        # --- immediately store reference
-        self.lcn = lcn
-        lcn = self.lcn
 
         # --- set fullscreen by default
         self.setWindowFlags(Qt.WindowType.FramelessWindowHint)
@@ -406,9 +412,6 @@ class SettingsPage(QWidget):
         self.subtitle = QLabel()
         self.subtitle.setPixmap(self.pixmap)
 
-        self.subtitle.setText("")
-        self.subtitle.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 24px; font-weight: 400;")
-
         # --- next button
         self.nextbtn = QPushButton("Continue")
         self.nextbtn.setStyleSheet("""
@@ -468,12 +471,14 @@ class FinishPage(QWidget):
 
         # --- subtitle
         self.subtitle = QLabel()
+        self.subtitle.setWordWrap(True)
 
-        self.subtitle.setText("")
-        self.subtitle.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 24px; font-weight: 400;")
+        self.subtitle.setText("Wait no. I don't have the title. My name is Denny's Sephiroth. I am legally divorced by the way.")
+        self.subtitle.setStyleSheet(
+            "background-color: transparent; color: white; font-family: Segoe UI; font-size: 24px; font-weight: 400;")
 
         # --- next button
-        self.nextbtn = QPushButton("Continue")
+        self.nextbtn = QPushButton("Finished")
         self.nextbtn.setStyleSheet("""
         QPushButton { background-color: transparent; border: 2px solid #63e45f; color: #63e45f; font-family: Segoe UI; font-size: 24px; font-weight: 400; }
         QPushButton:hover { background-color: #27292e; }
@@ -513,5 +518,18 @@ class FinishPage(QWidget):
         self.divlayout.addStretch()
 
     def next_page(self):
-        next_index = self.stack.currentIndex() + 1
-        self.stack.setCurrentIndex(next_index)
+
+        toWrite = {"username": username1}
+
+        with open(config_path, "w") as f:
+            json.dump(toWrite, f, indent=4)
+
+        with open(license_path, "r") as f:
+            license_data = json.load(f)
+
+        license_data["flag"] = "sephiroth"
+
+        with open(license_path, "w") as f:
+            json.dump(license_data, f, indent=4)
+
+        mainBus.restartRequested.emit()
