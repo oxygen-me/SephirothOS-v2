@@ -1,3 +1,5 @@
 # SephirothOS
 
-It's back.
+Temporarily on hold while out of town.
+
+---
