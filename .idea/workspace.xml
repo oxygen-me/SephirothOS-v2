@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="init settings page">
+    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="create method: restartRequested">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/welcome.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/welcome.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
@@ -95,7 +95,7 @@
       <workItem from="1782843665891" duration="119000" />
       <workItem from="1783027902006" duration="18950000" />
       <workItem from="1783048092808" duration="10000000" />
-      <workItem from="1783116923661" duration="3855000" />
+      <workItem from="1783116923661" duration="6648000" />
     </task>
     <task id="LOCAL-00001" summary="establish // main.py created">
       <option name="closed" value="true" />
@@ -313,7 +313,63 @@
       <option name="project" value="LOCAL" />
       <updated>1783121322636</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="add prompt to update and refine handoff">
+      <option name="closed" value="true" />
+      <created>1783121939033</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1783121939033</updated>
+    </task>
+    <task id="LOCAL-00029" summary="remove unused assets">
+      <option name="closed" value="true" />
+      <created>1783122053493</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1783122053493</updated>
+    </task>
+    <task id="LOCAL-00030" summary="finish settings page v1">
+      <option name="closed" value="true" />
+      <created>1783122080535</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1783122080535</updated>
+    </task>
+    <task id="LOCAL-00031" summary="create finish page">
+      <option name="closed" value="true" />
+      <created>1783122132294</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1783122132294</updated>
+    </task>
+    <task id="LOCAL-00032" summary="remove benign tumor">
+      <option name="closed" value="true" />
+      <created>1783122190177</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1783122190177</updated>
+    </task>
+    <task id="LOCAL-00033" summary="add asset">
+      <option name="closed" value="true" />
+      <created>1783122396062</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1783122396062</updated>
+    </task>
+    <task id="LOCAL-00034" summary="create method: restartRequested">
+      <option name="closed" value="true" />
+      <created>1783124661696</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1783124661696</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -331,13 +387,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="establish // main.py created" />
-    <MESSAGE value="first render" />
-    <MESSAGE value="wallpaper placeholder added" />
-    <MESSAGE value="ui rework to new placeholder" />
-    <MESSAGE value="added gitfetch // added warning" />
-    <MESSAGE value="last-minute optimization" />
-    <MESSAGE value="note tweaks" />
     <MESSAGE value="renamed method" />
     <MESSAGE value="minor optimization" />
     <MESSAGE value="removed pass: lcn" />
@@ -356,11 +405,18 @@
     <MESSAGE value="add settings page stub" />
     <MESSAGE value="add new image" />
     <MESSAGE value="init settings page" />
-    <option name="LAST_COMMIT_MESSAGE" value="init settings page" />
+    <MESSAGE value="add prompt to update and refine handoff" />
+    <MESSAGE value="remove unused assets" />
+    <MESSAGE value="finish settings page v1" />
+    <MESSAGE value="create finish page" />
+    <MESSAGE value="remove benign tumor" />
+    <MESSAGE value="add asset" />
+    <MESSAGE value="create method: restartRequested" />
+    <option name="LAST_COMMIT_MESSAGE" value="create method: restartRequested" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Code$welcome.coverage" NAME="welcome Coverage Results" MODIFIED="1783038180673" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
-    <SUITE FILE_PATH="coverage/Code$main.coverage" NAME="main Coverage Results" MODIFIED="1783121885166" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Code$welcome.coverage" NAME="welcome Coverage Results" MODIFIED="1783121952366" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
+    <SUITE FILE_PATH="coverage/Code$main.coverage" NAME="main Coverage Results" MODIFIED="1783124565256" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Code$app.coverage" NAME="app Coverage Results" MODIFIED="1782708219903" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
   </component>
 </project>
