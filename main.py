@@ -13,6 +13,7 @@ from core.app import AppShell
 
 viable_editions = ["[1] Basic", "[2] Workplace", "[3] Premium", "[4] Ultimate"]
 lcn_path = Path(str(os.getenv('APPDATA'))) / 'SephirothOS' / 'license.json'
+cfg_path = Path(str(os.getenv('APPDATA'))) / 'SephirothOS' / 'config.json'
 VERSION = "0.2.4"
 
 print(f"[main]: Running version {VERSION}")
@@ -108,7 +109,9 @@ def main():
         intro = WelcomeWindow()
         intro.show()
     else:
-        window = AppShell() # todo: add config JSON stuff later
+        with open(cfg_path, "r", encoding="utf-8") as f:
+            configdata = json.load(f)
+        window = AppShell(cfgdata=configdata)
         window.show()
 
     sys.exit(app.exec())
