@@ -1,4 +1,4 @@
-# --- imports
+# --- imports # todo: embed asset binaries in a qrc
 import os
 import sys
 import json
@@ -14,7 +14,7 @@ from core.app import AppShell
 viable_editions = ["[1] Basic", "[2] Workplace", "[3] Premium", "[4] Ultimate"]
 lcn_path = Path(str(os.getenv('APPDATA'))) / 'SephirothOS' / 'license.json'
 cfg_path = Path(str(os.getenv('APPDATA'))) / 'SephirothOS' / 'config.json'
-VERSION = "prealpha-1"
+VERSION = "pre-alpha-2"
 
 print(f"[main]: Running version {VERSION}")
 print(f"[main]: Running from: {sys.executable}")
