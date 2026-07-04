@@ -108,7 +108,7 @@ def main():
         intro = WelcomeWindow()
         intro.show()
     else:
-        window = AppShell() # todo: add config JSON stuff later
+        window = AppShell(config=cfg)
         window.show()
 
     sys.exit(app.exec())
