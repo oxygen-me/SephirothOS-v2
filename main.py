@@ -1,4 +1,3 @@
-# --- imports # todo: embed asset binaries in a qrc
 import os
 import sys
 import json
