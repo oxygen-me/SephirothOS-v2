@@ -7,5 +7,6 @@ window_names = [
     "Estuans Interius",
     "Ira Vehementi",
     "Buckets of Piss",
-    "Don has Crabs"
+    "Don has Crabs",
+    "Cxompanaion"
  ]
