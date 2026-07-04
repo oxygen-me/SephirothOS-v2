@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="create api/marketplace/mkpf.pi">
-      <change afterPath="$PROJECT_DIR$/api/mkp/mkpf.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/marketplace/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/mkp/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/marketplace/mkpf.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/marketplace/mkpi.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/mkp/mkpi.py" afterDir="false" />
+    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="fully arm method MKPFetch">
+      <change afterPath="$PROJECT_DIR$/assets/resources.qrc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/resources_rc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/welcome.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/welcome.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,24 +44,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.app.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.mkpd.executor": "Run",
-    "Python.welcome.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/bradl/SephV2Project/Code/assets",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.app.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.mkpd.executor&quot;: &quot;Run&quot;,
+    &quot;Python.welcome.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/bradl/SephV2Project/Code/assets&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\bradl\SephV2Project\Code\assets" />
@@ -101,39 +102,9 @@
       <workItem from="1782843665891" duration="119000" />
       <workItem from="1783027902006" duration="18950000" />
       <workItem from="1783048092808" duration="10000000" />
-      <workItem from="1783116923661" duration="30381000" />
-    </task>
-    <task id="LOCAL-00025" summary="add settings page stub">
-      <option name="closed" value="true" />
-      <created>1783121184356</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1783121184356</updated>
-    </task>
-    <task id="LOCAL-00026" summary="add new image">
-      <option name="closed" value="true" />
-      <created>1783121314191</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1783121314191</updated>
-    </task>
-    <task id="LOCAL-00027" summary="init settings page">
-      <option name="closed" value="true" />
-      <created>1783121322636</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1783121322636</updated>
-    </task>
-    <task id="LOCAL-00028" summary="add prompt to update and refine handoff">
-      <option name="closed" value="true" />
-      <created>1783121939033</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1783121939033</updated>
+      <workItem from="1783116923661" duration="30944000" />
+      <workItem from="1783151727655" duration="647000" />
+      <workItem from="1783195850268" duration="923000" />
     </task>
     <task id="LOCAL-00029" summary="remove unused assets">
       <option name="closed" value="true" />
@@ -495,7 +466,39 @@
       <option name="project" value="LOCAL" />
       <updated>1783149913059</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="refactor marketplace as mkp">
+      <option name="closed" value="true" />
+      <created>1783151119070</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1783151119070</updated>
+    </task>
+    <task id="LOCAL-00075" summary="refactor marketplace as mkp">
+      <option name="closed" value="true" />
+      <created>1783151122241</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1783151122241</updated>
+    </task>
+    <task id="LOCAL-00076" summary="refactor marketplace as mkp">
+      <option name="closed" value="true" />
+      <created>1783151127548</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1783151127548</updated>
+    </task>
+    <task id="LOCAL-00077" summary="fully arm method MKPFetch">
+      <option name="closed" value="true" />
+      <created>1783151155252</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1783151155252</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -513,8 +516,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="start config parsing" />
-    <MESSAGE value="create processor.py" />
     <MESSAGE value="remove processor.py" />
     <MESSAGE value="finish config loader" />
     <MESSAGE value="add config storage" />
@@ -538,7 +539,9 @@
     <MESSAGE value="refactor mkpi" />
     <MESSAGE value="create marketplace api dir" />
     <MESSAGE value="create api/marketplace/mkpf.pi" />
-    <option name="LAST_COMMIT_MESSAGE" value="create api/marketplace/mkpf.pi" />
+    <MESSAGE value="refactor marketplace as mkp" />
+    <MESSAGE value="fully arm method MKPFetch" />
+    <option name="LAST_COMMIT_MESSAGE" value="fully arm method MKPFetch" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Code$mkpd.coverage" NAME="mkpd Coverage Results" MODIFIED="1783145402166" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/api" />
