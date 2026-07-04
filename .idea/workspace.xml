@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="auto">
-      <change afterPath="$PROJECT_DIR$/api/mkpi.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/auth.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,23 +96,7 @@
       <workItem from="1782843665891" duration="119000" />
       <workItem from="1783027902006" duration="18950000" />
       <workItem from="1783048092808" duration="10000000" />
-      <workItem from="1783116923661" duration="26648000" />
-    </task>
-    <task id="LOCAL-00018" summary="continue overhaul welcome flow">
-      <option name="closed" value="true" />
-      <created>1783058595487</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1783058595487</updated>
-    </task>
-    <task id="LOCAL-00019" summary="added updater">
-      <option name="closed" value="true" />
-      <created>1783058615151</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1783058615151</updated>
+      <workItem from="1783116923661" duration="27616000" />
     </task>
     <task id="LOCAL-00020" summary="add debug checks&#10;routine ver. change">
       <option name="closed" value="true" />
@@ -490,7 +474,23 @@
       <option name="project" value="LOCAL" />
       <updated>1783144012633</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="create mkpi.py with full functionality">
+      <option name="closed" value="true" />
+      <created>1783147391145</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1783147391145</updated>
+    </task>
+    <task id="LOCAL-00068" summary="auto">
+      <option name="closed" value="true" />
+      <created>1783147396679</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1783147396679</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -508,7 +508,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add method restart_app()&#10;remove lcn passage&#10;change version" />
     <MESSAGE value="finished pre-alpha welcome.py" />
     <MESSAGE value="new package" />
     <MESSAGE value="created shell in module `app.py`" />
@@ -532,6 +531,7 @@
     <MESSAGE value="made it work" />
     <MESSAGE value="default home button to selected on launch" />
     <MESSAGE value="adjust spacing" />
+    <MESSAGE value="create mkpi.py with full functionality" />
     <MESSAGE value="auto" />
     <option name="LAST_COMMIT_MESSAGE" value="auto" />
   </component>
