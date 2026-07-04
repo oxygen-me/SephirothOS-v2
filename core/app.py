@@ -70,7 +70,7 @@ class AppShell(QWidget):
 
         # --- buttons
         self.homebtn = QPushButton("Home")
-        self.homebtn.setStyleSheet(default_btn_qss)
+        self.homebtn.setStyleSheet(selected_btn_qss)
         self.homebtn.clicked.connect(self.switch_to_home)
 
         self.appsbtn = QPushButton("Apps")
