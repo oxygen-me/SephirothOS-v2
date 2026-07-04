@@ -5,5 +5,6 @@ from PySide6.QtCore import QObject, Signal
 class LowLevelBus(QObject):
 
     quitRequested = Signal()
+    restartRequested = Signal()
 
 mainBus = LowLevelBus()
