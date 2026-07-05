@@ -1,6 +1,6 @@
 # --- general imports
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QLineEdit, QSizePolicy, \
-    QStackedWidget
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QSizePolicy, \
+    QStackedWidget, QFrame
 from PySide6.QtCore import Qt
 from utils.fun.headliners import window_names
 import random
@@ -22,6 +22,12 @@ from ui.home import HomePage
 from ui.applications import AppsPage
 from ui.settings import SettingsPage
 from ui.cli import CLIPage
+
+# --- sidebar imports
+from ui.home import HomeBar
+# from ui.applications import AppsBar
+from ui.settings import SettingsBar
+# from ui.cli import CLIBar
 
 # --- create app class
 class AppShell(QWidget):
@@ -81,21 +87,36 @@ class AppShell(QWidget):
 
         # --- sidebar
         self.sidebar = QWidget()
-        self.sidebar.setStyleSheet("background-color: #17191d;")
+        self.sidebar.setStyleSheet("background-color: #111215;")
 
         # --- sidebar layout
         self.sidebarlayout = QVBoxLayout()
-        self.sidebarlayout.setContentsMargins(10, 10, 10, 10)
+        self.sidebarlayout.setContentsMargins(20, 20, 20, 20)
         self.sidebarlayout.setSpacing(0)
         self.sidebar.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
 
-        # --- weather
-        self.weatherlabel = QLabel("Super Cool Weather")
-        self.weatherlabel.setStyleSheet("background-color: transparent; color: #17191d; font-family: Segoe UI; font-size: 24px; font-weight: 400;")
+        # --- username
+        self.username = QLabel(cfg["username"])
+        self.username.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 18px; font-weight: 600;")
+
+        # --- user subtitle
+        self.usersubtitle = QLabel("Veni, veni, venias, ne me mori facias.")
+        self.usersubtitle.setStyleSheet("background-color: transparent; color: #808080; font-family: Segoe UI; font-size: 14px; font-weight: 500;")
+
+        # --- status
+        self.status = QLabel("Online")
+        self.status.setStyleSheet("background-color: transparent; color: #808080; font-family: Segoe UI; font-size: 14px; font-weight: 500;")
+
+        # --- div object
+        self.divobject = QFrame()
+        self.divobject.setFrameShape(QFrame.Shape.HLine)
+        self.divobject.setFrameShadow(QFrame.Shadow.Sunken)
+        self.divobject.setStyleSheet("background-color: #1b1c1e")
+        self.divobject.setFixedHeight(2)
 
         # --- mainarea
         self.mainarea = QWidget()
-        self.mainarea.setStyleSheet("background-color: #17191d;")
+        self.mainarea.setStyleSheet("background-color: #111215;")
         self.mainarea.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
         # --- stackarea
@@ -111,14 +132,18 @@ class AppShell(QWidget):
         self.topbarlayout.addWidget(self.clibtn)
 
         self.sidebar.setLayout(self.sidebarlayout)
-        self.sidebarlayout.addWidget(self.weatherlabel)
-        self.sidebarlayout.addStretch()
+        self.sidebarlayout.addWidget(self.username)
+        self.sidebarlayout.addSpacing(10)
+        self.sidebarlayout.addWidget(self.usersubtitle)
+        self.sidebarlayout.addWidget(self.status)
+        self.sidebarlayout.addSpacing(20)
+        self.sidebarlayout.addWidget(self.divobject)
 
         self.mainlayout.addWidget(self.topbar)
 
         self.mainlayout.addLayout(self.arealayout)
         self.arealayout.addWidget(self.sidebar)
-        self.arealayout.addWidget(self.mainarea)
+        self.arealayout.addWidget(self.mainarea, 1)
 
         self.mainarea.setLayout(self.stackarea)
 
@@ -134,9 +159,25 @@ class AppShell(QWidget):
 
         self.stackarea.addWidget(self.stack)
 
+        # --- side stack
+        self.sidestack = QStackedWidget()
+
+        self.sidestack.addWidget(HomeBar(self.sidestack))
+        # self.sidestack.addWidget(AppsBar(self.sidestack))
+        self.sidestack.addWidget(SettingsBar(self.sidestack))
+        # self.sidestack.addWidget(CLIBar(self.sidestack))
+
+        self.sidestack.setCurrentIndex(0)
+
+        self.sidebarlayout.addSpacing(20)
+        self.sidebarlayout.addWidget(self.sidestack)
+
+        self.sidebarlayout.addStretch()
+
     # --- create button methods
     def switch_to_home(self):
         self.stack.setCurrentIndex(0)
+        self.sidestack.setCurrentIndex(0)
 
         self.homebtn.setStyleSheet(selected_btn_qss)
         self.appsbtn.setStyleSheet(default_btn_qss)
@@ -145,6 +186,7 @@ class AppShell(QWidget):
 
     def switch_to_apps(self):
         self.stack.setCurrentIndex(1)
+        self.sidestack.setCurrentIndex(1)
 
         self.homebtn.setStyleSheet(default_btn_qss)
         self.appsbtn.setStyleSheet(selected_btn_qss)
@@ -153,6 +195,7 @@ class AppShell(QWidget):
 
     def switch_to_settings(self):
         self.stack.setCurrentIndex(2)
+        self.sidestack.setCurrentIndex(2)
 
         self.homebtn.setStyleSheet(default_btn_qss)
         self.appsbtn.setStyleSheet(default_btn_qss)
@@ -161,6 +204,7 @@ class AppShell(QWidget):
 
     def switch_to_cli(self):
         self.stack.setCurrentIndex(3)
+        self.sidestack.setCurrentIndex(3)
 
         self.homebtn.setStyleSheet(default_btn_qss)
         self.appsbtn.setStyleSheet(default_btn_qss)
