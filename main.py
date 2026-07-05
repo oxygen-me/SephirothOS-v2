@@ -24,7 +24,6 @@ print(f"[main]: Running from: {sys.executable}")
 def main():
     print("[main]: Start initiated")
 
-
     # --- create app
     app = QApplication(sys.argv)
     print("[main]: App created")
@@ -110,6 +109,10 @@ def main():
     # --- create window depending on thing
     if lcn["edition"] not in viable_editions:
         raise PermissionError("Invalid edition. Do not tamper or pirate my shit.")
+    else:
+        from api.ux.bgmp import BGMPlayer
+        app.bgm = BGMPlayer()
+        app.bgm.start_music()
 
     if lcn["flag"] == "seth67":
         from core.welcome import WelcomeWindow

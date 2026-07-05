@@ -8,7 +8,7 @@ from eventbus import mainBus
 
 from pathlib import Path
 
-import assets.resources_rc as resources_rc
+import assets.resource_rc as resources_rc
 
 import json
 import os
