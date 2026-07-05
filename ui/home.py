@@ -62,14 +62,12 @@ class HomePage(QWidget):
 
         # --- create clock object
         self.clock = QLabel()
-        self.clock.setStyleSheet(
-            "background-color: transparent; color: white; font-family: Segoe UI; font-size: 36px; font-weight: 500;")
+        self.clock.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 36px; font-weight: 500;")
         self.clock.setAlignment(Qt.AlignmentFlag.AlignRight)
 
         # --- create date object
         self.date = QLabel()
-        self.date.setStyleSheet(
-            "background-color: transparent; color: #808080; font-family: Segoe UI; font-size: 18px; font-weight: 500;")
+        self.date.setStyleSheet("background-color: transparent; color: #808080; font-family: Segoe UI; font-size: 18px; font-weight: 500;")
         self.date.setAlignment(Qt.AlignmentFlag.AlignRight)
 
         # --- allow updates
@@ -122,25 +120,116 @@ class HomePage(QWidget):
         self.syswidget = QWidget()
         self.syswidget.setStyleSheet("background-color: #1d1f22; border-radius: 0px;")
 
+        self.syswidgetlayout = QVBoxLayout()
+        self.syswidgetlayout.setContentsMargins(20, 20, 20, 20)
+        self.syswidgetlayout.setSpacing(20)
+        self.syswidget.setLayout(self.syswidgetlayout)
+
+        self.systitle = QLabel("System Status")
+        self.systitle.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 18px; font-weight: 500;")
+        self.syswidgetlayout.addWidget(self.systitle)
+
+        self.syswidgetlayout.addStretch()
+
+
+
         self.tipwidget = QWidget()
         self.tipwidget.setStyleSheet("background-color: #1d1f22; border-radius: 0px;")
 
+        self.tipwidgetlayout = QVBoxLayout()
+        self.tipwidgetlayout.setContentsMargins(20, 20, 20, 20)
+        self.tipwidgetlayout.setSpacing(20)
+        self.tipwidget.setLayout(self.tipwidgetlayout)
+
+        self.tiptitle = QLabel("Daily Tip")
+        self.tiptitle.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 18px; font-weight: 500;")
+        self.tipwidgetlayout.addWidget(self.tiptitle)
+
+        self.tipwidgetlayout.addStretch()
+
+
+
         self.quotewidget = QWidget()
         self.quotewidget.setStyleSheet("background-color: #1d1f22; border-radius: 0px;")
+
+        self.quotewidgetlayout = QVBoxLayout()
+        self.quotewidgetlayout.setContentsMargins(20, 20, 20, 20)
+        self.quotewidgetlayout.setSpacing(20)
+        self.quotewidget.setLayout(self.quotewidgetlayout)
+
+        self.quotetitle = QLabel("Quote of the Day")
+        self.quotetitle.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 18px; font-weight: 500;")
+        self.quotewidgetlayout.addWidget(self.quotetitle)
+
+        self.quotewidgetlayout.addStretch()
+
+
 
         # --- bottom left
         self.announcementwidget = QWidget()
         self.announcementwidget.setStyleSheet("background-color: #1d1f22; border-radius: 0px;")
 
+        self.announcementwidgetlayout = QVBoxLayout()
+        self.announcementwidgetlayout.setContentsMargins(20, 20, 20, 20)
+        self.announcementwidgetlayout.setSpacing(20)
+        self.announcementwidget.setLayout(self.announcementwidgetlayout)
+
+        self.announcementtitle = QLabel("Announcements")
+        self.announcementtitle.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 18px; font-weight: 500;")
+        self.announcementwidgetlayout.addWidget(self.announcementtitle)
+
+        self.announcementwidgetlayout.addStretch()
+
+
+
         self.appswidget = QWidget()
         self.appswidget.setStyleSheet("background-color: #1d1f22; border-radius: 0px;")
+
+        self.appswidgetlayout = QVBoxLayout()
+        self.appswidgetlayout.setContentsMargins(20, 20, 20, 20)
+        self.appswidgetlayout.setSpacing(20)
+        self.appswidget.setLayout(self.appswidgetlayout)
+
+        self.appstitle = QLabel("Top Apps")
+        self.appstitle.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 18px; font-weight: 500;")
+        self.appswidgetlayout.addWidget(self.appstitle)
+
+        self.appswidgetlayout.addStretch()
+
+
 
         # --- right
         self.perfwidget = QWidget()
         self.perfwidget.setStyleSheet("background-color: #1d1f22; border-radius: 0px;")
 
+        self.perfwidgetlayout = QVBoxLayout()
+        self.perfwidgetlayout.setContentsMargins(20, 20, 20, 20)
+        self.perfwidgetlayout.setSpacing(20)
+        self.perfwidget.setLayout(self.perfwidgetlayout)
+
+        self.perftitle = QLabel("Performance")
+        self.perftitle.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 18px; font-weight: 500;")
+        self.perfwidgetlayout.addWidget(self.perftitle)
+
+        self.perfwidgetlayout.addStretch()
+
+
+
         self.storagewidget = QWidget()
         self.storagewidget.setStyleSheet("background-color: #1d1f22; border-radius: 0px;")
+
+        self.storagewidgetlayout = QVBoxLayout()
+        self.storagewidgetlayout.setContentsMargins(20, 20, 20, 20)
+        self.storagewidgetlayout.setSpacing(20)
+        self.storagewidget.setLayout(self.storagewidgetlayout)
+
+        self.storagetitle = QLabel("Storage")
+        self.storagetitle.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 18px; font-weight: 500;")
+        self.storagewidgetlayout.addWidget(self.storagetitle)
+
+        self.storagewidgetlayout.addStretch()
+
+
 
         # --- add widgets to layouts
         self.tllayout.addWidget(self.syswidget)
