@@ -317,3 +317,5 @@ class SettingsBar(QWidget):
         self.div3.setStyleSheet("background-color: #1b1c1e")
         self.div3.setFixedHeight(2)
         self.mainlayout.addWidget(self.div3)
+
+        self.mainlayout.addStretch()

@@ -25,9 +25,9 @@ from ui.cli import CLIPage
 
 # --- sidebar imports
 from ui.home import HomeBar
-# from ui.applications import AppsBar
+from ui.applications import AppsBar
 from ui.settings import SettingsBar
-# from ui.cli import CLIBar
+from ui.cli import CLIBar
 
 # --- create app class
 class AppShell(QWidget):
@@ -163,9 +163,9 @@ class AppShell(QWidget):
         self.sidestack = QStackedWidget()
 
         self.sidestack.addWidget(HomeBar(self.sidestack))
-        # self.sidestack.addWidget(AppsBar(self.sidestack))
+        self.sidestack.addWidget(AppsBar(self.sidestack))
         self.sidestack.addWidget(SettingsBar(self.sidestack))
-        # self.sidestack.addWidget(CLIBar(self.sidestack))
+        self.sidestack.addWidget(CLIBar(self.sidestack))
 
         self.sidestack.setCurrentIndex(0)
 

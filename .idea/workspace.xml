@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="embed icons">
+    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="- add stacked sidebars&#10;- integrate said sidebars into tabs&#10;- create templates of home and settings tabs&#10;- etc.">
+      <change afterPath="$PROJECT_DIR$/api/sysinfo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/ux/announcements.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/home.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/home.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/applications.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/applications.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/cli.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ui/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -69,11 +72,11 @@
       <recent name="C:\Users\bradl\SephV2Project\Code" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\bradl\SephV2Project\Code\api\ux" />
       <recent name="C:\Users\bradl\SephV2Project\Code\api\marketplace" />
       <recent name="C:\Users\bradl\SephV2Project\Code\api" />
       <recent name="C:\Users\bradl\SephV2Project\Code\utils" />
       <recent name="C:\Users\bradl\SephV2Project\Code" />
-      <recent name="C:\Users\bradl\SephV2Project\Code\assets" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -106,15 +109,7 @@
       <workItem from="1783116923661" duration="30944000" />
       <workItem from="1783151727655" duration="647000" />
       <workItem from="1783195850268" duration="1495000" />
-      <workItem from="1783197416461" duration="25937000" />
-    </task>
-    <task id="LOCAL-00045" summary="remove processor.py">
-      <option name="closed" value="true" />
-      <created>1783131109477</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1783131109477</updated>
+      <workItem from="1783197416461" duration="30773000" />
     </task>
     <task id="LOCAL-00046" summary="finish config loader">
       <option name="closed" value="true" />
@@ -500,7 +495,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783213591793</updated>
     </task>
-    <option name="localTasksCounter" value="94" />
+    <task id="LOCAL-00094" summary="- add stacked sidebars&#10;- integrate said sidebars into tabs&#10;- create templates of home and settings tabs&#10;- etc.">
+      <option name="closed" value="true" />
+      <created>1783226959420</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1783226959421</updated>
+    </task>
+    <option name="localTasksCounter" value="95" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -518,7 +521,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="default home button to selected on launch" />
     <MESSAGE value="adjust spacing" />
     <MESSAGE value="create mkpi.py with full functionality" />
     <MESSAGE value="created auth.py" />
@@ -543,13 +545,14 @@
     <MESSAGE value="add background music functionality + default" />
     <MESSAGE value="add icons" />
     <MESSAGE value="embed icons" />
-    <option name="LAST_COMMIT_MESSAGE" value="embed icons" />
+    <MESSAGE value="- add stacked sidebars&#10;- integrate said sidebars into tabs&#10;- create templates of home and settings tabs&#10;- etc." />
+    <option name="LAST_COMMIT_MESSAGE" value="- add stacked sidebars&#10;- integrate said sidebars into tabs&#10;- create templates of home and settings tabs&#10;- etc." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Code$home.coverage" NAME="home Coverage Results" MODIFIED="1783202559984" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ui" />
     <SUITE FILE_PATH="coverage/Code$mkpd.coverage" NAME="mkpd Coverage Results" MODIFIED="1783145402166" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/api" />
     <SUITE FILE_PATH="coverage/Code$welcome.coverage" NAME="welcome Coverage Results" MODIFIED="1783121952366" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
-    <SUITE FILE_PATH="coverage/Code$main.coverage" NAME="main Coverage Results" MODIFIED="1783226636394" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Code$main.coverage" NAME="main Coverage Results" MODIFIED="1783231356950" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Code$app.coverage" NAME="app Coverage Results" MODIFIED="1783131358831" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
   </component>
 </project>
