@@ -1,15 +1,11 @@
 # --- imports
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QHBoxLayout, QPushButton, QFrame
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QHBoxLayout, QPushButton, QFrame, QStackedWidget, QButtonGroup
 from PySide6.QtCore import Qt
 
-default_btn_qss = """
-                QPushButton { background-color: transparent; color: white; font-family: Segoe UI; font-size: 16px; padding-top: 10px; padding-bottom: 10px; padding-right: 10px; padding-left: 10px; text-align: left;}
-                QPushButton:hover { background-color: #1a1b20; }
-                QPushButton:pressed { background-color: #1a1b1d }
-                """
+from utils.themes import styles, tlib
 
-# --- create HomePage class
-class SettingsPage(QWidget):
+# --- create SettingsTab class
+class SettingsTab(QWidget):
     def __init__(self, stack):
         super().__init__()
 
@@ -17,7 +13,32 @@ class SettingsPage(QWidget):
         self.stack = stack
 
         # --- configure bg to be transparent
-        self.setStyleSheet("background-color: transparent;")
+        self.setStyleSheet(styles.t_widget(tlib.CURRENT))
+
+        # --- create layout
+        self.mainlayout = QVBoxLayout()
+        self.mainlayout.setContentsMargins(0, 0, 0, 0)
+        self.mainlayout.setSpacing(0)
+        self.setLayout(self.mainlayout)
+
+        # --- create stack
+        self.settingstack = QStackedWidget()
+
+        self.settingstack.addWidget(GeneralPage(self.settingstack))
+
+        self.settingstack.setCurrentIndex(0)
+
+        self.mainlayout.addWidget(self.settingstack, 1)
+
+class GeneralPage(QWidget):
+    def __init__(self, settingstack):
+        super().__init__()
+
+        # --- store stack
+        self.stack = settingstack
+
+        # --- configure bg to be transparent
+        self.setStyleSheet(styles.t_widget(tlib.CURRENT))
 
         # --- create mainlayout
         self.mainlayout = QVBoxLayout()
@@ -38,11 +59,11 @@ class SettingsPage(QWidget):
 
         # --- create title object
         self.title = QLabel("The Engine of Sephiroth's Toyota Supra")
-        self.title.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 36px; font-weight: 500;")
+        self.title.setStyleSheet(styles.p_title(tlib.CURRENT))
 
         # --- create subtitle object
         self.subtitle = QLabel("I don't like these settings. Let's get a new one.")
-        self.subtitle.setStyleSheet("background-color: transparent; color: #808080; font-family: Segoe UI; font-size: 18px; font-weight: 500;")
+        self.subtitle.setStyleSheet(styles.p_subtitle(tlib.CURRENT))
 
         # --- assemble titlebox
         self.titlebox.addWidget(self.title)
@@ -80,7 +101,7 @@ class SettingsPage(QWidget):
 
         # --- left
         self.syswidget = QWidget()
-        self.syswidget.setStyleSheet("background-color: #1d1f22; border-radius: 0px;")
+        self.syswidget.setStyleSheet(styles.c_widget(tlib.CURRENT))
 
         self.syswidgetlayout = QVBoxLayout()
         self.syswidgetlayout.setContentsMargins(20, 20, 20, 20)
@@ -88,8 +109,7 @@ class SettingsPage(QWidget):
         self.syswidget.setLayout(self.syswidgetlayout)
 
         self.systitle = QLabel("System Information")
-        self.systitle.setStyleSheet(
-            "background-color: transparent; color: white; font-family: Segoe UI; font-size: 18px; font-weight: 500;")
+        self.systitle.setStyleSheet(styles.c_title(tlib.CURRENT))
         self.syswidgetlayout.addWidget(self.systitle)
 
         self.syswidgetlayout.addStretch()
@@ -97,7 +117,7 @@ class SettingsPage(QWidget):
 
 
         self.updwidget = QWidget()
-        self.updwidget.setStyleSheet("background-color: #1d1f22; border-radius: 0px;")
+        self.updwidget.setStyleSheet(styles.c_widget(tlib.CURRENT))
 
         self.updwidgetlayout = QVBoxLayout()
         self.updwidgetlayout.setContentsMargins(20, 20, 20, 20)
@@ -105,8 +125,7 @@ class SettingsPage(QWidget):
         self.updwidget.setLayout(self.updwidgetlayout)
 
         self.updtitle = QLabel("Updates")
-        self.updtitle.setStyleSheet(
-            "background-color: transparent; color: white; font-family: Segoe UI; font-size: 18px; font-weight: 500;")
+        self.updtitle.setStyleSheet(styles.c_title(tlib.CURRENT))
         self.updwidgetlayout.addWidget(self.updtitle)
 
         self.updwidgetlayout.addStretch()
@@ -115,7 +134,7 @@ class SettingsPage(QWidget):
 
         # --- right
         self.lrwidget = QWidget()
-        self.lrwidget.setStyleSheet("background-color: #1d1f22; border-radius: 0px;")
+        self.lrwidget.setStyleSheet(styles.c_widget(tlib.CURRENT))
 
         self.lrwidgetlayout = QVBoxLayout()
         self.lrwidgetlayout.setContentsMargins(20, 20, 20, 20)
@@ -123,8 +142,7 @@ class SettingsPage(QWidget):
         self.lrwidget.setLayout(self.lrwidgetlayout)
 
         self.lrtitle = QLabel("Language & Region")
-        self.lrtitle.setStyleSheet(
-            "background-color: transparent; color: white; font-family: Segoe UI; font-size: 18px; font-weight: 500;")
+        self.lrtitle.setStyleSheet(styles.c_title(tlib.CURRENT))
         self.lrwidgetlayout.addWidget(self.lrtitle)
 
         self.lrwidgetlayout.addStretch()
@@ -132,7 +150,7 @@ class SettingsPage(QWidget):
 
 
         self.startwidget = QWidget()
-        self.startwidget.setStyleSheet("background-color: #1d1f22; border-radius: 0px;")
+        self.startwidget.setStyleSheet(styles.c_widget(tlib.CURRENT))
 
         self.startwidgetlayout = QVBoxLayout()
         self.startwidgetlayout.setContentsMargins(20, 20, 20, 20)
@@ -140,8 +158,7 @@ class SettingsPage(QWidget):
         self.startwidget.setLayout(self.startwidgetlayout)
 
         self.starttitle = QLabel("Startup")
-        self.starttitle.setStyleSheet(
-            "background-color: transparent; color: white; font-family: Segoe UI; font-size: 18px; font-weight: 500;")
+        self.starttitle.setStyleSheet(styles.c_title(tlib.CURRENT))
         self.startwidgetlayout.addWidget(self.starttitle)
 
         self.startwidgetlayout.addStretch()
@@ -149,7 +166,7 @@ class SettingsPage(QWidget):
 
 
         self.psecwidget = QWidget()
-        self.psecwidget.setStyleSheet("background-color: #1d1f22; border-radius: 0px;")
+        self.psecwidget.setStyleSheet(styles.c_widget(tlib.CURRENT))
 
         self.psecwidgetlayout = QVBoxLayout()
         self.psecwidgetlayout.setContentsMargins(20, 20, 20, 20)
@@ -157,8 +174,7 @@ class SettingsPage(QWidget):
         self.psecwidget.setLayout(self.psecwidgetlayout)
 
         self.psectitle = QLabel("Privacy & Security")
-        self.psectitle.setStyleSheet(
-            "background-color: transparent; color: white; font-family: Segoe UI; font-size: 18px; font-weight: 500;")
+        self.psectitle.setStyleSheet(styles.c_title(tlib.CURRENT))
         self.psecwidgetlayout.addWidget(self.psectitle)
 
         self.psecwidgetlayout.addStretch()
@@ -166,7 +182,7 @@ class SettingsPage(QWidget):
 
 
         self.aboutwidget = QWidget()
-        self.aboutwidget.setStyleSheet("background-color: #1d1f22; border-radius: 0px;")
+        self.aboutwidget.setStyleSheet(styles.c_widget(tlib.CURRENT))
 
         self.aboutwidgetlayout = QVBoxLayout()
         self.aboutwidgetlayout.setContentsMargins(20, 20, 20, 20)
@@ -174,8 +190,7 @@ class SettingsPage(QWidget):
         self.aboutwidget.setLayout(self.aboutwidgetlayout)
 
         self.abouttitle = QLabel("About SephirothOS")
-        self.abouttitle.setStyleSheet(
-            "background-color: transparent; color: white; font-family: Segoe UI; font-size: 18px; font-weight: 500;")
+        self.abouttitle.setStyleSheet(styles.c_title(tlib.CURRENT))
         self.aboutwidgetlayout.addWidget(self.abouttitle)
 
         self.aboutwidgetlayout.addStretch()
@@ -201,8 +216,10 @@ class SettingsBar(QWidget):
     def __init__(self, stack):
         super().__init__()
 
+        self.stack = stack
+
         # --- configure bg to be transparent
-        self.setStyleSheet("background-color: transparent;")
+        self.setStyleSheet(styles.t_widget(tlib.CURRENT))
 
         # --- create mainlayout
         self.mainlayout = QVBoxLayout()
@@ -212,30 +229,30 @@ class SettingsBar(QWidget):
 
         # --- settings title
         self.settingstitle = QLabel("Settings")
-        self.settingstitle.setStyleSheet("background-color: transparent; color: #808080; font-family: Segoe UI; font-size: 16px; font-weight: 650;")
+        self.settingstitle.setStyleSheet(styles.s_title(tlib.CURRENT))
         self.mainlayout.addWidget(self.settingstitle)
 
         self.mainlayout.addSpacing(10)
 
         # --- buttons
         self.generalbtn = QPushButton("General")
-        self.generalbtn.setStyleSheet(default_btn_qss)
+        self.generalbtn.setStyleSheet(styles.d_btn(tlib.CURRENT))
         self.mainlayout.addWidget(self.generalbtn)
 
         self.appearancebtn = QPushButton("Appearance")
-        self.appearancebtn.setStyleSheet(default_btn_qss)
+        self.appearancebtn.setStyleSheet(styles.d_btn(tlib.CURRENT))
         self.mainlayout.addWidget(self.appearancebtn)
 
         self.notifbtn = QPushButton("Notifications")
-        self.notifbtn.setStyleSheet(default_btn_qss)
+        self.notifbtn.setStyleSheet(styles.d_btn(tlib.CURRENT))
         self.mainlayout.addWidget(self.notifbtn)
 
         self.soundbtn = QPushButton("Sound")
-        self.soundbtn.setStyleSheet(default_btn_qss)
+        self.soundbtn.setStyleSheet(styles.d_btn(tlib.CURRENT))
         self.mainlayout.addWidget(self.soundbtn)
 
         self.powerbtn = QPushButton("Power")
-        self.powerbtn.setStyleSheet(default_btn_qss)
+        self.powerbtn.setStyleSheet(styles.d_btn(tlib.CURRENT))
         self.mainlayout.addWidget(self.powerbtn)
 
         self.mainlayout.addSpacing(10)
@@ -244,39 +261,38 @@ class SettingsBar(QWidget):
         self.div1 = QFrame()
         self.div1.setFrameShape(QFrame.Shape.HLine)
         self.div1.setFrameShadow(QFrame.Shadow.Sunken)
-        self.div1.setStyleSheet("background-color: #1b1c1e")
-        self.div1.setFixedHeight(2)
+        self.div1.setStyleSheet(styles.d_div(tlib.CURRENT))
+        self.div1.setFixedHeight(1)
         self.mainlayout.addWidget(self.div1)
 
         self.mainlayout.addSpacing(20)
 
         # --- system title
         self.systemtitle = QLabel("System")
-        self.systemtitle.setStyleSheet(
-            "background-color: transparent; color: #808080; font-family: Segoe UI; font-size: 16px; font-weight: 650;")
+        self.systemtitle.setStyleSheet(styles.s_title(tlib.CURRENT))
         self.mainlayout.addWidget(self.systemtitle)
 
         self.mainlayout.addSpacing(10)
 
         # --- more buttons
         self.aboutbtn = QPushButton("About")
-        self.aboutbtn.setStyleSheet(default_btn_qss)
+        self.aboutbtn.setStyleSheet(styles.d_btn(tlib.CURRENT))
         self.mainlayout.addWidget(self.aboutbtn)
 
         self.updatesbtn = QPushButton("Updates")
-        self.updatesbtn.setStyleSheet(default_btn_qss)
+        self.updatesbtn.setStyleSheet(styles.d_btn(tlib.CURRENT))
         self.mainlayout.addWidget(self.updatesbtn)
 
         self.storagebtn = QPushButton("Storage")
-        self.storagebtn.setStyleSheet(default_btn_qss)
+        self.storagebtn.setStyleSheet(styles.d_btn(tlib.CURRENT))
         self.mainlayout.addWidget(self.storagebtn)
 
         self.backupbtn = QPushButton("Backup")
-        self.backupbtn.setStyleSheet(default_btn_qss)
+        self.backupbtn.setStyleSheet(styles.d_btn(tlib.CURRENT))
         self.mainlayout.addWidget(self.backupbtn)
 
         self.recoverybtn = QPushButton("Recovery")
-        self.recoverybtn.setStyleSheet(default_btn_qss)
+        self.recoverybtn.setStyleSheet(styles.d_btn(tlib.CURRENT))
         self.mainlayout.addWidget(self.recoverybtn)
 
         self.mainlayout.addSpacing(10)
@@ -285,27 +301,26 @@ class SettingsBar(QWidget):
         self.div2 = QFrame()
         self.div2.setFrameShape(QFrame.Shape.HLine)
         self.div2.setFrameShadow(QFrame.Shadow.Sunken)
-        self.div2.setStyleSheet("background-color: #1b1c1e")
-        self.div2.setFixedHeight(2)
+        self.div2.setStyleSheet(styles.d_div(tlib.CURRENT))
+        self.div2.setFixedHeight(1)
         self.mainlayout.addWidget(self.div2)
 
         self.mainlayout.addSpacing(20)
 
         # --- advanced title
         self.advancedtitle = QLabel("Advanced")
-        self.advancedtitle.setStyleSheet(
-            "background-color: transparent; color: #808080; font-family: Segoe UI; font-size: 16px; font-weight: 650;")
+        self.advancedtitle.setStyleSheet(styles.s_title(tlib.CURRENT))
         self.mainlayout.addWidget(self.advancedtitle)
 
         self.mainlayout.addSpacing(10)
 
         # --- more buttons
         self.devbtn = QPushButton("Developer Options")
-        self.devbtn.setStyleSheet(default_btn_qss)
+        self.devbtn.setStyleSheet(styles.d_btn(tlib.CURRENT))
         self.mainlayout.addWidget(self.devbtn)
 
         self.expbtn = QPushButton("Experimental")
-        self.expbtn.setStyleSheet(default_btn_qss)
+        self.expbtn.setStyleSheet(styles.d_btn(tlib.CURRENT))
         self.mainlayout.addWidget(self.expbtn)
 
         self.mainlayout.addSpacing(10)
@@ -314,8 +329,39 @@ class SettingsBar(QWidget):
         self.div3 = QFrame()
         self.div3.setFrameShape(QFrame.Shape.HLine)
         self.div3.setFrameShadow(QFrame.Shadow.Sunken)
-        self.div3.setStyleSheet("background-color: #1b1c1e")
-        self.div3.setFixedHeight(2)
+        self.div3.setStyleSheet(styles.d_div(tlib.CURRENT))
+        self.div3.setFixedHeight(1)
         self.mainlayout.addWidget(self.div3)
 
-        self.mainlayout.addStretch()
+        self.mainlayout.addStretch()\
+
+        self.group = QButtonGroup(self)
+
+        toindex = 0
+
+        for btn in (
+                self.generalbtn,
+                self.appearancebtn,
+                self.notifbtn,
+                self.soundbtn,
+                self.powerbtn,
+                self.aboutbtn,
+                self.updatesbtn,
+                self.storagebtn,
+                self.backupbtn,
+                self.recoverybtn,
+                self.devbtn,
+                self.expbtn,
+        ):
+            btn.setCheckable(True)
+            self.group.addButton(btn, toindex)
+            toindex += 1
+
+        self.group.setExclusive(True)
+
+        self.generalbtn.setChecked(True)
+
+        self.group.idClicked.connect(self.change_page)
+
+    def change_page(self, index):
+        self.stack.setCurrentIndex(index)

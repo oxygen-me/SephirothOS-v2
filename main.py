@@ -4,12 +4,11 @@ import json
 import subprocess
 from pathlib import Path
 from PySide6.QtWidgets import QApplication, QMessageBox
+
 from bootstrap import Bootstrapper
 from eventbus import mainBus
 from gitfetch import GitFetch
-
 from core.app import AppShell
-
 from api.ux.clock import ClockService
 
 viable_editions = ["[1] Basic", "[2] Workplace", "[3] Premium", "[4] Ultimate"]
@@ -121,6 +120,12 @@ def main():
     else:
         with open(cfg_path, "r", encoding="utf-8") as f:
             configdata = json.load(f)
+
+    # --- send theme flag to engine
+        themeflag = configdata["theme"]
+        mainBus.themeUpdate.emit(themeflag)
+        print(f"[main]: theme {themeflag}")
+
         window = AppShell(cfgdata=configdata)
         window.show()
 
@@ -143,3 +148,6 @@ def quit_app():
 # --- run function
 if __name__ == "__main__":
     main()
+
+    # todo: more debug prints
+    # todo: rest of default ui

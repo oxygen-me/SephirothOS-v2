@@ -1,27 +1,20 @@
 # --- general imports
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QSizePolicy, \
-    QStackedWidget, QFrame
+    QStackedWidget, QFrame, QButtonGroup
 from PySide6.QtCore import Qt
 from utils.fun.headliners import window_names
 import random
 
+from utils.themes import styles, tlib
+
 # --- get window title
 window_title = random.choice(window_names)
 
-# --- extra vars
-default_btn_qss = """
-                QPushButton { background-color: transparent; color: white; font-family: Segoe UI; font-size: 16px; padding-top: 10px; padding-bottom: 10px; }
-                QPushButton:hover { background-color: #1a1b20; }
-                QPushButton:pressed { background-color: #1a1b1d }
-                """
-
-selected_btn_qss = "background-color: #1a1b1d; color: white; font-family: Segoe UI; font-size: 16px; padding-top: 10px; padding-bottom: 10px;"
-
 # --- page imports
-from ui.home import HomePage
-from ui.applications import AppsPage
-from ui.settings import SettingsPage
-from ui.cli import CLIPage
+from ui.home import HomeTab
+from ui.applications import AppsTab
+from ui.settings import SettingsTab
+from ui.cli import CLITab
 
 # --- sidebar imports
 from ui.home import HomeBar
@@ -46,7 +39,7 @@ class AppShell(QWidget):
         self.showFullScreen()
 
         # --- set theme
-        self.setStyleSheet("background-color: #1d1f22; border-radius: 0px;")
+        self.setStyleSheet(styles.b_widget(tlib.CURRENT))
 
         # --- set main layout
         self.mainlayout = QVBoxLayout()
@@ -56,7 +49,7 @@ class AppShell(QWidget):
 
         # --- topbar
         self.topbar = QWidget()
-        self.topbar.setStyleSheet("background-color: #111215;")
+        self.topbar.setStyleSheet(styles.d_widget(tlib.CURRENT))
 
         # --- topbar layout
         self.topbarlayout = QHBoxLayout()
@@ -65,20 +58,16 @@ class AppShell(QWidget):
 
         # --- buttons
         self.homebtn = QPushButton("Home")
-        self.homebtn.setStyleSheet(selected_btn_qss)
-        self.homebtn.clicked.connect(self.switch_to_home)
+        self.homebtn.setStyleSheet(styles.d_btn(tlib.CURRENT))
 
         self.appsbtn = QPushButton("Apps")
-        self.appsbtn.setStyleSheet(default_btn_qss)
-        self.appsbtn.clicked.connect(self.switch_to_apps)
+        self.appsbtn.setStyleSheet(styles.d_btn(tlib.CURRENT))
 
         self.settingsbtn = QPushButton("Settings")
-        self.settingsbtn.setStyleSheet(default_btn_qss)
-        self.settingsbtn.clicked.connect(self.switch_to_settings)
+        self.settingsbtn.setStyleSheet(styles.d_btn(tlib.CURRENT))
 
         self.clibtn = QPushButton("CLI")
-        self.clibtn.setStyleSheet(default_btn_qss)
-        self.clibtn.clicked.connect(self.switch_to_cli)
+        self.clibtn.setStyleSheet(styles.d_btn(tlib.CURRENT))
 
         # --- arealayout
         self.arealayout = QHBoxLayout()
@@ -87,7 +76,7 @@ class AppShell(QWidget):
 
         # --- sidebar
         self.sidebar = QWidget()
-        self.sidebar.setStyleSheet("background-color: #111215;")
+        self.sidebar.setStyleSheet(styles.d_widget(tlib.CURRENT))
 
         # --- sidebar layout
         self.sidebarlayout = QVBoxLayout()
@@ -97,26 +86,26 @@ class AppShell(QWidget):
 
         # --- username
         self.username = QLabel(cfg["username"])
-        self.username.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 18px; font-weight: 600;")
+        self.username.setStyleSheet(styles.u_title(tlib.CURRENT))
 
         # --- user subtitle
         self.usersubtitle = QLabel("Veni, veni, venias, ne me mori facias.")
-        self.usersubtitle.setStyleSheet("background-color: transparent; color: #808080; font-family: Segoe UI; font-size: 14px; font-weight: 500;")
+        self.usersubtitle.setStyleSheet(styles.c_subtitle(tlib.CURRENT))
 
         # --- status
         self.status = QLabel("Online")
-        self.status.setStyleSheet("background-color: transparent; color: #808080; font-family: Segoe UI; font-size: 14px; font-weight: 500;")
+        self.status.setStyleSheet(styles.c_subtitle(tlib.CURRENT))
 
         # --- div object
         self.divobject = QFrame()
         self.divobject.setFrameShape(QFrame.Shape.HLine)
         self.divobject.setFrameShadow(QFrame.Shadow.Sunken)
-        self.divobject.setStyleSheet("background-color: #1b1c1e")
-        self.divobject.setFixedHeight(2)
+        self.divobject.setStyleSheet(styles.d_div(tlib.CURRENT))
+        self.divobject.setFixedHeight(1)
 
         # --- mainarea
         self.mainarea = QWidget()
-        self.mainarea.setStyleSheet("background-color: #111215;")
+        self.mainarea.setStyleSheet(styles.d_widget(tlib.CURRENT))
         self.mainarea.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
         # --- stackarea
@@ -150,10 +139,15 @@ class AppShell(QWidget):
         # --- stack
         self.stack = QStackedWidget()
 
-        self.stack.addWidget(HomePage(self.stack))
-        self.stack.addWidget(AppsPage(self.stack))
-        self.stack.addWidget(SettingsPage(self.stack))
-        self.stack.addWidget(CLIPage(self.stack))
+        self.home_tab = HomeTab(self.stack)
+        self.apps_tab = AppsTab(self.stack)
+        self.settings_tab = SettingsTab(self.stack)
+        self.cli_tab = CLITab(self.stack)
+
+        self.stack.addWidget(self.home_tab)
+        self.stack.addWidget(self.apps_tab)
+        self.stack.addWidget(self.settings_tab)
+        self.stack.addWidget(self.cli_tab)
 
         self.stack.setCurrentIndex(0)
 
@@ -162,10 +156,15 @@ class AppShell(QWidget):
         # --- side stack
         self.sidestack = QStackedWidget()
 
-        self.sidestack.addWidget(HomeBar(self.sidestack))
-        self.sidestack.addWidget(AppsBar(self.sidestack))
-        self.sidestack.addWidget(SettingsBar(self.sidestack))
-        self.sidestack.addWidget(CLIBar(self.sidestack))
+        self.home_bar = HomeBar(self.home_tab.homestack)
+        self.apps_bar = AppsBar(self.apps_tab.appstack)
+        self.settings_bar = SettingsBar(self.settings_tab.settingstack)
+        self.cli_bar = CLIBar(self.cli_tab.clistack)
+
+        self.sidestack.addWidget(self.home_bar)
+        self.sidestack.addWidget(self.apps_bar)
+        self.sidestack.addWidget(self.settings_bar)
+        self.sidestack.addWidget(self.cli_bar)
 
         self.sidestack.setCurrentIndex(0)
 
@@ -174,39 +173,27 @@ class AppShell(QWidget):
 
         self.sidebarlayout.addStretch()
 
+        self.group = QButtonGroup(self)
+
+        toindex = 0
+
+        for btn in (
+                self.homebtn,
+                self.appsbtn,
+                self.settingsbtn,
+                self.clibtn,
+        ):
+            btn.setCheckable(True)
+            self.group.addButton(btn, toindex)
+            toindex += 1
+
+        self.group.setExclusive(True)
+
+        self.homebtn.setChecked(True)
+
+        self.group.idClicked.connect(self.change_tab)
+
     # --- create button methods
-    def switch_to_home(self):
-        self.stack.setCurrentIndex(0)
-        self.sidestack.setCurrentIndex(0)
-
-        self.homebtn.setStyleSheet(selected_btn_qss)
-        self.appsbtn.setStyleSheet(default_btn_qss)
-        self.settingsbtn.setStyleSheet(default_btn_qss)
-        self.clibtn.setStyleSheet(default_btn_qss)
-
-    def switch_to_apps(self):
-        self.stack.setCurrentIndex(1)
-        self.sidestack.setCurrentIndex(1)
-
-        self.homebtn.setStyleSheet(default_btn_qss)
-        self.appsbtn.setStyleSheet(selected_btn_qss)
-        self.settingsbtn.setStyleSheet(default_btn_qss)
-        self.clibtn.setStyleSheet(default_btn_qss)
-
-    def switch_to_settings(self):
-        self.stack.setCurrentIndex(2)
-        self.sidestack.setCurrentIndex(2)
-
-        self.homebtn.setStyleSheet(default_btn_qss)
-        self.appsbtn.setStyleSheet(default_btn_qss)
-        self.settingsbtn.setStyleSheet(selected_btn_qss)
-        self.clibtn.setStyleSheet(default_btn_qss)
-
-    def switch_to_cli(self):
-        self.stack.setCurrentIndex(3)
-        self.sidestack.setCurrentIndex(3)
-
-        self.homebtn.setStyleSheet(default_btn_qss)
-        self.appsbtn.setStyleSheet(default_btn_qss)
-        self.settingsbtn.setStyleSheet(default_btn_qss)
-        self.clibtn.setStyleSheet(selected_btn_qss)
+    def change_tab(self, index):
+        self.stack.setCurrentIndex(index)
+        self.sidestack.setCurrentIndex(index)

@@ -10,5 +10,6 @@ class EventBus(QObject):
 
     # --- ux
     clockUpdated = Signal(object)
+    themeUpdate = Signal(str)
 
 mainBus = EventBus()

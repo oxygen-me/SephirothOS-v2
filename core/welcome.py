@@ -142,7 +142,7 @@ class LanguagePage(QWidget):
         self.subtitle = QLabel()
         self.subtitle.setWordWrap(True)
 
-        self.subtitle.setText('All languages come with a complimentary BOMB mailed DIRECTLY TO YOUR HOME. Quoth the Sephiroth, "seaux de pisse."')
+        self.subtitle.setText('All languages come with a complimentary BOMB mailed DIRECTLY TO YOUR HOME. Quoth the Roth, "seaux de pisse."')
         self.subtitle.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 24px; font-weight: 400;")
 
         # --- selection
