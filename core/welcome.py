@@ -147,6 +147,7 @@ class LanguagePage(QWidget):
 
         # --- selection
         self.selection = QComboBox()
+        self.selection.setStyleSheet("background-color: #15161a; color: white; font-family: Segoe UI; font-size: 16px; font-weight: 400;")
 
         languages = [
             "Normal",
@@ -160,14 +161,14 @@ class LanguagePage(QWidget):
             "Homosexual",
             "Italiano",
             "Português",
+            "Left Shoe",
             "日本語",
             "한국어",
             "中文",
+            "Craigish",
             "Русский",
             "Latin",
             "Sephiroth",
-            "Left Shoe",
-            "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
         ]
 
         self.selection.addItems(languages)
@@ -237,7 +238,7 @@ class ThemePage(QWidget):
         # --- selection
         self.selection = QComboBox()
 
-        self.selection.setStyleSheet("background-color: transparent;")
+        self.selection.setStyleSheet("background-color: #15161a; color: white; font-family: Segoe UI; font-size: 16px; font-weight: 400;")
 
         themes = [
             "Dark",
@@ -521,7 +522,8 @@ class FinishPage(QWidget):
 
     def next_page(self):
 
-        toWrite = {"username": username1}
+        toWrite = {"username": username1,
+                   "theme": "DARK"}
 
         with open(config_path, "w") as f:
             json.dump(toWrite, f, indent=4)

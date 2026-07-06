@@ -1,6 +1,6 @@
 # --- general imports
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QLabel, QPushButton, QSizePolicy, \
-    QStackedWidget, QFrame, QButtonGroup
+    QStackedWidget, QFrame, QButtonGroup, QScrollArea
 from PySide6.QtCore import Qt
 from utils.fun.headliners import window_names
 import random
@@ -128,10 +128,10 @@ class AppShell(QWidget):
         self.sidebarlayout.addSpacing(20)
         self.sidebarlayout.addWidget(self.divobject)
 
-        self.mainlayout.addWidget(self.topbar)
+        self.mainlayout.addWidget(self.topbar, 0)
+        self.mainlayout.addLayout(self.arealayout, 1)
 
-        self.mainlayout.addLayout(self.arealayout)
-        self.arealayout.addWidget(self.sidebar)
+        self.arealayout.addWidget(self.sidebar, 0)
         self.arealayout.addWidget(self.mainarea, 1)
 
         self.mainarea.setLayout(self.stackarea)
@@ -144,10 +144,10 @@ class AppShell(QWidget):
         self.settings_tab = SettingsTab(self.stack)
         self.cli_tab = CLITab(self.stack)
 
-        self.stack.addWidget(self.home_tab)
-        self.stack.addWidget(self.apps_tab)
-        self.stack.addWidget(self.settings_tab)
-        self.stack.addWidget(self.cli_tab)
+        self.stack.addWidget(make_scroll_page(self.home_tab))
+        self.stack.addWidget(make_scroll_page(self.apps_tab))
+        self.stack.addWidget(make_scroll_page(self.settings_tab))
+        self.stack.addWidget(make_scroll_page(self.cli_tab))
 
         self.stack.setCurrentIndex(0)
 
@@ -161,17 +161,34 @@ class AppShell(QWidget):
         self.settings_bar = SettingsBar(self.settings_tab.settingstack)
         self.cli_bar = CLIBar(self.cli_tab.clistack)
 
-        self.sidestack.addWidget(self.home_bar)
-        self.sidestack.addWidget(self.apps_bar)
-        self.sidestack.addWidget(self.settings_bar)
-        self.sidestack.addWidget(self.cli_bar)
+        self.sidestack.addWidget(make_scroll_page(self.home_bar))
+        self.sidestack.addWidget(make_scroll_page(self.apps_bar))
+        self.sidestack.addWidget(make_scroll_page(self.settings_bar))
+        self.sidestack.addWidget(make_scroll_page(self.cli_bar))
 
         self.sidestack.setCurrentIndex(0)
 
         self.sidebarlayout.addSpacing(20)
-        self.sidebarlayout.addWidget(self.sidestack)
 
-        self.sidebarlayout.addStretch()
+        self.sidebarlayout.addWidget(self.sidestack, 1)
+
+        # --- set expanding sizepolicy
+        self.sidestack.setSizePolicy(
+            QSizePolicy.Policy.Expanding,
+            QSizePolicy.Policy.Expanding
+        )
+
+        # --- set size policies for compatibility
+        self.sidebar.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
+        self.mainarea.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        self.stack.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+
+        self.topbar.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+
+        self.sidebar.setMinimumHeight(0)
+        self.sidestack.setMinimumHeight(0)
+
+        self.stack.setMinimumHeight(0)
 
         self.group = QButtonGroup(self)
 
@@ -197,3 +214,12 @@ class AppShell(QWidget):
     def change_tab(self, index):
         self.stack.setCurrentIndex(index)
         self.sidestack.setCurrentIndex(index)
+
+def make_scroll_page(widget):
+    scroll = QScrollArea()
+    scroll.setWidgetResizable(True)
+    scroll.setFrameShape(QFrame.Shape.NoFrame)
+    scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+    scroll.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
+    scroll.setWidget(widget)
+    return scroll
