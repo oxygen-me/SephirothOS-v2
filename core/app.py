@@ -221,5 +221,6 @@ def make_scroll_page(widget):
     scroll.setFrameShape(QFrame.Shape.NoFrame)
     scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
     scroll.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
+    scroll.setStyleSheet(styles.d_scroll(tlib.CURRENT))
     scroll.setWidget(widget)
     return scroll

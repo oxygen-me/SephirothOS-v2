@@ -209,3 +209,71 @@ def s_subtitle(t) -> str:
         border-radius: 0px;
     }}
     """
+
+def d_scroll(theme):
+    return f"""
+    QScrollArea {{
+        border: none;
+        background: transparent;
+    }}
+
+    QScrollArea > QWidget > QWidget {{
+        background: transparent;
+    }}
+
+    QScrollBar:vertical {{
+        background: transparent;
+        width: 8px;
+        margin: 4px 2px;
+    }}
+
+    QScrollBar::handle:vertical {{
+        background: {theme.selected};
+        border-radius: 0px;
+        min-height: 32px;
+    }}
+
+    QScrollBar::handle:vertical:hover {{
+        background: {theme.hover};
+    }}
+
+    QScrollBar::add-line:vertical,
+    QScrollBar::sub-line:vertical {{
+        height: 0px;
+        border: none;
+        background: transparent;
+    }}
+
+    QScrollBar::add-page:vertical,
+    QScrollBar::sub-page:vertical {{
+        background: transparent;
+    }}
+
+    QScrollBar:horizontal {{
+        background: transparent;
+        height: 8px;
+        margin: 2px 4px;
+    }}
+
+    QScrollBar::handle:horizontal {{
+        background: {theme.selected};
+        border-radius: 0px;
+        min-width: 32px;
+    }}
+
+    QScrollBar::handle:horizontal:hover {{
+        background: {theme.hover};
+    }}
+
+    QScrollBar::add-line:horizontal,
+    QScrollBar::sub-line:horizontal {{
+        width: 0px;
+        border: none;
+        background: transparent;
+    }}
+
+    QScrollBar::add-page:horizontal,
+    QScrollBar::sub-page:horizontal {{
+        background: transparent;
+    }}
+    """
