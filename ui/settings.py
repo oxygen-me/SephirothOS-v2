@@ -198,9 +198,9 @@ class GeneralPage(QWidget):
 
 
         # --- assemble layouts
-        self.seclayout.addLayout(self.hlayout)
-        self.hlayout.addLayout(self.leftlayout)
-        self.hlayout.addLayout(self.rightlayout)
+        self.seclayout.addLayout(self.hlayout, 3)
+        self.hlayout.addLayout(self.leftlayout, 3)
+        self.hlayout.addLayout(self.rightlayout, 2)
 
         # --- add widgets to layouts
         self.leftlayout.addWidget(self.syswidget)
@@ -210,7 +210,7 @@ class GeneralPage(QWidget):
         self.rightlayout.addWidget(self.startwidget)
         self.rightlayout.addWidget(self.psecwidget)
 
-        self.seclayout.addWidget(self.aboutwidget)
+        self.seclayout.addWidget(self.aboutwidget, 1)
 
 class SettingsBar(QWidget):
     def __init__(self, stack):

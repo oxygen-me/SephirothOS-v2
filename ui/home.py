@@ -1,15 +1,19 @@
 # --- imports
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QHBoxLayout, QPushButton, QFrame, QStackedWidget, \
-    QButtonGroup, QGroupBox, QSizePolicy
-from PySide6.QtCore import Qt, QSize
+    QButtonGroup, QGroupBox, QSizePolicy, QLineEdit, QTableWidget, QTableWidgetItem, QHeaderView, QProgressBar
+from PySide6.QtCore import Qt, QSize, QThread
 from PySide6.QtGui import QIcon, QPixmap
 
 from eventbus import mainBus
-
+from api.backend.hometab.dashboard import DashboardBackend
 from utils.fun.headliners import home_subtitles
+from utils.fun.tipquote import qotds, tips
 import random
 
 home_subtitle = random.choice(home_subtitles)
+qotd = random.choice(qotds)
+totd = random.choice(tips)
+tiptodisplay = totd
 
 from utils.themes import styles, tlib
 
@@ -50,6 +54,17 @@ class DashboardPage(QWidget):
 
         # --- store stack
         self.stack = homestack
+
+        # --- create backend thread
+        self.dashboard_thread = QThread(self)
+        self.dashboard_backend = DashboardBackend()
+
+        self.dashboard_backend.moveToThread(self.dashboard_thread)
+
+        self.dashboard_thread.started.connect(self.dashboard_backend.start)
+        self.dashboard_backend.updated.connect(self.update_dashboard)
+
+        self.dashboard_thread.start()
 
         # --- configure bg to be transparent
         self.setStyleSheet(styles.t_widget(tlib.CURRENT))
@@ -141,8 +156,8 @@ class DashboardPage(QWidget):
         self.rightlayout.setSpacing(20)
 
         # --- assemble layouts
-        self.seclayout.addLayout(self.leftlayout)
-        self.seclayout.addLayout(self.rightlayout)
+        self.seclayout.addLayout(self.leftlayout, 5)
+        self.seclayout.addLayout(self.rightlayout, 2)
 
         self.leftlayout.addLayout(self.tllayout)
         self.leftlayout.addLayout(self.bllayout)
@@ -150,7 +165,7 @@ class DashboardPage(QWidget):
         # --- make widgets
         # --------------------------
 
-        # --- top left
+        # --- top system widget
         self.syswidget = QWidget()
         self.syswidget.setStyleSheet(styles.c_widget(tlib.CURRENT))
 
@@ -163,8 +178,42 @@ class DashboardPage(QWidget):
         self.systitle.setStyleSheet(styles.c_title(tlib.CURRENT))
         self.syswidgetlayout.addWidget(self.systitle)
 
+        self.syswidgetlayout.addSpacing(20)
+
+        self.status1 = QLabel("")
+        self.status1.setStyleSheet(styles.c_body(tlib.CURRENT))
+        self.syswidgetlayout.addWidget(self.status1)
+        self.status2 = QLabel("")
+        self.status2.setStyleSheet(styles.c_body(tlib.CURRENT))
+        self.syswidgetlayout.addWidget(self.status2)
+        self.status3 = QLabel("")
+        self.status3.setStyleSheet(styles.c_body(tlib.CURRENT))
+        self.syswidgetlayout.addWidget(self.status3)
+
         self.syswidgetlayout.addStretch()
 
+        self.sysdiv = QFrame()
+        self.sysdiv.setFrameShape(QFrame.Shape.HLine)
+        self.sysdiv.setFrameShadow(QFrame.Shadow.Sunken)
+        self.sysdiv.setStyleSheet(styles.c_div(tlib.CURRENT))
+        self.sysdiv.setFixedHeight(1)
+
+        self.syswidgetlayout.addWidget(self.sysdiv)
+
+        self.sysbottomrow = QHBoxLayout()
+        self.sysbottomrow.setContentsMargins(0, 0, 0, 0)
+        self.sysbottomrow.setSpacing(0)
+        self.syswidgetlayout.addLayout(self.sysbottomrow)
+
+        self.syssubtitle = QLabel("Last checked: just now")
+        self.syssubtitle.setStyleSheet(styles.c_subtitle(tlib.CURRENT))
+        self.sysbottomrow.addWidget(self.syssubtitle)
+
+        self.nothingbtn = QPushButton("Check Again")
+        self.nothingbtn.setStyleSheet(styles.c_btn(tlib.CURRENT))
+        self.sysbottomrow.addWidget(self.nothingbtn, alignment=Qt.AlignmentFlag.AlignRight)
+
+        # --- tip widget
         self.tipwidget = QWidget()
         self.tipwidget.setStyleSheet(styles.c_widget(tlib.CURRENT))
 
@@ -177,7 +226,36 @@ class DashboardPage(QWidget):
         self.tiptitle.setStyleSheet(styles.c_title(tlib.CURRENT))
         self.tipwidgetlayout.addWidget(self.tiptitle)
 
-        self.tipwidgetlayout.addStretch()
+        self.tipwidgetlayout.addStretch(1)
+
+        self.tiplabel = QLabel(tiptodisplay)
+        self.tiplabel.setWordWrap(True)
+        self.tiplabel.setStyleSheet(styles.c_title(tlib.CURRENT))
+        self.tipwidgetlayout.addWidget(self.tiplabel)
+
+        self.tipwidgetlayout.addStretch(2)
+
+        self.tipdiv = QFrame()
+        self.tipdiv.setFrameShape(QFrame.Shape.HLine)
+        self.tipdiv.setFrameShadow(QFrame.Shadow.Sunken)
+        self.tipdiv.setStyleSheet(styles.c_div(tlib.CURRENT))
+        self.tipdiv.setFixedHeight(1)
+
+        self.tipwidgetlayout.addWidget(self.tipdiv)
+
+        self.tipbottomrow = QHBoxLayout()
+        self.tipbottomrow.setContentsMargins(0, 0, 0, 0)
+        self.tipbottomrow.setSpacing(0)
+        self.tipwidgetlayout.addLayout(self.tipbottomrow)
+
+        self.tipsubtitle = QLabel(f"Tip #{str(tips.index(tiptodisplay) + 1)}")
+        self.tipsubtitle.setStyleSheet(styles.c_subtitle(tlib.CURRENT))
+        self.tipbottomrow.addWidget(self.tipsubtitle)
+
+        self.nexttipbtn = QPushButton("Next Tip")
+        self.nexttipbtn.setStyleSheet(styles.c_btn(tlib.CURRENT))
+        self.nexttipbtn.clicked.connect(self.nextTip)
+        self.tipbottomrow.addWidget(self.nexttipbtn, alignment=Qt.AlignmentFlag.AlignRight)
 
         self.quotewidget = QWidget()
         self.quotewidget.setStyleSheet(styles.c_widget(tlib.CURRENT))
@@ -192,6 +270,28 @@ class DashboardPage(QWidget):
         self.quotewidgetlayout.addWidget(self.quotetitle)
 
         self.quotewidgetlayout.addStretch()
+
+        self.quotelabel = QLabel('"' + qotd + '"')
+        self.quotelabel.setWordWrap(True)
+        self.quotelabel.setStyleSheet(styles.c_title(tlib.CURRENT))
+        self.quotewidgetlayout.addWidget(self.quotelabel)
+
+        self.quotefrom = QLabel("– Sephiroth")
+        self.quotefrom.setStyleSheet(styles.c_body(tlib.CURRENT))
+        self.quotewidgetlayout.addWidget(self.quotefrom)
+
+        self.quotewidgetlayout.addStretch()
+
+        self.quotediv = QFrame()
+        self.quotediv.setFrameShape(QFrame.Shape.HLine)
+        self.quotediv.setFrameShadow(QFrame.Shadow.Sunken)
+        self.quotediv.setStyleSheet(styles.c_div(tlib.CURRENT))
+        self.quotediv.setFixedHeight(1)
+        self.quotewidgetlayout.addWidget(self.quotediv)
+
+        self.inspirebtn = QPushButton("Inspire Me")
+        self.inspirebtn.setStyleSheet(styles.c_btn(tlib.CURRENT))
+        self.quotewidgetlayout.addWidget(self.inspirebtn, alignment=Qt.AlignmentFlag.AlignRight)
 
         # --- bottom left
         self.announcementwidget = QWidget()
@@ -235,7 +335,180 @@ class DashboardPage(QWidget):
         self.perftitle.setStyleSheet(styles.c_title(tlib.CURRENT))
         self.perfwidgetlayout.addWidget(self.perftitle)
 
-        self.perfwidgetlayout.addStretch()
+        self.perfdiv1 = QFrame()
+        self.perfdiv1.setFrameShape(QFrame.Shape.HLine)
+        self.perfdiv1.setFrameShadow(QFrame.Shadow.Sunken)
+        self.perfdiv1.setStyleSheet(styles.c_div(tlib.CURRENT))
+        self.perfdiv1.setFixedHeight(1)
+        self.perfwidgetlayout.addWidget(self.perfdiv1)
+
+        self.perfgraphslayout = QVBoxLayout()
+        self.perfgraphslayout.setContentsMargins(0, 0, 0, 0)
+        self.perfgraphslayout.setSpacing(0)
+        self.perfwidgetlayout.addLayout(self.perfgraphslayout, 1)
+
+        self.cpu_usage_title = QLabel("CPU Usage")
+        self.ram_usage_title = QLabel("RAM")
+        self.disk_usage_title = QLabel("Disk")
+        self.extra_usage_title = QLabel("Piss")
+
+        for i in [
+            self.cpu_usage_title,
+            self.ram_usage_title,
+            self.disk_usage_title,
+            self.extra_usage_title,
+        ]:
+            i.setStyleSheet(styles.c_title(tlib.CURRENT))
+
+        self.cpu_usage_subtitle = QLabel("Thinking very hard. Hahaha. Hard...")
+        self.cpu_usage_subtitle.setStyleSheet(styles.c_subtitle(tlib.CURRENT))
+        self.ram_usage_subtitle = QLabel("Apparently enough to run this.")
+        self.ram_usage_subtitle.setStyleSheet(styles.c_subtitle(tlib.CURRENT))
+        self.disk_usage_subtitle = QLabel("I am selling your data as we speak.")
+        self.disk_usage_subtitle.setStyleSheet(styles.c_subtitle(tlib.CURRENT))
+        self.extra_usage_subtitle = QLabel("Bottom text")
+        self.extra_usage_subtitle.setStyleSheet(styles.c_subtitle(tlib.CURRENT))
+
+        if i in [
+            self.cpu_usage_subtitle,
+            self.ram_usage_subtitle,
+            self.disk_usage_subtitle,
+            self.extra_usage_subtitle,
+        ]:
+            i.setStyleSheet(styles.c_subtitle(tlib.CURRENT))
+
+        self.cpu_usage_perc = QLabel("")
+        self.ram_usage_perc = QLabel("")
+        self.disk_usage_perc = QLabel("")
+        self.extra_usage_perc = QLabel("")
+
+        for i in [
+            self.cpu_usage_perc,
+            self.ram_usage_perc,
+            self.disk_usage_perc,
+            self.extra_usage_perc,
+        ]:
+            i.setStyleSheet(styles.c_title(tlib.CURRENT))
+
+        self.cpubar = QProgressBar()
+        self.cpubar.setRange(0, 100)
+        self.cpubar.setStyleSheet(styles.x_pbar(tlib.CURRENT, "#38BDF8"))
+        self.cpubar.setTextVisible(False)
+        self.cpubar.setFixedHeight(6)
+
+        self.rambar = QProgressBar()
+        self.rambar.setRange(0, 100)
+        self.rambar.setStyleSheet(styles.x_pbar(tlib.CURRENT, "#844bdd"))
+        self.rambar.setTextVisible(False)
+        self.rambar.setFixedHeight(6)
+
+        self.diskbar = QProgressBar()
+        self.diskbar.setRange(0, 100)
+        self.diskbar.setStyleSheet(styles.x_pbar(tlib.CURRENT, "#63e45f"))
+        self.diskbar.setTextVisible(False)
+        self.diskbar.setFixedHeight(6)
+
+        self.extrabar = QProgressBar()
+        self.extrabar.setRange(0, 100)
+        self.extrabar.setStyleSheet(styles.x_pbar(tlib.CURRENT, "#ffff00"))
+        self.extrabar.setTextVisible(False)
+        self.extrabar.setFixedHeight(6)
+
+        self.cpu_layout = QVBoxLayout()
+        self.cpu_layout.setContentsMargins(0, 0, 0, 0)
+        self.cpu_layout.setSpacing(0)
+
+        self.ram_layout = QVBoxLayout()
+        self.ram_layout.setContentsMargins(0, 0, 0, 0)
+        self.ram_layout.setSpacing(0)
+
+        self.disk_layout = QVBoxLayout()
+        self.disk_layout.setContentsMargins(0, 0, 0, 0)
+        self.disk_layout.setSpacing(0)
+
+        self.extra_layout = QVBoxLayout()
+        self.extra_layout.setContentsMargins(0, 0, 0, 0)
+        self.extra_layout.setSpacing(0)
+
+        self.mincpulayout = QVBoxLayout()
+        self.mincpulayout.setContentsMargins(0, 0, 0, 0)
+        self.mincpulayout.setSpacing(0)
+        self.mincpulayout.addWidget(self.cpu_usage_title)
+        self.mincpulayout.addWidget(self.cpu_usage_subtitle)
+
+        self.minramlayout = QVBoxLayout()
+        self.minramlayout.setContentsMargins(0, 0, 0, 0)
+        self.minramlayout.setSpacing(0)
+        self.minramlayout.addWidget(self.ram_usage_title)
+        self.minramlayout.addWidget(self.ram_usage_subtitle)
+
+        self.mindisklayout = QVBoxLayout()
+        self.mindisklayout.setContentsMargins(0, 0, 0, 0)
+        self.mindisklayout.setSpacing(0)
+        self.mindisklayout.addWidget(self.disk_usage_title)
+        self.mindisklayout.addWidget(self.disk_usage_subtitle)
+
+        self.minextralayout = QVBoxLayout()
+        self.minextralayout.setContentsMargins(0, 0, 0, 0)
+        self.minextralayout.setSpacing(0)
+        self.minextralayout.addWidget(self.extra_usage_title)
+        self.minextralayout.addWidget(self.extra_usage_subtitle)
+
+        self.cpu_row = QHBoxLayout()
+        self.cpu_row.setContentsMargins(0, 0, 0, 0)
+        self.cpu_row.setSpacing(0)
+        self.cpu_row.addLayout(self.mincpulayout)
+        self.cpu_row.addWidget(self.cpu_usage_perc, alignment=Qt.AlignmentFlag.AlignRight)
+
+        self.ram_row = QHBoxLayout()
+        self.ram_row.setContentsMargins(0, 0, 0, 0)
+        self.ram_row.setSpacing(0)
+        self.ram_row.addLayout(self.minramlayout)
+        self.ram_row.addWidget(self.ram_usage_perc, alignment=Qt.AlignmentFlag.AlignRight)
+
+        self.disk_row = QHBoxLayout()
+        self.disk_row.setContentsMargins(0, 0, 0, 0)
+        self.disk_row.setSpacing(0)
+        self.disk_row.addLayout(self.mindisklayout)
+        self.disk_row.addWidget(self.disk_usage_perc, alignment=Qt.AlignmentFlag.AlignRight)
+
+        self.extra_row = QHBoxLayout()
+        self.extra_row.setContentsMargins(0, 0, 0, 0)
+        self.extra_row.setSpacing(0)
+        self.extra_row.addLayout(self.minextralayout)
+        self.extra_row.addWidget(self.extra_usage_perc, alignment=Qt.AlignmentFlag.AlignRight)
+
+        self.cpu_layout.addLayout(self.cpu_row)
+        self.cpu_layout.addSpacing(10)
+        self.cpu_layout.addWidget(self.cpubar)
+
+        self.cpu_layout.addStretch()
+
+
+        self.ram_layout.addLayout(self.ram_row)
+        self.ram_layout.addSpacing(10)
+        self.ram_layout.addWidget(self.rambar)
+
+        self.ram_layout.addStretch()
+
+
+        self.disk_layout.addLayout(self.disk_row)
+        self.disk_layout.addSpacing(10)
+        self.disk_layout.addWidget(self.diskbar)
+
+        self.disk_layout.addStretch()
+
+
+        self.extra_layout.addLayout(self.extra_row)
+        self.extra_layout.addSpacing(10)
+        self.extra_layout.addWidget(self.extrabar)
+
+        self.extra_layout.addStretch()
+
+        self.perfgraphslayout.addLayout(self.cpu_layout)
+        self.perfgraphslayout.addLayout(self.ram_layout)
+        self.perfgraphslayout.addLayout(self.disk_layout)
+        self.perfgraphslayout.addLayout(self.extra_layout)
 
         self.storagewidget = QWidget()
         self.storagewidget.setStyleSheet(styles.c_widget(tlib.CURRENT))
@@ -251,6 +524,31 @@ class DashboardPage(QWidget):
 
         self.storagewidgetlayout.addStretch()
 
+        self.drivename = QLabel(r"C:\ (Your Mom's House)")
+        self.drivename.setStyleSheet(styles.c_body(tlib.CURRENT))
+        self.storagewidgetlayout.addWidget(self.drivename)
+
+        self.storagebar = QProgressBar()
+        self.storagebar.setStyleSheet(styles.x_pbar(tlib.CURRENT, "#ffffff"))
+        self.storagebar.setFixedHeight(6)
+        self.storagebar.setRange(1, 100)
+        self.storagewidgetlayout.addWidget(self.storagebar)
+
+        self.inforow = QHBoxLayout()
+        self.inforow.setContentsMargins(0, 0, 0, 0)
+        self.inforow.setSpacing(0)
+        self.storagewidgetlayout.addLayout(self.inforow)
+
+        self.foa = QLabel("")
+        self.foa.setStyleSheet(styles.c_body(tlib.CURRENT))
+        self.inforow.addWidget(self.foa)
+
+        self.storage_perc = QLabel("")
+        self.storage_perc.setStyleSheet(styles.c_title(tlib.CURRENT))
+        self.inforow.addWidget(self.storage_perc, alignment=Qt.AlignmentFlag.AlignRight)
+
+        self.storagewidgetlayout.addStretch()
+
         # --- add widgets to layouts
         self.tllayout.addWidget(self.syswidget)
         self.tllayout.addWidget(self.tipwidget)
@@ -259,14 +557,45 @@ class DashboardPage(QWidget):
         self.bllayout.addWidget(self.announcementwidget)
         self.bllayout.addWidget(self.appswidget)
 
-        self.rightlayout.addWidget(self.perfwidget)
-        self.rightlayout.addWidget(self.storagewidget)
+        self.rightlayout.addWidget(self.perfwidget, 3)
+        self.rightlayout.addWidget(self.storagewidget, 1)
 
     # --- clock update function
     def onClockUpdated(self, now):
         self.clock.setText(now.strftime("%I:%M %p"))
         self.date.setText(now.strftime("%A, %B %d, %Y"))
 
+    def nextTip(self):
+        global tiptodisplay
+        if tips.index(tiptodisplay) == len(tips) - 1:
+            tiptodisplay = tips[0]
+        else:
+            tiptodisplay = tips[tips.index(tiptodisplay) + 1]
+
+        self.tiplabel.setText(tiptodisplay)
+        self.tipsubtitle.setText(f"Tip #{str(tips.index(tiptodisplay) + 1)}")
+
+    # --- update the dashboard using backend like a fish from fishland
+    def update_dashboard(self, snapshot):
+        self.status1.setText(snapshot.status[0])
+        self.status2.setText(snapshot.status[1])
+        self.status3.setText(snapshot.status[2])
+
+        self.cpubar.setValue(snapshot.performance.cpu)
+        self.cpu_usage_perc.setText(str(snapshot.performance.cpu) + "%")
+
+        self.rambar.setValue(snapshot.performance.ram)
+        self.ram_usage_perc.setText(str(snapshot.performance.ram) + "%")
+
+        self.diskbar.setValue(int(snapshot.performance.disk_active))
+        self.disk_usage_perc.setText(f"{snapshot.performance.disk_active:.1f}%")
+
+        self.extrabar.setValue(random.randint(1, 100))
+        self.extra_usage_perc.setText(str(random.randint(1, 100)) + "%")
+
+        self.foa.setText(f"{snapshot.storage.free_text} free of {snapshot.storage.total_text}")
+        self.storagebar.setValue(snapshot.storage.percent)
+        self.storage_perc.setText(str(snapshot.storage.percent) + "%")
 
 
 class NotificationsPage(QWidget):
@@ -351,7 +680,7 @@ class NotificationsPage(QWidget):
         # --- unread layout
         self.unreadlayout = QVBoxLayout()
         self.unreadlayout.setContentsMargins(0, 0, 0, 0)
-        self.unreadlayout.setSpacing(5)
+        self.unreadlayout.setSpacing(0)
 
         # --- unread label
         self.unreadlabel = QLabel("Unread")
@@ -363,7 +692,7 @@ class NotificationsPage(QWidget):
         # --- earlier layout
         self.earlierlayout = QVBoxLayout()
         self.earlierlayout.setContentsMargins(0, 0, 0, 0)
-        self.earlierlayout.setSpacing(5)
+        self.earlierlayout.setSpacing(0)
 
         # --- earlier label
         self.earlierlabel = QLabel("Earlier")
@@ -491,6 +820,12 @@ class ActivityPage(QWidget):
         self.mainlayout.setSpacing(20)
         self.setLayout(self.mainlayout)
 
+        # --- create toprow
+        self.toprow = QHBoxLayout()
+        self.toprow.setContentsMargins(0, 0, 0, 0)
+        self.toprow.setSpacing(20)
+        self.mainlayout.addLayout(self.toprow)
+
         # --- create title box
         self.titlebox = QVBoxLayout()
         self.titlebox.setContentsMargins(0, 0, 0, 0)
@@ -506,8 +841,183 @@ class ActivityPage(QWidget):
         self.subtitle.setStyleSheet(styles.p_subtitle(tlib.CURRENT))
         self.titlebox.addWidget(self.subtitle)
 
-        # --- add titlebox to main
-        self.mainlayout.addLayout(self.titlebox)
+        # --- add titlebox to toprow
+        self.toprow.addLayout(self.titlebox)
+
+        self.toprow.addStretch()
+
+        # --- process search bar
+        self.searchbar = QLineEdit()
+        self.searchbar.setPlaceholderText("Search processes...")
+        self.searchbar.setStyleSheet(styles.d_sbar(tlib.CURRENT))
+        self.toprow.addWidget(self.searchbar)
+
+        # --- buttons
+        self.newtaskbtn = QPushButton("Run new task")
+        self.newtaskbtn.setStyleSheet(styles.n_btn(tlib.CURRENT))
+        self.toprow.addWidget(self.newtaskbtn)
+
+        self.endtaskbtn = QPushButton("End task")
+        self.endtaskbtn.setStyleSheet(styles.n_btn(tlib.CURRENT))
+        self.toprow.addWidget(self.endtaskbtn)
+
+        self.extrasbtn = QPushButton(".svg")
+        self.extrasbtn.setStyleSheet(styles.n_btn(tlib.CURRENT))
+        self.toprow.addWidget(self.extrasbtn)
+
+        # --- create btnlayout
+        self.btnlayout = QHBoxLayout()
+        self.btnlayout.setContentsMargins(0, 0, 0, 0)
+        self.btnlayout.setSpacing(20)
+        self.mainlayout.addLayout(self.btnlayout)
+
+        # --- buttons
+        self.procbtn = QPushButton("Processes")
+        self.procbtn.setStyleSheet(styles.n_btn(tlib.CURRENT))
+        self.btnlayout.addWidget(self.procbtn)
+
+        self.perfbtn = QPushButton("Performance")
+        self.perfbtn.setStyleSheet(styles.n_btn(tlib.CURRENT))
+        self.btnlayout.addWidget(self.perfbtn)
+
+        self.startbtn = QPushButton("Startup Apps")
+        self.startbtn.setStyleSheet(styles.n_btn(tlib.CURRENT))
+        self.btnlayout.addWidget(self.startbtn)
+
+        self.userbtn = QPushButton("Users")
+        self.userbtn.setStyleSheet(styles.n_btn(tlib.CURRENT))
+        self.btnlayout.addWidget(self.userbtn)
+
+        self.detailbtn = QPushButton("Details")
+        self.detailbtn.setStyleSheet(styles.n_btn(tlib.CURRENT))
+        self.btnlayout.addWidget(self.detailbtn)
+
+        self.servbtn = QPushButton("Services")
+        self.servbtn.setStyleSheet(styles.n_btn(tlib.CURRENT))
+        self.btnlayout.addWidget(self.servbtn)
+
+        self.btnlayout.addStretch()
+
+        # --- graph row
+        self.graphrow = QHBoxLayout()
+        self.graphrow.setContentsMargins(0, 0, 0, 0)
+        self.graphrow.setSpacing(20)
+        self.mainlayout.addLayout(self.graphrow)
+
+        # --- graph cards
+        self.cpucard = QWidget()
+        self.cpucard.setStyleSheet(styles.c_widget(tlib.CURRENT))
+
+        self.cpulayout = QVBoxLayout()
+        self.cpulayout.setContentsMargins(20, 20, 20, 20)
+        self.cpulayout.setSpacing(0)
+        self.cpucard.setLayout(self.cpulayout)
+
+        self.cpulabel = QLabel("CPU")
+        self.cpulabel.setStyleSheet(styles.c_title(tlib.CURRENT))
+        self.cpulayout.addWidget(self.cpulabel)
+
+        self.graphrow.addWidget(self.cpucard)
+
+
+        self.memcard = QWidget()
+        self.memcard.setStyleSheet(styles.c_widget(tlib.CURRENT))
+
+        self.memlayout = QVBoxLayout()
+        self.memlayout.setContentsMargins(20, 20, 20, 20)
+        self.memlayout.setSpacing(0)
+        self.memcard.setLayout(self.memlayout)
+
+        self.memlabel = QLabel("Memory")
+        self.memlabel.setStyleSheet(styles.c_title(tlib.CURRENT))
+        self.memlayout.addWidget(self.memlabel)
+
+        self.graphrow.addWidget(self.memcard)
+
+
+        self.diskcard = QWidget()
+        self.diskcard.setStyleSheet(styles.c_widget(tlib.CURRENT))
+
+        self.disklayout = QVBoxLayout()
+        self.disklayout.setContentsMargins(20, 20, 20, 20)
+        self.disklayout.setSpacing(0)
+        self.diskcard.setLayout(self.disklayout)
+
+        self.disklabel = QLabel("Disk")
+        self.disklabel.setStyleSheet(styles.c_title(tlib.CURRENT))
+        self.disklayout.addWidget(self.disklabel)
+
+        self.graphrow.addWidget(self.diskcard)
+
+
+        self.netcard = QWidget()
+        self.netcard.setStyleSheet(styles.c_widget(tlib.CURRENT))
+
+        self.netlayout = QVBoxLayout()
+        self.netlayout.setContentsMargins(20, 20, 20, 20)
+        self.netlayout.setSpacing(0)
+        self.netcard.setLayout(self.netlayout)
+
+        self.netlabel = QLabel("Network")
+        self.netlabel.setStyleSheet(styles.c_title(tlib.CURRENT))
+        self.netlayout.addWidget(self.netlabel)
+
+        self.graphrow.addWidget(self.netcard)
+
+
+        self.gpucard = QWidget()
+        self.gpucard.setStyleSheet(styles.c_widget(tlib.CURRENT))
+
+        self.gpulayout = QVBoxLayout()
+        self.gpulayout.setContentsMargins(20, 20, 20, 20)
+        self.gpulayout.setSpacing(0)
+        self.gpucard.setLayout(self.gpulayout)
+
+        self.gpulabel = QLabel("GPU")
+        self.gpulabel.setStyleSheet(styles.c_title(tlib.CURRENT))
+        self.gpulayout.addWidget(self.gpulabel)
+
+        self.graphrow.addWidget(self.gpucard)
+
+        # --- table card
+        self.table_card = QWidget()
+        self.table_card.setStyleSheet(styles.c_widget(tlib.CURRENT))
+        self.table_layout = QVBoxLayout()
+        self.table_layout.setContentsMargins(20, 20, 20, 20)
+        self.table_layout.setSpacing(20)
+        self.table_card.setLayout(self.table_layout)
+
+        # --- process table
+        self.table = QTableWidget()
+        self.table.setColumnCount(8)
+        self.table.setHorizontalHeaderLabels([
+            "Name", "Status", "CPU", "Memory", "Disk", "Network", "GPU", "Power usage"
+        ])
+        self.table.verticalHeader().setVisible(False)
+        self.table.setShowGrid(False)
+        self.table.setAlternatingRowColors(True)
+        self.table.setSelectionBehavior(QTableWidget.SelectionBehavior.SelectRows)
+        self.table.setEditTriggers(QTableWidget.EditTrigger.NoEditTriggers)
+
+        header = self.table.horizontalHeader()
+        header.setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        header.setSectionResizeMode(0, QHeaderView.ResizeMode.Interactive)
+
+        self.table_layout.addWidget(self.table)
+        self.mainlayout.addWidget(self.table_card)
+
+        self.mainlayout.addStretch()
+
+    def add_process(self, name, status, cpu, memory, disk, network, gpu, power):
+        row = self.table.rowCount()
+        self.table.insertRow(row)
+
+        values = [name, status, cpu, memory, disk, network, gpu, power]
+
+        for col, value in enumerate(values):
+            item = QTableWidgetItem(value)
+            item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsEditable)
+            self.table.setItem(row, col, item)
 
 
 

@@ -11,16 +11,18 @@ class Theme:
     hover: str
     selected: str
     border: str
+    border2: str
 
 DARK = Theme(
     bg="#1d1f22",
     mg="#111215",
     fg="#ffffff",
     sub="#808080",
-    accent="#1d1f22",
-    hover="#1d1f22",
+    accent="#63e45f",
+    hover="#202226",
     selected="#1a1b1d",
     border="#1b1c1e",
+    border2="#808080"
 )
 
 LIGHT = Theme(
@@ -32,6 +34,7 @@ LIGHT = Theme(
     hover="#1d1f22",
     selected="#1a1b1d",
     border="#1b1c1e",
+    border2="#808080"
 )
 
 CURRENT = DARK

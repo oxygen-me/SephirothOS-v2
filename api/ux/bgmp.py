@@ -11,7 +11,7 @@ class BGMPlayer:
 
         self.player.setAudioOutput(self.audio)
         self.player.setLoops(QMediaPlayer.Loops.Infinite)
-        self.audio.setVolume(0.3)
+        self.audio.setVolume(0)
 
         self.player.setSource(QUrl("qrc:///DefaultSoundtrack.mp3"))
 

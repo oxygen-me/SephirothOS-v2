@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="fixed every single bug (this is all your fault don)">
+    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="made it look better or something idk ask steve">
+      <change afterPath="$PROJECT_DIR$/api/backend/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/backend/hometab/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/backend/hometab/dashboard.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/config.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utils/fun/tipquote.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Code.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Code.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/sysinfo.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/ux/bgmp.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/ux/bgmp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/home.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/home.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utils/themes/styles.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/themes/styles.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/themes/tlib.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/themes/tlib.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,10 +84,10 @@
       <recent name="C:\Users\bradl\SephV2Project\Code" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\bradl\SephV2Project\Code\utils" />
       <recent name="C:\Users\bradl\SephV2Project\Code\api\ux" />
       <recent name="C:\Users\bradl\SephV2Project\Code\api\marketplace" />
       <recent name="C:\Users\bradl\SephV2Project\Code\api" />
-      <recent name="C:\Users\bradl\SephV2Project\Code\utils" />
       <recent name="C:\Users\bradl\SephV2Project\Code" />
     </key>
   </component>
@@ -113,15 +124,7 @@
       <workItem from="1783197416461" duration="36002000" />
       <workItem from="1783285328267" duration="28972000" />
       <workItem from="1783367306444" duration="21000" />
-      <workItem from="1783368106944" duration="9404000" />
-    </task>
-    <task id="LOCAL-00050" summary="fish">
-      <option name="closed" value="true" />
-      <created>1783135748725</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1783135748725</updated>
+      <workItem from="1783368106944" duration="36619000" />
     </task>
     <task id="LOCAL-00051" summary="created package">
       <option name="closed" value="true" />
@@ -507,7 +510,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783375603834</updated>
     </task>
-    <option name="localTasksCounter" value="99" />
+    <task id="LOCAL-00099" summary="made it look better or something idk ask steve">
+      <option name="closed" value="true" />
+      <created>1783378400475</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1783378400475</updated>
+    </task>
+    <option name="localTasksCounter" value="100" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -525,7 +536,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="auto" />
     <MESSAGE value="refactor mkpi" />
     <MESSAGE value="create marketplace api dir" />
     <MESSAGE value="create api/marketplace/mkpf.pi" />
@@ -550,7 +560,8 @@
     <MESSAGE value="good f+++ing luck figuring this one out" />
     <MESSAGE value="what are we gonna fight the f+++ing sun?" />
     <MESSAGE value="fixed every single bug (this is all your fault don)" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed every single bug (this is all your fault don)" />
+    <MESSAGE value="made it look better or something idk ask steve" />
+    <option name="LAST_COMMIT_MESSAGE" value="made it look better or something idk ask steve" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -573,7 +584,7 @@
     <SUITE FILE_PATH="coverage/Code$tlib.coverage" NAME="tlib Coverage Results" MODIFIED="1783301795316" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils/themes" />
     <SUITE FILE_PATH="coverage/Code$mkpd.coverage" NAME="mkpd Coverage Results" MODIFIED="1783145402166" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/api" />
     <SUITE FILE_PATH="coverage/Code$welcome.coverage" NAME="welcome Coverage Results" MODIFIED="1783121952366" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
-    <SUITE FILE_PATH="coverage/Code$main.coverage" NAME="main Coverage Results" MODIFIED="1783378200212" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Code$main.coverage" NAME="main Coverage Results" MODIFIED="1783406930197" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Code$app.coverage" NAME="app Coverage Results" MODIFIED="1783286208009" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
     <SUITE FILE_PATH="coverage/Code$sysinfo.coverage" NAME="sysinfo Coverage Results" MODIFIED="1783285884304" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/api" />
     <SUITE FILE_PATH="coverage/Code$cli.coverage" NAME="cli Coverage Results" MODIFIED="1783297751615" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ui" />
