@@ -114,7 +114,7 @@ def main():
         app.bgm.start_music()
 
     if lcn["flag"] == "seth67":
-        from core.welcome import WelcomeWindow
+        from core.onboarding.welcome import WelcomeWindow
         intro = WelcomeWindow()
         intro.show()
     else:
