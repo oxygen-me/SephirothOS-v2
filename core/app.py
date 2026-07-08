@@ -49,7 +49,7 @@ class AppShell(QWidget):
 
         # --- topbar
         self.topbar = QWidget()
-        self.topbar.setStyleSheet(styles.d_widget(tlib.CURRENT))
+        self.topbar.setStyleSheet(styles.l_widget(tlib.CURRENT))
 
         # --- topbar layout
         self.topbarlayout = QHBoxLayout()

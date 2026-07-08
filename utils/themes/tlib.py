@@ -4,39 +4,56 @@ from eventbus import mainBus
 @dataclass(frozen=True)
 class Theme:
     bg: str
-    mg: str
+    surface: str
+    surface2: str
+
     fg: str
     sub: str
+    disabled: str
+
     accent: str
+    accenthover: str
+    accentpressed: str
+
+    success: str
+    warning: str
+    error: str
+
     hover: str
     selected: str
+    focus: str
+
     border: str
-    border2: str
+    borderstrong: str
+
+    glow: str
 
 DARK = Theme(
-    bg="#1d1f22",
-    mg="#111215",
-    fg="#ffffff",
-    sub="#808080",
-    accent="#63e45f",
-    hover="#202226",
-    selected="#1a1b1d",
-    border="#1b1c1e",
-    border2="#808080"
-)
+    bg="#17171B",        # main app/window
+    surface="#121214",   # cards/panels
+    surface2="#1D1E24",  # hover/raised/selected surfaces
 
-LIGHT = Theme(
-    bg="#1d1f22",
-    mg="#111215",
-    fg="#ffffff",
-    sub="#808080",
-    accent="#1d1f22",
-    hover="#1d1f22",
-    selected="#1a1b1d",
-    border="#1b1c1e",
-    border2="#808080"
-)
+    fg="#F5F5F7",
+    sub="#9A9AA3",
+    disabled="#66666F",
 
+    accent="#8F4FFF",
+    accenthover="#A66EFF",
+    accentpressed="#7341D9",
+
+    success="#63E45F",
+    warning="#F2C94C",
+    error="#E45F5F",
+
+    hover="#202126",
+    selected="#17171b",
+    focus="#B388FF",
+
+    border="#2A2B31",
+    borderstrong="#41434D",
+
+    glow="rgba(143,79,255,0.20)"
+)
 CURRENT = DARK
 
 def set_theme(theme_name: str):

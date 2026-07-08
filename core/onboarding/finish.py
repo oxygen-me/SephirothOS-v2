@@ -1,8 +1,18 @@
 # --- imports
 from PySide6.QtWidgets import QWidget, QLabel, QPushButton, QVBoxLayout, QHBoxLayout
+
 import json
+from pathlib import Path
+import os
 
 from eventbus import mainBus
+
+config_path = Path(str(os.getenv('APPDATA'))) / 'SephirothOS' / 'config.json'
+license_path = Path(str(os.getenv('APPDATA'))) / 'SephirothOS' / 'license.json'
+
+
+# --- globaL vars
+username1 = ""
 
 # --- create finishpage class
 class FinishPage(QWidget):

@@ -8,7 +8,7 @@ def d_btn(t) -> str:
         background: transparent;
         color: {t.fg};
         border: 0px;
-        border-radius: 0px;
+        border-radius: 6px;
         font-family: Segoe UI;
         font-size: 16px;
         padding-top: 10px;
@@ -37,7 +37,7 @@ def n_btn(t) -> str:
         background: transparent;
         color: {t.fg};
         border: 1px solid {t.border};
-        border-radius: 0px;
+        border-radius: 6px;
         font-family: Segoe UI;
         font-size: 16px;
         padding-top: 10px;
@@ -59,13 +59,42 @@ def n_btn(t) -> str:
     }}
 """
 
+def o_btn(t) -> str:
+    return f"""
+    QPushButton {{
+        background: transparent;
+        color: {t.fg};
+        border: 1px solid {t.border};
+        border-radius: 6px;
+        font-family: Segoe UI;
+        font-size: 16px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-right: 10px;
+        padding-left: 10px;
+        text-align: left;
+    }}
+
+    QPushButton:hover {{
+        background-color: {t.hover};
+    }}
+
+    QPushButton:pressed {{
+        background-color: {t.selected};
+    }}
+    QPushButton:checked {{
+        border: 2px solid {t.accent};
+        background-color: {t.selected};
+    }}
+"""
+
 def c_btn(t) -> str:
     return f"""
     QPushButton {{
         background: transparent;
         color: {t.fg};
-        border: 1px solid {t.border2};
-        border-radius: 0px;
+        border: 1px solid {t.borderstrong};
+        border-radius: 6px;
         font-family: Segoe UI;
         font-size: 16px;
         padding-top: 8px;
@@ -87,13 +116,42 @@ def c_btn(t) -> str:
     }}
 """
 
+def a_btn(t) -> str:
+    return f"""
+    QPushButton {{
+        background: {t.accent};
+        color: {t.fg};
+        border: 0px;
+        border-radius: 6px;
+        font-family: Segoe UI;
+        font-size: 18px;
+        font-weight: 600;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        padding-right: 8px;
+        padding-left: 8px;
+        text-align: left;
+    }}
+
+    QPushButton:hover {{
+        background-color: {t.accenthover};
+    }}
+
+    QPushButton:pressed {{
+        background-color: {t.accentpressed};
+    }}
+    QPushButton:checked {{
+        background-color: {t.accentpressed};
+    }}
+"""
+
 def s_btn(t) -> str:
     return f"""
     QPushButton {{
         background: transparent;
         color: {t.fg};
         border: 1px solid {t.accent};
-        border-radius: 0px;
+        border-radius: 6px;
         font-family: Segoe UI;
         font-size: 16px;
         padding-top: 10px;
@@ -119,7 +177,16 @@ def s_btn(t) -> str:
 def d_widget(t) -> str:
     return f"""
     QWidget {{
-        background-color: {t.mg};
+        background-color: {t.surface};
+        border: 0px;
+        border-radius: 8px;
+    }}
+"""
+
+def l_widget(t) -> str:
+    return f"""
+    QWidget {{
+        background-color: {t.surface};
         border: 0px;
         border-radius: 0px;
     }}
@@ -139,7 +206,7 @@ def c_widget(t) -> str:
     QWidget {{
         background-color: {t.bg};
         border: 0px;
-        border-radius: 0px;
+        border-radius: 8px;
     }}
 """
 
@@ -242,7 +309,7 @@ def d_div(t) -> str:
 def c_div(t) -> str:
     return f"""
     QWidget {{
-        background-color: {t.border2};
+        background-color: {t.borderstrong};
         border: 0px;
         border-radius: 0px;
     }}
@@ -262,6 +329,7 @@ def u_title(t) -> str:
     }}
     """
 
+# --- special
 def s_title(t) -> str:
     return f"""
     QLabel {{
@@ -288,7 +356,42 @@ def s_subtitle(t) -> str:
     }}
     """
 
-def d_scroll(t):
+def s_widget(t) -> str:
+    return f"""
+    QWidget {{
+        background-color: {t.surface};
+        border: 1px solid {t.accent};
+        border-radius: 0px;
+    }}
+"""
+
+def s_circle(t) -> str:
+    return f"""
+    QLabel {{
+        background-color: transparent;
+        border: 2px solid {t.accent};
+        border-radius: 20px;
+        
+        font-family: Segoe UI;
+        font-size: 18px;
+        font-weight: 500;
+    }}
+"""
+
+def d_circle(t) -> str:
+    return f"""
+    QLabel {{
+        background-color: transparent;
+        border: 2px solid {t.border};
+        border-radius: 20px;
+        
+        font-family: Segoe UI;
+        font-size: 18px;
+        font-weight: 500;
+    }}
+"""
+
+def d_scroll(t) -> str:
     return f"""
     QScrollArea {{
         border: none;
@@ -356,10 +459,10 @@ def d_scroll(t):
     }}
     """
 
-def d_sbar(t):
+def d_sbar(t) -> str:
     return f"""
     QLineEdit {{
-        background-color: transparent;
+        background-color: {t.surface};
         color: {t.fg};
         placeholder-text-color: {t.sub};
         font-family: Segoe UI;
@@ -374,15 +477,15 @@ def d_sbar(t):
     }}
     
     QLineEdit:focus {{
-        background-color: {t.selected};
+        background-color: {t.surface};
         color: {t.fg};
     }}
     """
 
-def d_table(t):
+def d_table(t) -> str:
     return f"""
     QTableWidget {{
-        background-color: {t.mg};
+        background-color: {t.surface};
         color: {t.fg};
         border: 1px solid {t.border};
         gridline-color: {t.border};
@@ -390,7 +493,7 @@ def d_table(t):
     }}
 
     QHeaderView::section {{
-        background-color: {t.mg};
+        background-color: {t.surface};
         color: {t.fg};
         border: none;
         border-bottom: 1px solid {t.border};
@@ -408,16 +511,122 @@ def d_table(t):
 """
 
 # --- progress bar + other stuff that needs more customization
-def x_pbar(t, color):
+def x_pbar(t, color) -> str:
     return f"""
     QProgressBar {{
-        background-color: {t.mg};
-        border: 1px solid {t.border};
+        background-color: {t.surface};
+        border-radius: 2px;
         color: {t.fg};
         height: 2px;
     }}
 
     QProgressBar::chunk {{
         background-color: {color};
+    }}
+    """
+
+# --- welcome screen specialized titles
+def w_title(t) -> str:
+    return f"""
+    QLabel {{
+        background-color: transparent;
+        color: {t.fg};
+        font-family: Segoe UI;
+        font-size: 60px;
+        font-weight: 600;
+        border: 0px;
+        border-radius: 0px;
+    }}
+    """
+
+def wa_title(t) -> str:
+    return f"""
+    QLabel {{
+            background-color: transparent;
+            color: {t.accent};
+            font-family: Segoe UI;
+            font-size: 60px;
+            font-weight: 600;
+            border: 0px;
+            border-radius: 0px;
+        }}
+        """
+
+def w_subtitle(t) -> str:
+    return f"""
+    QLabel {{
+        background-color: transparent;
+        color: {t.sub};
+        font-family: Segoe UI;
+        font-size: 32px;
+        font-weight: 500;
+        border: 0px;
+        border-radius: 0px;
+    }}
+    """
+
+def w_body(t) -> str:
+    return f"""
+    QLabel {{
+        background-color: transparent;
+        color: {t.fg};
+        font-family: Consolas;
+        font-size: 24px;
+        font-weight: 500;
+        border: 0px;
+        border-radius: 0px;
+    }}
+    """
+
+# --- accented
+def a_subtitle(t) -> str:
+    return f"""
+    QLabel {{
+        background-color: transparent;
+        color: {t.accent};
+        font-family: Segoe UI;
+        font-size: 24px;
+        font-weight: 500;
+        border: 0px;
+        border-radius: 0px;
+    }}
+    """
+
+def a_body(t) -> str:
+    return f"""
+    QLabel {{
+        background-color: transparent;
+        color: {t.accent};
+        font-family: Consolas;
+        font-size: 24px;
+        font-weight: 500;
+        border: 0px;
+        border-radius: 0px;
+    }}
+    """
+
+def w_title2(t) -> str:
+    return f"""
+    QLabel {{
+        background-color: transparent;
+        color: {t.fg};
+        font-family: Segoe UI;
+        font-size: 36px;
+        font-weight: 600;
+        border: 0px;
+        border-radius: 0px;
+    }}
+    """
+
+def w_subtitle2(t) -> str:
+    return f"""
+    QLabel {{
+        background-color: transparent;
+        color: {t.sub};
+        font-family: Segoe UI;
+        font-size: 24px;
+        font-weight: 500;
+        border: 0px;
+        border-radius: 0px;
     }}
     """

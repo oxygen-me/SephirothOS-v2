@@ -2,6 +2,8 @@
 from PySide6.QtWidgets import QWidget, QLabel, QPushButton, QVBoxLayout, QHBoxLayout
 from PySide6.QtGui import QPixmap
 
+import assets.resource_rc as resource_rc
+
 # --- create settingspage class
 class SettingsPage(QWidget):
     def __init__(self, stack):
