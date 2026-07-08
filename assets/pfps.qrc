@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/avatars">
+        <file alias="default1.jpg">barret_pfp.jpg</file>
+        <file alias="default2.jpg">chocobo_pfp.jpg</file>
+        <file alias="default3.png">cloud_pfp.png</file>
+        <file alias="default4.png">sephiroth_pfp.png</file>
+        <file alias="default5.png">david_pfp.png</file>
+    </qresource>
+</RCC>

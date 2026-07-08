@@ -143,7 +143,7 @@ class LanguagePage(QWidget):
         self.notecard.setLayout(self.notelayout)
 
         self.notetitle = QLabel("Note")
-        self.notetitle.setStyleSheet(styles.a_body(tlib.CURRENT))
+        self.notetitle.setStyleSheet(styles.a_subtitle(tlib.CURRENT))
         self.notelayout.addWidget(self.notetitle)
 
         self.notesubtitle = QLabel("Don't worry! All of these are 100% real languages.\n"

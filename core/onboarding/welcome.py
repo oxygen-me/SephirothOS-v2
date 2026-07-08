@@ -1,12 +1,12 @@
 # --- imports
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QHBoxLayout, QStackedWidget, QLabel
-from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QWidget, QStackedWidget
 
 from pathlib import Path
 import os
 
 import utils.themes.tlib as tlib
 import utils.themes.styles as styles
+from core.onboarding.account import AccountPage
 
 from core.onboarding.start import WelcomePage
 from core.onboarding.language import LanguagePage
@@ -92,7 +92,7 @@ class WelcomeWindow(QWidget):
         self.wbox2.setSpacing(0)
 
         self.body1 = QLabel("TIP")
-        self.body1.setStyleSheet(styles.a_body(tlib.CURRENT))
+        self.body1.setStyleSheet(styles.a_subtitle(tlib.CURRENT))
         self.body1.setAlignment(Qt.AlignmentFlag.AlignLeft)
         self.wbox2.addWidget(self.body1, alignment=Qt.AlignmentFlag.AlignTop)
 
@@ -119,8 +119,9 @@ class WelcomeWindow(QWidget):
 
         self.stack.addWidget(WelcomePage(self.stack))
         self.stack.addWidget(LanguagePage(self.stack))
+        self.stack.addWidget(AccountPage(self.stack))
 
-        self.stack.setCurrentIndex(1)
+        self.stack.setCurrentIndex(2)
 
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget, QLabel, QHBoxLayout, QVBoxLayout

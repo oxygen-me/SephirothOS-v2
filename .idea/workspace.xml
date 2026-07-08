@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="split welcome.py to prepare for onboarding overhaul">
-      <change afterPath="$PROJECT_DIR$/assets/InstallerMusic.mp3" afterDir="false" />
+    <list default="true" id="c98d4983-6597-4ec3-96b9-6f2d1c15f917" name="Changes" comment="i am so done at this point">
+      <change afterPath="$PROJECT_DIR$/assets/pfps.qrc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/ux/bgmp.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/ux/bgmp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/onboarding/finish.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/onboarding/finish.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/onboarding/account.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/onboarding/account.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/onboarding/language.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/onboarding/language.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/onboarding/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/onboarding/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/onboarding/start.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/onboarding/start.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/onboarding/welcome.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/onboarding/welcome.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/themes/styles.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/themes/styles.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/themes/tlib.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/themes/tlib.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,15 +119,7 @@
       <workItem from="1783368106944" duration="36711000" />
       <workItem from="1783449271214" duration="19650000" />
       <workItem from="1783470362419" duration="1014000" />
-      <workItem from="1783475177245" duration="10435000" />
-    </task>
-    <task id="LOCAL-00053" summary="created package">
-      <option name="closed" value="true" />
-      <created>1783143537964</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1783143537964</updated>
+      <workItem from="1783475177245" duration="17806000" />
     </task>
     <task id="LOCAL-00054" summary="created applications.py">
       <option name="closed" value="true" />
@@ -519,7 +505,15 @@
       <option name="project" value="LOCAL" />
       <updated>1783452295365</updated>
     </task>
-    <option name="localTasksCounter" value="102" />
+    <task id="LOCAL-00102" summary="i am so done at this point">
+      <option name="closed" value="true" />
+      <created>1783486848521</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1783486848522</updated>
+    </task>
+    <option name="localTasksCounter" value="103" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -537,7 +531,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="create api/marketplace/mkpf.pi" />
     <MESSAGE value="refactor marketplace as mkp" />
     <MESSAGE value="fully arm method MKPFetch" />
     <MESSAGE value="finished todo" />
@@ -562,7 +555,8 @@
     <MESSAGE value="made it look better or something idk ask steve" />
     <MESSAGE value="done for the night" />
     <MESSAGE value="split welcome.py to prepare for onboarding overhaul" />
-    <option name="LAST_COMMIT_MESSAGE" value="split welcome.py to prepare for onboarding overhaul" />
+    <MESSAGE value="i am so done at this point" />
+    <option name="LAST_COMMIT_MESSAGE" value="i am so done at this point" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -585,7 +579,7 @@
     <SUITE FILE_PATH="coverage/Code$tlib.coverage" NAME="tlib Coverage Results" MODIFIED="1783301795316" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils/themes" />
     <SUITE FILE_PATH="coverage/Code$mkpd.coverage" NAME="mkpd Coverage Results" MODIFIED="1783145402166" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/api" />
     <SUITE FILE_PATH="coverage/Code$welcome.coverage" NAME="welcome Coverage Results" MODIFIED="1783121952366" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
-    <SUITE FILE_PATH="coverage/Code$main.coverage" NAME="main Coverage Results" MODIFIED="1783486345472" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Code$main.coverage" NAME="main Coverage Results" MODIFIED="1783494029391" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Code$app.coverage" NAME="app Coverage Results" MODIFIED="1783286208009" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/core" />
     <SUITE FILE_PATH="coverage/Code$styles.coverage" NAME="styles Coverage Results" MODIFIED="1783486342629" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils/themes" />
     <SUITE FILE_PATH="coverage/Code$sysinfo.coverage" NAME="sysinfo Coverage Results" MODIFIED="1783285884304" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/api" />
