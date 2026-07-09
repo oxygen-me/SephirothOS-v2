@@ -509,7 +509,7 @@ def d_tedit(t) -> str:
         padding: 10px 10px 10px 10px;
     }}
 
-    QTextEdit:hove {{
+    QTextEdit:hover {{
         background-color: {t.hover};
     }}
 
@@ -665,5 +665,93 @@ def w_subtitle2(t) -> str:
         font-weight: 500;
         border: 0px;
         border-radius: 0px;
+    }}
+    """
+
+def d_combo(t) -> str:
+    return f"""
+    QComboBox {{
+        background-color: {t.bg};
+        color: {t.fg};
+        placeholder-text-color: {t.sub};
+        font-family: Segoe UI;
+        font-size: 18px;
+        font-weight: 500;
+        border: 1px solid {t.border};
+        padding: 10px 36px 10px 10px;
+    }}
+
+    QComboBox:hover {{
+        background-color: {t.hover};
+    }}
+
+    QComboBox:focus {{
+        background-color: {t.surface};
+        color: {t.fg};
+        border: 1px solid {t.borderstrong};
+    }}
+
+    QComboBox::drop-down {{
+        border: 0px;
+        width: 32px;
+    }}
+
+    QComboBox QAbstractItemView {{
+        background-color: {t.surface};
+        color: {t.fg};
+        border: 1px solid {t.border};
+        selection-background-color: {t.selected};
+        selection-color: {t.fg};
+        outline: 0px;
+        font-family: Segoe UI;
+        font-size: 18px;
+    }}
+    """
+
+def d_check(t) -> str:
+    return f"""
+    QCheckBox {{
+        background-color: transparent;
+        color: {t.fg};
+        font-family: Segoe UI;
+        font-size: 16px;
+        font-weight: 500;
+        spacing: 8px;
+    }}
+
+    QCheckBox::indicator {{
+        width: 18px;
+        height: 18px;
+        background-color: {t.surface};
+        border: 1px solid {t.border};
+        border-radius: 4px;
+    }}
+
+    QCheckBox::indicator:hover {{
+        background-color: {t.hover};
+        border: 1px solid {t.borderstrong};
+    }}
+
+    QCheckBox::indicator:checked {{
+        background-color: {t.accent};
+        border: 1px solid {t.accent};
+    }}
+
+    QCheckBox::indicator:checked:hover {{
+        background-color: {t.accenthover};
+        border: 1px solid {t.accenthover};
+    }}
+
+    QCheckBox::indicator:pressed {{
+        background-color: {t.selected};
+    }}
+
+    QCheckBox:disabled {{
+        color: {t.sub};
+    }}
+
+    QCheckBox::indicator:disabled {{
+        background-color: {t.bg};
+        border: 1px solid {t.border};
     }}
     """

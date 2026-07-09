@@ -1,6 +1,6 @@
 # --- imports
 from PySide6.QtWidgets import QDialog, QGridLayout, QWidget, QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QFrame, \
-    QFileDialog, QLineEdit, QTextEdit, QSizePolicy
+    QFileDialog, QLineEdit, QCheckBox, QSizePolicy, QComboBox
 from PySide6.QtCore import Qt, QSize
 from PySide6.QtGui import QPixmap, QPainter, QPainterPath, QIcon
 
@@ -120,7 +120,7 @@ class AccountPage(QWidget):
 
         self.biotitle = QLabel("Bio")
         self.biodisclaimer = QLabel("(optional)")
-        self.bioentry = QTextEdit()
+        self.bioentry = QLineEdit()
         self.bioentry.setPlaceholderText("Enter bio...")
         self.biosubtitle = QLabel("A short bio about yourself.")
         self.biorow.addWidget(self.biotitle)
@@ -146,7 +146,7 @@ class AccountPage(QWidget):
         ]:
             cat.setStyleSheet(styles.d_sbar(tlib.CURRENT))
 
-        self.bioentry.setStyleSheet(styles.d_tedit(tlib.CURRENT))
+        self.bioentry.setStyleSheet(styles.d_sbar(tlib.CURRENT))
 
         self.fullnamedisclaimer.setStyleSheet(styles.c_body2(tlib.CURRENT))
         self.biodisclaimer.setStyleSheet(styles.c_body2(tlib.CURRENT))
@@ -206,9 +206,18 @@ class AccountPage(QWidget):
         self.accounttitle1.setStyleSheet(styles.c_body(tlib.CURRENT))
         self.accountv1.addWidget(self.accounttitle1)
 
-        self.accountsubtitle1 = QLabel("Standard accounts have limitied system access.")
+        self.accountsubtitle1 = QLabel("Standard accounts have limited system access.")
         self.accountsubtitle1.setStyleSheet(styles.c_subtitle(tlib.CURRENT))
         self.accountv1.addWidget(self.accountsubtitle1)
+
+        self.userbox = QComboBox()
+        self.userbox.setStyleSheet(styles.d_combo(tlib.CURRENT))
+
+        self.userbox.addItems(["Standard User", "James", "Better User", "Aura Monster", "Single Mother", "Fish", "Golden Shower", "Sephiroth"])
+        self.userbox.setCurrentIndex(0)
+
+        self.accountrow1.addStretch()
+        self.accountrow1.addWidget(self.userbox)
 
         self.div2 = QFrame()
         self.div2.setStyleSheet(styles.d_div(tlib.CURRENT))
@@ -227,6 +236,20 @@ class AccountPage(QWidget):
         self.accountv2.setSpacing(5)
         self.accountrow2.addLayout(self.accountv2)
 
+        self.accounttitle2 = QLabel("Administrator Password")
+        self.accounttitle2.setStyleSheet(styles.c_body(tlib.CURRENT))
+        self.accountv2.addWidget(self.accounttitle2)
+
+        self.accountsubtitle2 = QLabel("Required for making system-wide changes")
+        self.accountsubtitle2.setStyleSheet(styles.c_subtitle(tlib.CURRENT))
+        self.accountv2.addWidget(self.accountsubtitle2)
+
+        self.passwordbtn = QPushButton("Set Password")
+        self.passwordbtn.setStyleSheet(styles.n_btn(tlib.CURRENT))
+
+        self.accountrow2.addStretch()
+        self.accountrow2.addWidget(self.passwordbtn)
+
         self.div3 = QFrame()
         self.div3.setStyleSheet(styles.d_div(tlib.CURRENT))
         self.div3.setFrameShadow(QFrame.Shadow.Sunken)
@@ -244,6 +267,20 @@ class AccountPage(QWidget):
         self.accountv3.setSpacing(5)
         self.accountrow3.addLayout(self.accountv3)
 
+        self.accounttitle3 = QLabel("Auto Login")
+        self.accounttitle3.setStyleSheet(styles.c_body(tlib.CURRENT))
+        self.accountv3.addWidget(self.accounttitle3)
+
+        self.accountsubtitle3 = QLabel("+35 Piss Productivity")
+        self.accountsubtitle3.setStyleSheet(styles.c_subtitle(tlib.CURRENT))
+        self.accountv3.addWidget(self.accountsubtitle3)
+
+        self.checkbox = QCheckBox()
+        self.checkbox.setStyleSheet(styles.d_check(tlib.CURRENT))
+
+        self.accountrow3.addStretch()
+        self.accountrow3.addWidget(self.checkbox)
+
         self.div4 = QFrame()
         self.div4.setStyleSheet(styles.d_div(tlib.CURRENT))
         self.div4.setFrameShadow(QFrame.Shadow.Sunken)
@@ -260,6 +297,31 @@ class AccountPage(QWidget):
         self.accountv4.setContentsMargins(0, 0, 0, 0)
         self.accountv4.setSpacing(5)
         self.accountrow4.addLayout(self.accountv4)
+
+        self.act4row = QHBoxLayout()
+        self.act4row.setContentsMargins(0, 0, 0, 0)
+        self.act4row.setSpacing(5)
+
+        self.accounttitle4 = QLabel("Link GitHub Account")
+        self.accounttitle4.setStyleSheet(styles.c_body(tlib.CURRENT))
+        self.act4row.addWidget(self.accounttitle4)
+
+        self.acctitle4sub = QLabel("(optional)")
+        self.acctitle4sub.setStyleSheet(styles.c_body2(tlib.CURRENT))
+        self.act4row.addWidget(self.acctitle4sub)
+
+        self.act4row.addStretch()
+        self.accountv4.addLayout(self.act4row)
+
+        self.accountsubtitle4 = QLabel("Allows in-app issue reporting, development tools, etc.")
+        self.accountsubtitle4.setStyleSheet(styles.c_subtitle(tlib.CURRENT))
+        self.accountv4.addWidget(self.accountsubtitle4)
+
+        self.linkbtn = QPushButton("Connect")
+        self.linkbtn.setStyleSheet(styles.n_btn(tlib.CURRENT))
+
+        self.accountrow4.addStretch()
+        self.accountrow4.addWidget(self.linkbtn)
 
         # --- preview
         self.previewcard = QWidget()

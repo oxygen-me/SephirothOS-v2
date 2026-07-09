@@ -7,6 +7,7 @@ import os
 import utils.themes.tlib as tlib
 import utils.themes.styles as styles
 from core.onboarding.account import AccountPage
+from core.onboarding.personalization import PersonalizationPage
 
 from core.onboarding.start import WelcomePage
 from core.onboarding.language import LanguagePage
@@ -54,7 +55,6 @@ class WelcomeWindow(QWidget):
             ("Language", "Pick your favorite."),
             ("Profile", "Chud tycoon."),
             ("Personalization", "Make SephirothOS feel Sephirothish."),
-            ("Settings", "You're a needy bastard."),
             ("All Set", "Entree Sansdan."),
         ]
 
@@ -120,8 +120,9 @@ class WelcomeWindow(QWidget):
         self.stack.addWidget(WelcomePage(self.stack))
         self.stack.addWidget(LanguagePage(self.stack))
         self.stack.addWidget(AccountPage(self.stack))
+        self.stack.addWidget(PersonalizationPage(self.stack))
 
-        self.stack.setCurrentIndex(2)
+        self.stack.setCurrentIndex(3)
 
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QWidget, QLabel, QHBoxLayout, QVBoxLayout
