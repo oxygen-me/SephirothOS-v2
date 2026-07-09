@@ -287,6 +287,19 @@ def c_body(t) -> str:
     }}
     """
 
+def c_body2(t) -> str:
+    return f"""
+    QLabel {{
+        background-color: transparent;
+        color: {t.sub};
+        font-family: Segoe UI;
+        font-size: 16px;
+        font-weight: 500;
+        border: 0px;
+        border-radius: 0px;
+    }}
+    """
+
 # --- outlines
 def g_box(t) -> str:
     return f"""
@@ -477,6 +490,30 @@ def d_sbar(t) -> str:
     }}
     
     QLineEdit:focus {{
+        background-color: {t.surface};
+        color: {t.fg};
+    }}
+    """
+
+
+def d_tedit(t) -> str:
+    return f"""
+    QTextEdit {{
+        background-color: {t.surface};
+        color: {t.fg};
+        placeholder-text-color: {t.sub};
+        font-family: Segoe UI;
+        font-size: 18px;
+        font-weight: 500;
+        border: 1px solid {t.border};
+        padding: 10px 10px 10px 10px;
+    }}
+
+    QTextEdit:hove {{
+        background-color: {t.hover};
+    }}
+
+    QTextEdit:focus {{
         background-color: {t.surface};
         color: {t.fg};
     }}

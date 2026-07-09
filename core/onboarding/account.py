@@ -1,5 +1,6 @@
 # --- imports
-from PySide6.QtWidgets import QDialog, QGridLayout, QWidget, QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QFrame, QFileDialog, QLineEdit
+from PySide6.QtWidgets import QDialog, QGridLayout, QWidget, QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QFrame, \
+    QFileDialog, QLineEdit, QTextEdit, QSizePolicy
 from PySide6.QtCore import Qt, QSize
 from PySide6.QtGui import QPixmap, QPainter, QPainterPath, QIcon
 
@@ -59,14 +60,13 @@ class AccountPage(QWidget):
         self.detailstitle.setStyleSheet(styles.a_subtitle(tlib.CURRENT))
         self.detailslayout.addWidget(self.detailstitle)
 
-        self.detailslayout.addLayout(self.detailcontentlayout, 1)
+        self.detailslayout.addLayout(self.detailcontentlayout)
 
         self.pfplabel = QLabel("Profile Picture")
         self.pfplabel.setStyleSheet(styles.c_body(tlib.CURRENT))
         self.detailsleft.addWidget(self.pfplabel, alignment=Qt.AlignmentFlag.AlignHCenter)
 
         self.pfp_preview = CircleImage(140)
-        self.pfp_preview.setStyleSheet(styles.d_widget(tlib.CURRENT))
         self.detailsleft.addWidget(self.pfp_preview, alignment=Qt.AlignmentFlag.AlignHCenter)
 
         self.change_pfp_btn = QPushButton("Change Picture")
@@ -76,9 +76,190 @@ class AccountPage(QWidget):
 
         self.detailsleft.addStretch()
 
+        self.usernamebox = QVBoxLayout()
 
-        self.detailcontentlayout.addLayout(self.detailsleft)
-        self.detailcontentlayout.addLayout(self.detailsright, 1)
+        self.fullnamebox = QVBoxLayout()
+        self.fullnamerow = QHBoxLayout()
+
+        self.fullnamerow.setSpacing(5)
+        self.fullnamerow.setContentsMargins(0, 0, 0, 0)
+
+        self.biobox = QVBoxLayout()
+        self.biorow = QHBoxLayout()
+
+        self.biorow.setSpacing(5)
+        self.biorow.setContentsMargins(0, 0, 0, 0)
+
+        self.usernamebox.setSpacing(5)
+        self.fullnamebox.setSpacing(5)
+        self.biobox.setSpacing(5)
+
+        self.usernamebox.setContentsMargins(0, 0, 0, 0)
+        self.fullnamebox.setContentsMargins(0, 0, 0, 0)
+        self.biobox.setContentsMargins(0, 0, 0, 0)
+
+        self.usernametitle = QLabel("Username")
+        self.usernameentry = QLineEdit()
+        self.usernameentry.setPlaceholderText("Enter username...")
+
+        self.usernamebox.addWidget(self.usernametitle)
+        self.usernamebox.addWidget(self.usernameentry)
+
+        self.fullnametitle = QLabel("Full Name")
+        self.fullnamedisclaimer = QLabel("(optional)")
+        self.fullnameentry = QLineEdit()
+        self.fullnameentry.setPlaceholderText("Enter name...")
+        self.fullnamesubtitle = QLabel("This is how your name will appear.")
+        self.fullnamerow.addWidget(self.fullnametitle)
+        self.fullnamerow.addWidget(self.fullnamedisclaimer)
+        self.fullnamerow.addStretch()
+
+        self.fullnamebox.addLayout(self.fullnamerow)
+        self.fullnamebox.addWidget(self.fullnameentry)
+        self.fullnamebox.addWidget(self.fullnamesubtitle)
+
+        self.biotitle = QLabel("Bio")
+        self.biodisclaimer = QLabel("(optional)")
+        self.bioentry = QTextEdit()
+        self.bioentry.setPlaceholderText("Enter bio...")
+        self.biosubtitle = QLabel("A short bio about yourself.")
+        self.biorow.addWidget(self.biotitle)
+        self.biorow.addWidget(self.biodisclaimer)
+        self.biorow.addStretch()
+
+        self.bioentry.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Minimum)
+
+        self.biobox.addLayout(self.biorow)
+        self.biobox.addWidget(self.bioentry)
+        self.biobox.addWidget(self.biosubtitle)
+
+        for fish in [
+            self.usernametitle,
+            self.fullnametitle,
+            self.biotitle
+        ]:
+            fish.setStyleSheet(styles.c_body(tlib.CURRENT))
+
+        for cat in [
+            self.usernameentry,
+            self.fullnameentry
+        ]:
+            cat.setStyleSheet(styles.d_sbar(tlib.CURRENT))
+
+        self.bioentry.setStyleSheet(styles.d_tedit(tlib.CURRENT))
+
+        self.fullnamedisclaimer.setStyleSheet(styles.c_body2(tlib.CURRENT))
+        self.biodisclaimer.setStyleSheet(styles.c_body2(tlib.CURRENT))
+
+        self.fullnamesubtitle.setStyleSheet(styles.c_subtitle(tlib.CURRENT))
+        self.biosubtitle.setStyleSheet(styles.c_subtitle(tlib.CURRENT))
+
+        self.detailsright.addLayout(self.usernamebox)
+        self.detailsright.addLayout(self.fullnamebox)
+        self.detailsright.addLayout(self.biobox)
+
+        self.detailcontentlayout.addLayout(self.detailsleft, 1)
+        self.detailcontentlayout.addLayout(self.detailsright, 2)
+
+        # --- account settings
+        self.accountcard = QWidget()
+        self.accountcard.setStyleSheet(styles.c_widget(tlib.CURRENT))
+
+        self.accountlayout = QVBoxLayout()
+        self.accountlayout.setContentsMargins(20, 20, 20, 20)
+        self.accountlayout.setSpacing(20)
+        self.accountcard.setLayout(self.accountlayout)
+
+        self.accounttitlebox = QVBoxLayout()
+        self.accounttitlebox.setContentsMargins(0, 0, 0, 0)
+        self.accounttitlebox.setSpacing(10)
+
+        self.accounttitle = QLabel("Account Settings")
+        self.accounttitle.setStyleSheet(styles.a_subtitle(tlib.CURRENT))
+        self.accounttitlebox.addWidget(self.accounttitle)
+
+        self.accountsubtitle = QLabel("These settings control how your account works on this device")
+        self.accountsubtitle.setStyleSheet(styles.p_subtitle(tlib.CURRENT))
+        self.accounttitlebox.addWidget(self.accountsubtitle)
+
+        self.accounttitlebox.addStretch()
+        self.accountlayout.addLayout(self.accounttitlebox)
+
+        self.div1 = QFrame()
+        self.div1.setStyleSheet(styles.d_div(tlib.CURRENT))
+        self.div1.setFrameShadow(QFrame.Shadow.Sunken)
+        self.div1.setFrameShape(QFrame.Shape.HLine)
+        self.div1.setFixedHeight(2)
+        self.accountlayout.addWidget(self.div1)
+
+        self.accountrow1 = QHBoxLayout()
+        self.accountrow1.setContentsMargins(0, 0, 0, 0)
+        self.accountrow1.setSpacing(0)
+        self.accountlayout.addLayout(self.accountrow1)
+
+        self.accountv1 = QVBoxLayout()
+        self.accountv1.setContentsMargins(0, 0, 0, 0)
+        self.accountv1.setSpacing(5)
+        self.accountrow1.addLayout(self.accountv1)
+
+        self.accounttitle1 = QLabel("Account Type")
+        self.accounttitle1.setStyleSheet(styles.c_body(tlib.CURRENT))
+        self.accountv1.addWidget(self.accounttitle1)
+
+        self.accountsubtitle1 = QLabel("Standard accounts have limitied system access.")
+        self.accountsubtitle1.setStyleSheet(styles.c_subtitle(tlib.CURRENT))
+        self.accountv1.addWidget(self.accountsubtitle1)
+
+        self.div2 = QFrame()
+        self.div2.setStyleSheet(styles.d_div(tlib.CURRENT))
+        self.div2.setFrameShadow(QFrame.Shadow.Sunken)
+        self.div2.setFrameShape(QFrame.Shape.HLine)
+        self.div2.setFixedHeight(2)
+        self.accountlayout.addWidget(self.div2)
+
+        self.accountrow2 = QHBoxLayout()
+        self.accountrow2.setContentsMargins(0, 0, 0, 0)
+        self.accountrow2.setSpacing(0)
+        self.accountlayout.addLayout(self.accountrow2)
+
+        self.accountv2 = QVBoxLayout()
+        self.accountv2.setContentsMargins(0, 0, 0, 0)
+        self.accountv2.setSpacing(5)
+        self.accountrow2.addLayout(self.accountv2)
+
+        self.div3 = QFrame()
+        self.div3.setStyleSheet(styles.d_div(tlib.CURRENT))
+        self.div3.setFrameShadow(QFrame.Shadow.Sunken)
+        self.div3.setFrameShape(QFrame.Shape.HLine)
+        self.div3.setFixedHeight(2)
+        self.accountlayout.addWidget(self.div3)
+
+        self.accountrow3 = QHBoxLayout()
+        self.accountrow3.setContentsMargins(0, 0, 0, 0)
+        self.accountrow3.setSpacing(0)
+        self.accountlayout.addLayout(self.accountrow3)
+
+        self.accountv3 = QVBoxLayout()
+        self.accountv3.setContentsMargins(0, 0, 0, 0)
+        self.accountv3.setSpacing(5)
+        self.accountrow3.addLayout(self.accountv3)
+
+        self.div4 = QFrame()
+        self.div4.setStyleSheet(styles.d_div(tlib.CURRENT))
+        self.div4.setFrameShadow(QFrame.Shadow.Sunken)
+        self.div4.setFrameShape(QFrame.Shape.HLine)
+        self.div4.setFixedHeight(2)
+        self.accountlayout.addWidget(self.div4)
+
+        self.accountrow4 = QHBoxLayout()
+        self.accountrow4.setContentsMargins(0, 0, 0, 0)
+        self.accountrow4.setSpacing(0)
+        self.accountlayout.addLayout(self.accountrow4)
+
+        self.accountv4 = QVBoxLayout()
+        self.accountv4.setContentsMargins(0, 0, 0, 0)
+        self.accountv4.setSpacing(5)
+        self.accountrow4.addLayout(self.accountv4)
 
         # --- preview
         self.previewcard = QWidget()
@@ -201,6 +382,7 @@ class AccountPage(QWidget):
         self.hlayout.addLayout(self.rightlayout, 1)
 
         self.leftlayout.addWidget(self.detailscard)
+        self.leftlayout.addWidget(self.accountcard, 1)
 
         self.rightlayout.addWidget(self.previewcard, 3)
         self.rightlayout.addWidget(self.factcard, 2)
@@ -247,7 +429,7 @@ class CircleImage(QWidget):
             y = (self.height() - scaled.height()) // 2
             painter.drawPixmap(x, y, scaled)
         else:
-            painter.fillRect(self.rect(), Qt.GlobalColor.transparent)
+            painter.fillRect(self.rect(), tlib.CURRENT.surface)
 
 class AvatarPicker(QDialog):
     def __init__(self, parent=None):

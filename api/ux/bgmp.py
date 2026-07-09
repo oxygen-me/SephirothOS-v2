@@ -13,7 +13,7 @@ class BGMPlayer:
         self.player.setLoops(QMediaPlayer.Loops.Infinite)
         self.audio.setVolume(0)
 
-        self.player.setSource(QUrl("assets/InstallerMusic.mp3"))
+        self.player.setSource(QUrl("qrc:/DefaultSoundtrack.mp3"))
 
     def start_music(self):
         print("[bgmp]: starting background music")

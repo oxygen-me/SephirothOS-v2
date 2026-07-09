@@ -1090,6 +1090,7 @@ class HomeBar(QWidget):
 
         self.mkpbtn = QPushButton("Marketplace")
         self.mkpbtn.setStyleSheet(styles.d_btn(tlib.CURRENT))
+        self.mkpbtn.clicked.connect(mainBus.openMarketplace.emit)
         self.mainlayout.addWidget(self.mkpbtn)
 
         self.settingsbtn = QPushButton("Settings")

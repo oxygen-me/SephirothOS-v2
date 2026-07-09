@@ -1,11 +1,8 @@
 # --- imports
-from PySide6.QtWidgets import QWidget, QLabel, QPushButton, QVBoxLayout, QHBoxLayout
-from PySide6.QtGui import QPixmap
+from PySide6.QtWidgets import QWidget, QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QComboBox
 
-import assets.resource_rc as resource_rc
-
-# --- create settingspage class
-class SettingsPage(QWidget):
+# --- create themepage class
+class PersonalizationPage(QWidget):
     def __init__(self, stack):
         super().__init__()
 
@@ -15,13 +12,31 @@ class SettingsPage(QWidget):
         self.setStyleSheet("background-color: transparent;")
 
         # --- title
-        self.title = QLabel("Adjust your settings")
+        self.title = QLabel("Choose your theme")
         self.title.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 72px; font-weight: bold;")
 
         # --- subtitle
-        self.pixmap = QPixmap(":/CadenceAteThem.png")
         self.subtitle = QLabel()
-        self.subtitle.setPixmap(self.pixmap)
+        self.subtitle.setWordWrap(True)
+
+        self.subtitle.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
+        self.subtitle.setStyleSheet("background-color: transparent; color: white; font-family: Segoe UI; font-size: 24px; font-weight: 400;")
+
+        # --- selection
+        self.selection = QComboBox()
+
+        self.selection.setStyleSheet("background-color: #15161a; color: white; font-family: Segoe UI; font-size: 16px; font-weight: 400;")
+
+        themes = [
+            "Dark",
+            "Dark",
+            "Dark",
+            "Piss",
+            "Dark",
+            "Dark",
+        ]
+
+        self.selection.addItems(themes)
 
         # --- next button
         self.nextbtn = QPushButton("Continue")
@@ -56,9 +71,7 @@ class SettingsPage(QWidget):
 
         self.contentlayout.addWidget(self.title)
         self.contentlayout.addWidget(self.subtitle)
-
-
-
+        self.contentlayout.addWidget(self.selection)
         self.contentlayout.addWidget(self.nextbtn)
 
         self.divlayout.addStretch()

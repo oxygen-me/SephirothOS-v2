@@ -12,4 +12,7 @@ class EventBus(QObject):
     clockUpdated = Signal(object)
     themeUpdate = Signal(str)
 
+    # --- market
+    openMarketplace = Signal()
+
 mainBus = EventBus()
