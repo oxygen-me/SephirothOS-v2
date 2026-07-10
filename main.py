@@ -5,6 +5,8 @@ import subprocess
 from pathlib import Path
 from PySide6.QtWidgets import QApplication, QMessageBox
 
+import logger
+
 from bootstrap import Bootstrapper
 from eventbus import mainBus
 from gitfetch import GitFetch
@@ -16,8 +18,8 @@ viable_editions = ["[1] Basic", "[2] Workplace", "[3] Premium", "[4] Ultimate"]
 lcn_path = Path(str(os.getenv('APPDATA'))) / 'SephirothOS' / 'license.json'
 cfg_path = Path(str(os.getenv('APPDATA'))) / 'SephirothOS' / 'config.json'
 
-print(f"[main]: Running version {VERSION}")
-print(f"[main]: Running from: {sys.executable}")
+logger.important(f"Running version {VERSION}", "root")
+logger.important(f"Running from: {sys.executable}", "root")
 
 # --- main function
 def main():
