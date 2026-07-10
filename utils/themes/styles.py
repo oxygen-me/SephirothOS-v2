@@ -173,6 +173,28 @@ def s_btn(t) -> str:
     }}
 """
 
+def theme_btn(t) -> str:
+    return f"""
+    ThemeButton {{
+        background: transparent;
+        border: 1px solid {t.border};
+        border-radius: 6px;
+    }}
+
+    ThemeButton:hover {{
+        background-color: {t.hover};
+    }}
+
+    ThemeButton:pressed {{
+        background-color: {t.selected};
+    }}
+
+    ThemeButton:checked {{
+        border: 2px solid {t.accent};
+        background-color: {t.selected};
+    }}
+    """
+
 # --- default widgets/backgrounds
 def d_widget(t) -> str:
     return f"""

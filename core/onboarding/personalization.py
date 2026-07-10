@@ -1,12 +1,11 @@
 # --- imports
-from PySide6.QtWidgets import QWidget, QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QScrollArea, \
-    QButtonGroup, QLineEdit
+from PySide6.QtWidgets import QWidget, QLabel, QPushButton, QVBoxLayout, QHBoxLayout, QButtonGroup
 from PySide6.QtCore import Qt
 
 from utils.themes import styles, tlib
 
 
-# --- create languagepage class
+# --- create personalizationpage class
 class PersonalizationPage(QWidget):
     def __init__(self, stack):
         super().__init__()
@@ -22,136 +21,112 @@ class PersonalizationPage(QWidget):
         self.titlebox.setSpacing(10)
 
         # --- title
-        self.title = QLabel("Language")
+        self.title = QLabel("Personalization")
         self.title.setStyleSheet(styles.w_title2(tlib.CURRENT))
         self.titlebox.addWidget(self.title)
 
         # --- subtitle
-        self.subtitle = QLabel('Quoth the Roth, "seaux de pisse."')
+        self.subtitle = QLabel("You're taking forever. Hurry the fuck up.")
         self.subtitle.setStyleSheet(styles.w_subtitle2(tlib.CURRENT))
         self.titlebox.addWidget(self.subtitle)
 
-        self.titlebox.addStretch()
+        # --- theme card
+        self.themecard = QWidget()
+        self.themecard.setStyleSheet(styles.c_widget(tlib.CURRENT))
 
-        # --- selection
-        self.selectionscroll = QScrollArea()
-        self.selectionscroll.setWidgetResizable(True)
+        self.themelayout = QVBoxLayout(self.themecard)
+        self.themelayout.setContentsMargins(20, 20, 20, 20)
+        self.themelayout.setSpacing(20)
 
-        self.selectionscroll.setStyleSheet(styles.d_scroll(tlib.CURRENT))
-        self.selectionscroll.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
-        self.selectionscroll.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
+        self.themetitlebox = QVBoxLayout()
+        self.themetitlebox.setContentsMargins(0, 0, 0, 0)
+        self.themetitlebox.setSpacing(10)
 
-        self.selectioncard = QWidget()
-        self.selectioncard.setStyleSheet(styles.c_widget(tlib.CURRENT))
+        self.themetitle = QLabel("Theme")
+        self.themetitle.setStyleSheet(styles.a_subtitle(tlib.CURRENT))
+        self.themetitlebox.addWidget(self.themetitle)
 
-        self.layout = QVBoxLayout(self.selectioncard)
-        self.layout.setContentsMargins(20, 20, 20, 20)
-        self.layout.setSpacing(0)
+        self.themesubtitle = QLabel("Pick your favorite.")
+        self.themesubtitle.setStyleSheet(styles.p_subtitle(tlib.CURRENT))
+        self.themetitlebox.addWidget(self.themesubtitle)
 
-        self.group = QButtonGroup(self)
+        self.themelayout.addLayout(self.themetitlebox)
 
-        languages = [
-            "Normal",
-            "English (Simplified)",
-            "English (Traditional)",
-            "English (French)",
-            "English 2",
-            "Español",
-            "Français",
-            "Deutsch",
-            "Homosexual",
-            "Italiano",
-            "Português",
-            "Left Shoe",
-            "日本語",
-            "한국어",
-            "中文",
-            "Craigish",
-            "Русский",
-            "Latin",
-            "Sephiroth",
-        ]
+        self.voidbtn = QPushButton("Void")
+        self.voidbtn.setStyleSheet(styles.o_btn(tlib.CURRENT))
 
-        self.searchbar = QLineEdit()
-        self.searchbar.setPlaceholderText("Search languages...")
-        self.searchbar.setFixedHeight(40)
-        self.searchbar.setStyleSheet(styles.d_sbar(tlib.CURRENT))
+        self.sunbtn = QPushButton("The Fucking Sun")
+        self.sunbtn.setStyleSheet(styles.o_btn(tlib.CURRENT))
 
-        self.layout.addWidget(self.searchbar)
-        self.layout.addSpacing(10)
+        self.pissbtn = QPushButton("Piss")
+        self.pissbtn.setStyleSheet(styles.o_btn(tlib.CURRENT))
 
-        self.group.setExclusive(True)
-        self.language_buttons = []
+        self.randbtn = QPushButton("Random")
+        self.randbtn.setStyleSheet(styles.o_btn(tlib.CURRENT))
 
-        for lang in languages:
-            btn = QPushButton(lang)
-            btn.setFixedHeight(40)
+        self.themegroup = QButtonGroup()
+        self.themegroup.setExclusive(True)
+
+        self.theme_btns = []
+
+        for btn in [self.voidbtn, self.sunbtn, self.pissbtn, self.randbtn]:
+
             btn.setCheckable(True)
-            btn.setStyleSheet(styles.o_btn(tlib.CURRENT))
+            btn.setFixedHeight(40)
 
-            self.layout.addWidget(btn)
-            self.group.addButton(btn)
-            self.language_buttons.append(btn)
+            self.themelayout.addWidget(btn)
+            self.themegroup.addButton(btn)
+            self.theme_btns.append(btn)
 
-        self.layout.addStretch()
-        self.selectionscroll.setWidget(self.selectioncard)
+        self.theme_btns[0].setChecked(True)
 
-        self.language_buttons[0].setChecked(True)
+        self.themelayout.addStretch()
 
-        self.searchbar.textChanged.connect(self.filter_languages)
+        # --- common card
+        self.commoncard = QWidget()
+        self.commoncard.setStyleSheet(styles.c_widget(tlib.CURRENT))
 
-        # --- preview
-        self.previewcard = QWidget()
-        self.previewcard.setStyleSheet(styles.c_widget(tlib.CURRENT))
+        self.commonlayout = QVBoxLayout(self.commoncard)
+        self.commonlayout.setContentsMargins(20, 20, 20, 20)
+        self.commonlayout.setSpacing(20)
 
-        self.previewlayout = QVBoxLayout()
-        self.previewlayout.setContentsMargins(20, 20, 20, 20)
-        self.previewlayout.setSpacing(10)
+        self.commontitlebox = QVBoxLayout()
+        self.commontitlebox.setContentsMargins(0, 0, 0, 0)
+        self.commontitlebox.setSpacing(10)
 
-        self.previewtitle = QLabel("Preview")
-        self.previewtitle.setStyleSheet(styles.a_subtitle(tlib.CURRENT))
-        self.previewlayout.addWidget(self.previewtitle)
+        self.commontitle = QLabel("Common Settings")
+        self.commontitle.setStyleSheet(styles.a_subtitle(tlib.CURRENT))
+        self.commontitlebox.addWidget(self.commontitle)
 
-        self.previewsubtitle = QLabel("This is how SephirothOS will look.")
-        self.previewsubtitle.setStyleSheet(styles.p_subtitle(tlib.CURRENT))
-        self.previewlayout.addWidget(self.previewsubtitle)
+        self.commonsubtitle = QLabel("Pre-Configure a few things.")
+        self.commonsubtitle.setStyleSheet(styles.p_subtitle(tlib.CURRENT))
+        self.commontitlebox.addWidget(self.commonsubtitle)
 
-        self.viewcard = QWidget()
-        self.viewcard.setStyleSheet(styles.d_widget(tlib.CURRENT))
+        self.commonlayout.addLayout(self.commontitlebox)
+        self.commonlayout.addStretch()
 
-        self.viewlayout = QVBoxLayout(self.viewcard)
-        self.viewlayout.setContentsMargins(0, 0, 0, 0)
-        self.viewlayout.setSpacing(0)
-        self.viewlayout.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        # --- accent card
+        self.accentcard = QWidget()
+        self.accentcard.setStyleSheet(styles.c_widget(tlib.CURRENT))
 
-        self.viewtitle = QLabel("PISS")
-        self.viewtitle.setStyleSheet(styles.w_title(tlib.CURRENT))
-        self.viewlayout.addWidget(self.viewtitle)
+        self.accentlayout = QVBoxLayout(self.accentcard)
+        self.accentlayout.setContentsMargins(20, 20, 20, 20)
+        self.accentlayout.setSpacing(20)
 
-        self.viewcard.setLayout(self.viewlayout)
-        self.previewlayout.addSpacing(10)
-        self.previewlayout.addWidget(self.viewcard, 1)
-        self.previewcard.setLayout(self.previewlayout)
+        self.accenttitlebox = QVBoxLayout()
+        self.accenttitlebox.setContentsMargins(0, 0, 0, 0)
+        self.accenttitlebox.setSpacing(10)
 
-        # --- note
-        self.notecard = QWidget()
-        self.notecard.setStyleSheet(styles.c_widget(tlib.CURRENT))
+        self.accenttitle = QLabel("Accent Color")
+        self.accenttitle.setStyleSheet(styles.a_subtitle(tlib.CURRENT))
+        self.accenttitlebox.addWidget(self.accenttitle)
 
-        self.notelayout = QVBoxLayout(self.notecard)
-        self.notelayout.setContentsMargins(20, 20, 20, 20)
-        self.notelayout.setSpacing(10)
-        self.notecard.setLayout(self.notelayout)
+        self.accentsubtitle = QLabel("Oh boohoohoo I don't like purple.")
+        self.accentsubtitle.setStyleSheet(styles.p_subtitle(tlib.CURRENT))
+        self.accenttitlebox.addWidget(self.accentsubtitle)
 
-        self.notetitle = QLabel("Note")
-        self.notetitle.setStyleSheet(styles.a_subtitle(tlib.CURRENT))
-        self.notelayout.addWidget(self.notetitle)
-
-        self.notesubtitle = QLabel("Don't worry! All of these are 100% real languages.\n"
-                                   "We definitely have transgenders.")
-        self.notesubtitle.setStyleSheet(styles.p_subtitle(tlib.CURRENT))
-        self.notelayout.addWidget(self.notesubtitle)
-
-        self.notelayout.addStretch()
+        self.accentlayout.addLayout(self.accenttitlebox)
+        self.accentlayout.addStretch()
 
         # --- main layout
         self.mainlayout = QVBoxLayout()
@@ -163,28 +138,16 @@ class PersonalizationPage(QWidget):
         self.hlayout.setContentsMargins(0, 0, 0, 0)
         self.hlayout.setSpacing(20)
 
-        # --- right layout
-        self.rightlayout = QVBoxLayout()
-        self.rightlayout.setContentsMargins(0, 0, 0, 0)
-        self.rightlayout.setSpacing(20)
-
         # --- assembly
         self.setLayout(self.mainlayout)
         self.mainlayout.addLayout(self.titlebox)
 
-        self.mainlayout.addLayout(self.hlayout, 1)
-        self.hlayout.addWidget(self.selectionscroll, 1)
-        self.hlayout.addLayout(self.rightlayout, 1)
+        self.hlayout.addWidget(self.themecard, 3)
+        self.hlayout.addWidget(self.commoncard, 3)
+        self.hlayout.addWidget(self.accentcard, 2)
 
-        self.rightlayout.addWidget(self.previewcard, 4)
-        self.rightlayout.addWidget(self.notecard, 1)
+        self.mainlayout.addLayout(self.hlayout, 1)
 
     def next_page(self):
         next_index = self.stack.currentIndex() + 1
         self.stack.setCurrentIndex(next_index)
-
-    def filter_languages(self, text):
-        text = text.lower().strip()
-
-        for btn in self.language_buttons:
-            btn.setVisible(text in btn.text().lower())

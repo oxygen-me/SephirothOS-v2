@@ -23,19 +23,19 @@ logger.important(f"Running from: {sys.executable}", "root")
 
 # --- main function
 def main():
-    print("[main]: Start initiated")
+    logger.debug("Start initiated", "main")
 
     # --- create app
     app = QApplication(sys.argv)
-    print("[main]: App created")
+    logger.info("App created", "main")
 
     # --- start clock
-    print("[main]: Init clock")
+    logger.debug("Init clock", "main")
     clock = ClockService()
     clock.start()
 
     # --- attempt handshake
-    print("[main]: Attempting handshake...")
+    logger.debug("Attempting handshake...", "main")
 
     boot = Bootstrapper()
     ready, lcn = boot.intitialize()
@@ -89,7 +89,7 @@ def main():
 
     print(f"[main]: VERSION {VERSION!r}")
     print(f"[main]: osversion {osversion!r}")
-    print(f"[main]: Equal {VERSION == osversion}")
+    print(f"[main]: Versions equal {VERSION == osversion}")
 
     if VERSION != osversion:
         userchoice = QMessageBox.question(None, "Update Available", "I AM FUCKING RENDERING SOMETHING!!!",
