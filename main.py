@@ -151,5 +151,7 @@ def quit_app():
 if __name__ == "__main__":
     main()
 
-    # todo: more debug prints
-    # todo: rest of default ui
+# ----------------------------------------
+# latest stable version
+# git checkout should failure occur
+# ----------------------------------------
