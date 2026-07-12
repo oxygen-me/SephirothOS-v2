@@ -1,10 +1,11 @@
 import json
 
 import pytest
+
 from sephirothos.config import (
     AppConfig,
-    ConfigurationError,
     ConfigStore,
+    ConfigurationError,
 )
 
 

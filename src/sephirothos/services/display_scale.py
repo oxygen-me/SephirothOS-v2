@@ -99,11 +99,8 @@ class DisplayScaleService(QObject):
             if math.isclose(numeric_factor, supported_factor):
                 return supported_factor
 
-        percentages = ", ".join(
-            f"{round(item * 100)}%" for item in SUPPORTED_SCALE_FACTORS
-        )
+        percentages = ", ".join(f"{round(item * 100)}%" for item in SUPPORTED_SCALE_FACTORS)
 
         raise DisplayScaleError(
-            f"Unsupported scale factor {numeric_factor:g}."
-            f"Unsupported scales: {percentages}."
+            f"Unsupported scale factor {numeric_factor:g}.Unsupported scales: {percentages}."
         )

@@ -11,6 +11,8 @@ src/sephirothos/paths.py
 src/sephirothos.egg-info/PKG-INFO
 src/sephirothos.egg-info/SOURCES.txt
 src/sephirothos.egg-info/dependency_links.txt
+src/sephirothos.egg-info/entry_points.txt
+src/sephirothos.egg-info/requires.txt
 src/sephirothos.egg-info/top_level.txt
 src/sephirothos/services/__init__.py
 src/sephirothos/services/display_scale.py
@@ -40,6 +42,8 @@ src/sephirothos/ui/tabs/settings/tab.py
 src/sephirothos/ui/tabs/settings/pages/__init__.py
 tests/test_config.py
 tests/test_display_scale.py
+tests/test_events.py
 tests/test_navigation.py
 tests/test_paths.py
+tests/test_theme.py
 tests/test_updates.py
