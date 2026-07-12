@@ -7,6 +7,7 @@ from sephirothos.config import AppConfig
 from sephirothos.events import EventBus
 from sephirothos.metadata import APPLICATION_NAME
 from sephirothos.ui.metrics import UiMetrics
+from sephirothos.ui.roles import SurfaceRole
 
 
 class AppShell(QWidget):
@@ -26,6 +27,8 @@ class AppShell(QWidget):
 
         self.setObjectName("appShell")
         self.setWindowTitle(APPLICATION_NAME)
+
+        self.setProperty("surfaceRole", SurfaceRole.BACKGROUND.value)
 
         self.setWindowFlags(Qt.WindowType.Window | Qt.WindowType.FramelessWindowHint)
 

@@ -1,4 +1,4 @@
-"""Theme palettes and Qt stylesheet generation."""
+"""Theme palettes and property-based Qt stylesheet generation."""
 
 from __future__ import annotations
 
@@ -14,26 +14,20 @@ class ThemePalette:
     background: str
     surface: str
     surface_raised: str
-
     text_primary: str
     text_secondary: str
     text_disabled: str
-
     accent: str
     accent_hover: str
     accent_pressed: str
-
     success: str
     warning: str
     error: str
-
     hover: str
     selected: str
     focus: str
-
     border: str
     border_strong: str
-
     glow: str
 
 
@@ -63,75 +57,477 @@ def build_application_stylesheet(
     palette: ThemePalette,
     metrics: UiMetrics,
 ) -> str:
-    """Build the global stylesheet from a palette and resolved metrics."""
+    """Build one application-wide stylesheet from a palette and resolved metrics."""
 
-    base_font_size = metrics.font_small
-    small_radius = metrics.radius_medium
-    control_padding_vertical = metrics.space_10
-    control_padding_horizontal = metrics.space_10
-    border_width = metrics.border_thin
+    return "\n".join(
+        (
+            _base_styles(palette, metrics),
+            _surface_styles(palette, metrics),
+            _text_styles(palette, metrics),
+            _button_styles(palette, metrics),
+            _input_styles(palette, metrics),
+            _structural_styles(palette, metrics),
+            _table_styles(palette, metrics),
+            _progress_styles(palette, metrics),
+        )
+    )
 
+
+def _base_styles(palette: ThemePalette, metrics: UiMetrics) -> str:
     return f"""
-        QWidget {{
-            background-color: {palette.background};
+        * {{
             color: {palette.text_primary};
-            font-size: {base_font_size}px;
+            font-family: "Segoe UI";
+            font-size: {metrics.font_body}px;
         }}
 
-        QLabel:disabled,
-        QPushButton:disabled {{
+        *:disabled {{
             color: {palette.text_disabled};
-        }}
-
-        QPushButton {{
-            background-color: {palette.surface};
-            color: {palette.text_primary};
-            border: {border_width}px solid {palette.border};
-            border-radius: {small_radius}px;
-            padding: {control_padding_vertical}px {control_padding_horizontal}px;
-        }}
-
-        QPushButton:hover {{
-            background-color: {palette.hover};
-            border-color: {palette.border_strong};
-        }}
-
-        QPushButton:pressed {{
-            background-color: {palette.accent_pressed};
-        }}
-
-        QPushButton:checked {{
-            background-color: {palette.selected};
-            border-color: {palette.accent};
-        }}
-
-        QPushButton:focus {{
-            border-color: {palette.focus};
-        }}
-
-        QLineEdit,
-        QTextEdit,
-        QPlainTextEdit,
-        QComboBox {{
-            background-color: {palette.surface};
-            color: {palette.text_primary};
-            selection-background-color: {palette.accent};
-            selection-color: {palette.text_primary};
-            border: {border_width}px solid {palette.border};
-            border-radius: {small_radius}px;
-            padding: {control_padding_vertical}px;
-        }}
-
-        QLineEdit:focus,
-        QTextEdit:focus,
-        QPlainTextEdit:focus,
-        QComboBox:focus {{
-            border-color: {palette.focus};
         }}
 
         QToolTip {{
             background-color: {palette.surface_raised};
             color: {palette.text_primary};
-            border: {border_width}px solid {palette.border_strong};
+            border: {metrics.border_thin}px solid {palette.border_strong};
+            padding: {metrics.space_5}px;
+        }}
+    """
+
+
+def _surface_styles(palette: ThemePalette, metrics: UiMetrics) -> str:
+    return f"""
+        QWidget[surfaceRole="background"] {{
+            background-color: {palette.background};
+            border: 0;
+        }}
+
+        QWidget[surfaceRole="chrome"] {{
+            background-color: {palette.surface};
+            border: 0;
+        }}
+
+        QWidget[surfaceRole="panel"] {{
+            background-color: {palette.surface};
+            border: 0;
+            border-radius: {metrics.radius_medium}px;
+        }}
+
+        QWidget[surfaceRole="card"] {{
+            background-color: {palette.background};
+            border: 0;
+            border-radius: {metrics.radius_medium}px;
+        }}
+
+        QWidget[surfaceRole="transparent"] {{
+            background-color: transparent;
+            border: 0;
+        }}
+
+        QWidget[surfaceRole="outlined"] {{
+            background-color: transparent;
+            border: {metrics.border_thin}px solid {palette.border};
+            border-radius: {metrics.radius_medium}px;
+        }}
+
+        QWidget[surfaceRole="accent-outlined"] {{
+            background-color: {palette.surface};
+            border: {metrics.border_thin}px solid {palette.accent};
+            border-radius: {metrics.radius_medium}px;
+        }}
+    """
+
+
+def _text_styles(palette: ThemePalette, metrics: UiMetrics) -> str:
+    return f"""
+        QLabel[textRole] {{
+            background-color: transparent;
+            border: 0;
+        }}
+
+        QLabel[textRole="page-title"] {{
+            color: {palette.text_primary};
+            font-size: {metrics.font_page_title}px;
+            font-weight: 500;
+        }}
+
+        QLabel[textRole="page-subtitle"] {{
+            color: {palette.text_secondary};
+            font-size: {metrics.font_subtitle}px;
+            font-weight: 500;
+        }}
+
+        QLabel[textRole="card-title"] {{
+            color: {palette.text_primary};
+            font-size: {metrics.font_subtitle}px;
+            font-weight: 500;
+        }}
+
+        QLabel[textRole="caption"] {{
+            color: {palette.text_secondary};
+            font-size: {metrics.font_small}px;
+            font-weight: 500;
+        }}
+
+        QLabel[textRole="body"] {{
+            color: {palette.text_primary};
+            font-size: {metrics.font_body}px;
+            font-weight: 500;
+        }}
+
+        QLabel[textRole="body-muted"] {{
+            color: {palette.text_secondary};
+            font-size: {metrics.font_body}px;
+            font-weight: 500;
+        }}
+
+        QLabel[textRole="username"] {{
+            color: {palette.text_primary};
+            font-size: {metrics.font_subtitle}px;
+            font-weight: 600;
+        }}
+
+        QLabel[textRole="section-title"] {{
+            color: {palette.text_secondary};
+            font-size: {metrics.font_subtitle}px;
+            font-weight: 600;
+        }}
+
+        QLabel[textRole="section-caption"] {{
+            color: {palette.text_secondary};
+            font-size: {metrics.font_caption}px;
+            font-weight: 500;
+        }}
+
+        QLabel[textRole="welcome-title"] {{
+            color: {palette.text_primary};
+            font-size: {metrics.font_hero_title}px;
+            font-weight: 600;
+        }}
+
+        QLabel[textRole="welcome-title-accent"] {{
+            color: {palette.accent};
+            font-size: {metrics.font_hero_title}px;
+            font-weight: 600;
+        }}
+
+        QLabel[textRole="welcome-subtitle"] {{
+            color: {palette.text_secondary};
+            font-size: {metrics.font_hero_subtitle}px;
+            font-weight: 500;
+        }}
+
+        QLabel[textRole="welcome-body"] {{
+            color: {palette.text_primary};
+            font-family: "Consolas";
+            font-size: {metrics.font_emphasis}px;
+            font-weight: 500;
+        }}
+
+        QLabel[textRole="welcome-page-title"] {{
+            color: {palette.text_primary};
+            font-size: {metrics.font_page_title}px;
+            font-weight: 600;
+        }}
+
+        QLabel[textRole="welcome-page-subtitle"] {{
+            color: {palette.text_secondary};
+            font-size: {metrics.font_emphasis}px;
+            font-weight: 500;
+        }}
+
+        QLabel[textRole="accent-subtitle"] {{
+            color: {palette.accent};
+            font-size: {metrics.font_emphasis}px;
+            font-weight: 500;
+        }}
+
+        QLabel[textRole="accent-body"] {{
+            color: {palette.accent};
+            font-family: "Consolas";
+            font-size: {metrics.font_emphasis}px;
+            font-weight: 500;
+        }}
+    """
+
+
+def _button_styles(palette: ThemePalette, metrics: UiMetrics) -> str:
+    return f"""
+        QPushButton[buttonVariant] {{
+            background-color: transparent;
+            color: {palette.text_primary};
+            border: 0;
+            border-radius: {metrics.radius_medium}px;
+            font-size: {metrics.font_body}px;
+            padding: {metrics.space_10}px;
+            text-align: left;
+        }}
+
+        QPushButton[buttonVariant]:hover {{
+            background-color: {palette.hover};
+        }}
+
+        QPushButton[buttonVariant]:pressed,
+        QPushButton[buttonVariant]:checked {{
+            background-color: {palette.selected};
+        }}
+
+        QPushButton[buttonVariant="secondary"] {{
+            border: {metrics.border_thin}px solid {palette.border};
+        }}
+
+        QPushButton[buttonVariant="selectable"] {{
+            border: {metrics.border_thin}px solid {palette.border};
+            padding: {metrics.space_5}px {metrics.space_10}px;
+        }}
+
+        QPushButton[buttonVariant="selectable"]:checked,
+        QPushButton[buttonVariant="theme-option"]:checked {{
+            border: {metrics.border_strong}px solid {palette.accent};
+        }}
+
+        QPushButton[buttonVariant="card-action"] {{
+            border: {metrics.border_thin}px solid {palette.border_strong};
+        }}
+
+        QPushButton[buttonVariant="primary"] {{
+            background-color: {palette.accent};
+            font-size: {metrics.font_subtitle}px;
+            font-weight: 600;
+        }}
+
+        QPushButton[buttonVariant="primary"]:hover {{
+            background-color: {palette.accent_hover};
+        }}
+
+        QPushButton[buttonVariant="primary"]:pressed,
+        QPushButton[buttonVariant="primary"]:checked {{
+            background-color: {palette.accent_pressed};
+        }}
+
+        QPushButton[buttonVariant="accent-outline"] {{
+            border: {metrics.border_thin}px solid {palette.accent};
+        }}
+
+        QPushButton[buttonVariant="theme-option"] {{
+            border: {metrics.border_thin}px solid {palette.border};
+        }}
+    """
+
+
+def _input_styles(palette: ThemePalette, metrics: UiMetrics) -> str:
+    return f"""
+        QLineEdit[inputRole="search"],
+        QTextEdit[inputRole="editor"],
+        QPlainTextEdit[inputRole="editor"],
+        QComboBox[inputRole="combo"] {{
+            background-color: {palette.surface};
+            color: {palette.text_primary};
+            selection-background-color: {palette.accent};
+            selection-color: {palette.text_primary};
+            border: {metrics.border_thin}px solid {palette.border};
+            padding: {metrics.space_10}px;
+            font-size: {metrics.font_subtitle}px;
+            font-weight: 500;
+        }}
+
+        QLineEdit[inputRole="search"]:hover,
+        QTextEdit[inputRole="editor"]:hover,
+        QPlainTextEdit[inputRole="editor"]:hover,
+        QComboBox[inputRole="combo"]:hover {{
+            background-color: {palette.hover};
+        }}
+
+        QLineEdit[inputRole="search"]:focus,
+        QTextEdit[inputRole="editor"]:focus,
+        QPlainTextEdit[inputRole="editor"]:focus,
+        QComboBox[inputRole="combo"]:focus {{
+            background-color: {palette.surface};
+            border-color: {palette.border_strong};
+        }}
+
+        QComboBox[inputRole="combo"]::drop-down {{
+            border: 0;
+            width: {metrics.space_30}px;
+        }}
+
+        QComboBox[inputRole="combo"] QAbstractItemView {{
+            background-color: {palette.surface};
+            color: {palette.text_primary};
+            border: {metrics.border_thin}px solid {palette.border};
+            selection-background-color: {palette.selected};
+            selection-color: {palette.text_primary};
+            outline: 0;
+        }}
+
+        QCheckBox[checkRole="default"] {{
+            background-color: transparent;
+            color: {palette.text_primary};
+            font-size: {metrics.font_body}px;
+            font-weight: 500;
+            spacing: {metrics.space_10}px;
+        }}
+
+        QCheckBox[checkRole="default"]::indicator {{
+            width: {metrics.checkbox_extent}px;
+            height: {metrics.checkbox_extent}px;
+            background-color: {palette.surface};
+            border: {metrics.border_thin}px solid {palette.border};
+            border-radius: {metrics.radius_small}px;
+        }}
+
+        QCheckBox[checkRole="default"]::indicator:hover {{
+            background-color: {palette.hover};
+            border-color: {palette.border_strong};
+        }}
+
+        QCheckBox[checkRole="default"]::indicator:checked {{
+            background-color: {palette.accent};
+            border-color: {palette.accent};
+        }}
+
+        QCheckBox[checkRole="default"]::indicator:checked:hover {{
+            background-color: {palette.accent_hover};
+            border-color: {palette.accent_hover};
+        }}
+
+        QCheckBox[checkRole="default"]::indicator:pressed {{
+            background-color: {palette.selected};
+        }}
+    """
+
+
+def _structural_styles(palette: ThemePalette, metrics: UiMetrics) -> str:
+    return f"""
+        *[dividerRole="default"] {{
+            background-color: {palette.border};
+            border: 0;
+        }}
+
+        *[dividerRole="strong"] {{
+            background-color: {palette.border_strong};
+            border: 0;
+        }}
+
+        QLabel[indicatorRole="default-circle"] {{
+            background-color: transparent;
+            border: {metrics.border_strong}px solid {palette.border};
+            border-radius: {metrics.space_20}px;
+            font-size: {metrics.font_subtitle}px;
+            font-weight: 500;
+        }}
+
+        QLabel[indicatorRole="accent-circle"] {{
+            background-color: transparent;
+            border: {metrics.border_strong}px solid {palette.accent};
+            border-radius: {metrics.space_20}px;
+            font-size: {metrics.font_subtitle}px;
+            font-weight: 500;
+        }}
+
+        QScrollArea[scrollRole="default"] {{
+            background-color: transparent;
+            border: 0;
+        }}
+
+        QScrollArea[scrollRole="default"] > QWidget > QWidget {{
+            background-color: transparent;
+        }}
+
+        QScrollBar:vertical {{
+            background-color: transparent;
+            width: {metrics.scrollbar_extent}px;
+            margin: {metrics.space_5}px 0;
+        }}
+
+        QScrollBar::handle:vertical {{
+            background-color: {palette.selected};
+            min-height: {metrics.space_30}px;
+        }}
+
+        QScrollBar:horizontal {{
+            background-color: transparent;
+            height: {metrics.scrollbar_extent}px;
+            margin: 0 {metrics.space_5}px;
+        }}
+
+        QScrollBar::handle:horizontal {{
+            background-color: {palette.selected};
+            min-width: {metrics.space_30}px;
+        }}
+
+        QScrollBar::handle:hover {{
+            background-color: {palette.hover};
+        }}
+
+        QScrollBar::add-line,
+        QScrollBar::sub-line {{
+            width: 0;
+            height: 0;
+            border: 0;
+            background-color: transparent;
+        }}
+
+        QScrollBar::add-page,
+        QScrollBar::sub-page {{
+            background-color: transparent;
+        }}
+    """
+
+
+def _table_styles(palette: ThemePalette, metrics: UiMetrics) -> str:
+    return f"""
+        QTableWidget[tableRole="default"] {{
+            background-color: {palette.surface};
+            color: {palette.text_primary};
+            border: {metrics.border_thin}px solid {palette.border};
+            gridline-color: {palette.border};
+            font-size: {metrics.font_small}px;
+        }}
+
+        QTableWidget[tableRole="default"] QHeaderView::section {{
+            background-color: {palette.surface};
+            color: {palette.text_primary};
+            border: 0;
+            border-bottom: {metrics.border_thin}px solid {palette.border};
+            padding: {metrics.space_10}px;
+        }}
+
+        QTableWidget[tableRole="default"]::item {{
+            padding: {metrics.space_10}px;
+            border-bottom: {metrics.border_thin}px solid {palette.border};
+        }}
+
+        QTableWidget[tableRole="default"]::item:selected {{
+            background-color: {palette.selected};
+        }}
+    """
+
+
+def _progress_styles(palette: ThemePalette, metrics: UiMetrics) -> str:
+    return f"""
+        QProgressBar[progressRole="default"] {{
+            background-color: {palette.surface};
+            border: 0;
+            border-radius: {metrics.radius_small}px;
+            color: {palette.text_primary};
+            min-height: {metrics.progress_height}px;
+            max-height: {metrics.progress_height}px;
+        }}
+
+        QProgressBar[progressRole="default"]::chunk,
+        QProgressBar[progressRole="default"][tone="accent"]::chunk {{
+            background-color: {palette.accent};
+        }}
+
+        QProgressBar[progressRole="default"][tone="success"]::chunk {{
+            background-color: {palette.success};
+        }}
+
+        QProgressBar[progressRole="default"][tone="warning"]::chunk {{
+            background-color: {palette.warning};
+        }}
+
+        QProgressBar[progressRole="default"][tone="error"]::chunk {{
+            background-color: {palette.error};
         }}
     """
