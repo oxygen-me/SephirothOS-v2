@@ -24,7 +24,7 @@ def test_configuration_round_trip(tmp_path) -> None:
 
     expected = AppConfig(
         username="Craig-John",
-        theme_id="dark",
+        theme_id="void",
         display_scale=1.25,
         onboarding_complete=True,
     )

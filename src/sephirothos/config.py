@@ -24,7 +24,7 @@ class AppConfig:
 
     schema_version: int = CURRENT_SCHEMA_VERSION
     username: str = "User"
-    theme_id: str = "dark"
+    theme_id: str = "void"
     display_scale: float = 1.0
     onboarding_complete: bool = False
 
@@ -34,7 +34,7 @@ class AppConfig:
 
         schema_version = data.get("schema_version", CURRENT_SCHEMA_VERSION)
         username = data.get("username", "User")
-        theme_id = data.get("theme_id", "dark")
+        theme_id = data.get("theme_id", "void")
         display_scale = data.get("display_scale", 1.0)
         onboarding_complete = data.get("onboarding_complete", False)
 
