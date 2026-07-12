@@ -8,6 +8,7 @@ from sephirothos.services.theme import (
     UnavailableThemeError,
     UnknownThemeError,
 )
+from sephirothos.ui.metrics import UiMetrics
 
 
 class FakeThemeTarget:
@@ -21,13 +22,18 @@ class FakeThemeTarget:
 def make_service() -> tuple[
     ThemeService,
     FakeThemeTarget,
-    DisplayScaleService,
+    UiMetrics,
 ]:
     target = FakeThemeTarget()
     scale = DisplayScaleService()
-    service = ThemeService(target, scale)
+    metrics = UiMetrics.from_scale(scale)
 
-    return service, target, scale
+    service = ThemeService(
+        target=target,
+        metrics=metrics,
+    )
+
+    return service, target, metrics
 
 
 def test_void_is_the_default_theme() -> None:
@@ -88,14 +94,12 @@ def test_known_but_unavailable_theme_is_rejected() -> None:
         service.set_theme(ThemeId.BISEXUAL)
 
 
-def test_scale_change_rebuilds_stylesheet() -> None:
-    service, target, scale = make_service()
+def test_stylesheet_uses_supplied_metrics() -> None:
+    service, target, metrics = make_service()
+
     service.apply_current()
 
-    original = target.stylesheets[-1]
+    stylesheet = target.stylesheets[-1]
 
-    scale.set_factor(1.5)
-
-    assert len(target.stylesheets) == 2
-    assert target.stylesheets[-1] != original
-    assert "font-size: 21px" in target.stylesheets[-1]
+    assert f"font-size: {metrics.font_small}px" in stylesheet
+    assert f"border: {metrics.border_thin}px solid" in stylesheet

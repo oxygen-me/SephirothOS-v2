@@ -14,6 +14,7 @@ from sephirothos.metadata import (
 )
 from sephirothos.services.display_scale import DisplayScaleService
 from sephirothos.services.theme import ThemeService
+from sephirothos.ui.metrics import UiMetrics
 from sephirothos.ui.shell import AppShell
 
 
@@ -33,15 +34,18 @@ class SephirothApplication:
 
         self.event_bus = EventBus()
         self.display_scale = self._create_display_scale(self.config)
+        self.metrics = UiMetrics.from_scale(self.display_scale)
+
         self.theme = ThemeService(
             target=self.qt_application,
-            display_scale=self.display_scale,
+            metrics=self.metrics,
             initial_theme=self.config.theme_id,
         )
 
         self.shell = AppShell(
             config=self.config,
             event_bus=self.event_bus,
+            metrics=self.metrics,
         )
 
         self._connect_events()
@@ -50,7 +54,7 @@ class SephirothApplication:
     def run(self) -> int:
         """Show the shell and enter the Qt event loop."""
 
-        self.shell.show()
+        self.shell.showFullScreen()
         return self.qt_application.exec_()
 
     def _configure_metadata(self) -> None:

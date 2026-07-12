@@ -1,2 +1,0 @@
-[console_scripts]
-sephirothos = sephirothos.__main__:main

@@ -21,3 +21,6 @@ dist/
 # JetBrains IDEs
 .idea/
 *.iml
+
+# Packaging metadata
+*.egg-info/

@@ -74,8 +74,8 @@ class DisplayScaleService(QObject):
         self._validate_design_value(value)
         return float(value) * self._factor
 
-    def scale_pixels(self, value: int | float) -> float:
-        """Scale and round a non-negative pixel measurement"""
+    def scale_pixels(self, value: int | float) -> int:
+        """Scale and round a non-negative pixel measurement."""
 
         scaled = self.scale_value(value)
         return int(scaled + 0.5)
@@ -102,5 +102,5 @@ class DisplayScaleService(QObject):
         percentages = ", ".join(f"{round(item * 100)}%" for item in SUPPORTED_SCALE_FACTORS)
 
         raise DisplayScaleError(
-            f"Unsupported scale factor {numeric_factor:g}.Unsupported scales: {percentages}."
+            f"Unsupported scale factor {numeric_factor:g}. Supported scales: {percentages}."
         )

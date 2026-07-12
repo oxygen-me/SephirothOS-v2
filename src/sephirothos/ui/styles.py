@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from sephirothos.services.display_scale import DisplayScaleService
+from sephirothos.ui.metrics import UiMetrics
 
 
 @dataclass(frozen=True, slots=True)
@@ -61,15 +61,15 @@ VOID_PALETTE = ThemePalette(
 
 def build_application_stylesheet(
     palette: ThemePalette,
-    scale: DisplayScaleService,
+    metrics: UiMetrics,
 ) -> str:
-    """Build the global Qt stylesheet for a palette and display scale."""
+    """Build the global stylesheet from a palette and resolved metrics."""
 
-    base_font_size = scale.scale_pixels(14)
-    small_radius = scale.scale_pixels(6)
-    control_padding_vertical = scale.scale_pixels(8)
-    control_padding_horizontal = scale.scale_pixels(12)
-    border_width = max(1, scale.scale_pixels(1))
+    base_font_size = metrics.font_small
+    small_radius = metrics.radius_medium
+    control_padding_vertical = metrics.space_10
+    control_padding_horizontal = metrics.space_10
+    border_width = metrics.border_thin
 
     return f"""
         QWidget {{

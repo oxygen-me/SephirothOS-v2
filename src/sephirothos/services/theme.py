@@ -7,7 +7,7 @@ from typing import Protocol
 
 from PySide6.QtCore import QObject, Signal
 
-from sephirothos.services.display_scale import DisplayScaleService
+from sephirothos.ui.metrics import UiMetrics
 from sephirothos.ui.styles import (
     VOID_PALETTE,
     ThemePalette,
@@ -63,17 +63,15 @@ class ThemeService(QObject):
     def __init__(
         self,
         target: ThemeTarget,
-        display_scale: DisplayScaleService,
+        metrics: UiMetrics,
         initial_theme: str | ThemeId = ThemeId.VOID,
         parent: QObject | None = None,
     ) -> None:
         super().__init__(parent)
 
         self._target = target
-        self._display_scale = display_scale
+        self._metrics = metrics
         self._theme_id = self._validated_available_theme(initial_theme)
-
-        self._display_scale.scale_changed.connect(self._handle_scale_change)
 
     @property
     def theme_id(self) -> ThemeId:
@@ -103,7 +101,7 @@ class ThemeService(QObject):
         palette = AVAILABLE_PALETTES[self._theme_id]
         stylesheet = build_application_stylesheet(
             palette,
-            self._display_scale,
+            self._metrics,
         )
         self._target.setStyleSheet(stylesheet)
 
@@ -117,9 +115,6 @@ class ThemeService(QObject):
         self.apply_current()
         self.theme_changed.emit(self._theme_id.value)
         return True
-
-    def _handle_scale_change(self, _factor: float) -> None:
-        self.apply_current()
 
     @staticmethod
     def _validated_available_theme(
