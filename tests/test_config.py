@@ -14,7 +14,7 @@ def test_missing_configuration_creates_defaults(tmp_path) -> None:
 
     config = store.load()
 
-    assert config == {}
+    assert config == AppConfig()
     assert path.exists()
 
 
@@ -63,7 +63,9 @@ def test_saved_configuration_is_readable_json(tmp_path) -> None:
     path = tmp_path / "config.json"
     store = ConfigStore(path)
 
+    store.save(AppConfig(username="Brad"))
+
     data = json.loads(path.read_text(encoding="utf-8"))
 
     assert data["schema_version"] == 1
-    assert data["username"] == "Craig-John"
+    assert data["username"] == "Brad"

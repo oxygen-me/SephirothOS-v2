@@ -17,6 +17,7 @@ CURRENT_SCHEMA_VERSION = 1
 class ConfigurationError(RuntimeError):
     """Raised when application configuration is invalid or cannot be saved."""
 
+
 @dataclass(slots=True)
 class AppConfig:
     """User-configurable SephirothOS state."""
@@ -37,13 +38,13 @@ class AppConfig:
         display_scale = data.get("display_scale", 1.0)
         onboarding_complete = data.get("onboarding_complete", False)
 
-        if not isinstance(schema_version, int) or isinstance(
-                schema_version, bool
-        ):
+        if not isinstance(schema_version, int) or isinstance(schema_version, bool):
             raise ConfigurationError("schema_version must be an integer.")
 
         if schema_version != CURRENT_SCHEMA_VERSION:
-            raise ConfigurationError(f"Unsupported configuration schema: {schema_version}")
+            raise ConfigurationError(
+                f"Unsupported configuration schema: {schema_version}"
+            )
 
         if not isinstance(username, str) or not username.strip():
             raise ConfigurationError("username must be a non-empty string.")
@@ -52,7 +53,7 @@ class AppConfig:
             raise ConfigurationError("theme_id must be a non-empty string.")
 
         if isinstance(display_scale, bool) or not isinstance(
-                display_scale, int | float
+            display_scale, int | float
         ):
             raise ConfigurationError("display_scale must be numeric.")
 
@@ -92,7 +93,9 @@ class ConfigStore:
                 data = json.load(file)
 
             if not isinstance(data, dict):
-                raise ConfigurationError("The configuration root must be a JSON object.")
+                raise ConfigurationError(
+                    "The configuration root must be a JSON object."
+                )
 
             return AppConfig.from_mapping(data)
 
@@ -102,7 +105,9 @@ class ConfigStore:
             OSError,
             TypeError,
         ) as error:
-            raise ConfigurationError(f"Could not load configuration from {self.path}") from error
+            raise ConfigurationError(
+                f"Could not load configuration from {self.path}"
+            ) from error
 
     def save(self, config: AppConfig) -> None:
         """Save configuration using an atomic file replacement."""
@@ -136,4 +141,6 @@ class ConfigStore:
             if temporary_path is not None:
                 temporary_path.unlink(missing_ok=True)
 
-            raise ConfigurationError(f"Could not save configuration to {self.path}") from error
+            raise ConfigurationError(
+                f"Could not save configuration to {self.path}"
+            ) from error

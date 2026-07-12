@@ -14,7 +14,7 @@ class PathConfigurationError(RuntimeError):
 
 
 def app_data_directory(
-        environment: Mapping[str, str] | None = None,
+    environment: Mapping[str, str] | None = None,
 ) -> Path:
     """Return the user-specific SephirothOS application data directory."""
 
@@ -22,9 +22,7 @@ def app_data_directory(
     appdata = env.get("APPDATA")
 
     if not appdata:
-        raise PathConfigurationError(
-            "The APPDATA environment variable is unavailable."
-        )
+        raise PathConfigurationError("The APPDATA environment variable is unavailable.")
 
     return Path(appdata) / APPLICATION_NAME
 
