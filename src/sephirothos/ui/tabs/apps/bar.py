@@ -1,0 +1,34 @@
+"""Apps sidebar."""
+
+from PySide6.QtWidgets import QLabel, QVBoxLayout, QWidget
+
+from sephirothos.ui.metrics import UiMetrics
+from sephirothos.ui.roles import SurfaceRole, TextRole
+
+
+class AppsBar(QWidget):
+    def __init__(self, metrics: UiMetrics) -> None:
+        super().__init__()
+
+        self.setProperty(
+            "surfaceRole",
+            SurfaceRole.PANEL.value,
+        )
+
+        layout = QVBoxLayout(self)
+        layout.setContentsMargins(
+            metrics.space_20,
+            metrics.space_20,
+            metrics.space_20,
+            metrics.space_20,
+        )
+        layout.setSpacing(metrics.space_10)
+
+        title = QLabel("Apps")
+        title.setProperty(
+            "textRole",
+            TextRole.SECTION_TITLE.value,
+        )
+
+        layout.addWidget(title)
+        layout.addStretch()
