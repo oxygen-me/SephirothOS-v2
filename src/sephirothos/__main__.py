@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 import sys
 
 from sephirothos.application import SephirothApplication
@@ -20,7 +21,8 @@ def main() -> int:
         PathConfigurationError,
         ThemeError,
     ) as error:
-        print(f"SephirothOS could not start {error}", file=sys.stderr)
+        logging.getLogger("sephirothos").exception("SephirothOS could not start")
+        print(f"SephirothOS could not start: {error}", file=sys.stderr)
         return 1
 
     return application.run()
