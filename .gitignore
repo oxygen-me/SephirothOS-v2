@@ -1,0 +1,19 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments and tooling
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Build output
+build/
+dist/
+
+# JetBrains IDEs
+.idea/
+*.iml
