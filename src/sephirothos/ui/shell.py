@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from functools import partial
+from random import choice
 
 from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
@@ -18,8 +19,8 @@ from PySide6.QtWidgets import (
 )
 
 from sephirothos.config import AppConfig
+from sephirothos.content.window_titles import WINDOW_TITLES
 from sephirothos.events import EventBus
-from sephirothos.metadata import APPLICATION_NAME
 from sephirothos.ui.metrics import UiMetrics
 from sephirothos.ui.roles import ButtonVariant, DividerRole, SurfaceRole, TextRole
 from sephirothos.ui.tabs.apps.bar import AppsBar
@@ -65,7 +66,7 @@ class AppShell(QWidget):
         self.tab_buttons: dict[TabId, QPushButton] = {}
         self.current_tab: TabId | None = None
 
-        self.setWindowTitle(APPLICATION_NAME)
+        self.setWindowTitle(choice(WINDOW_TITLES))
         self.setWindowFlags(Qt.WindowType.Window | Qt.WindowType.FramelessWindowHint)
         self.setProperty(
             "surfaceRole",
