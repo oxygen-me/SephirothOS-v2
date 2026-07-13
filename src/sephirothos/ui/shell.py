@@ -50,10 +50,10 @@ class AppShell(QWidget):
     """Root widget containing the SephirothOS interface."""
 
     def __init__(
-            self,
-            config: AppConfig,
-            event_bus: EventBus,
-            metrics: UiMetrics,
+        self,
+        config: AppConfig,
+        event_bus: EventBus,
+        metrics: UiMetrics,
     ) -> None:
         super().__init__()
 
@@ -61,14 +61,12 @@ class AppShell(QWidget):
         self.event_bus = event_bus
         self.metrics = metrics
 
-        self.tab_pairs: dict[TabId , TabPair] = {}
+        self.tab_pairs: dict[TabId, TabPair] = {}
         self.tab_buttons: dict[TabId, QPushButton] = {}
         self.current_tab: TabId | None = None
 
         self.setWindowTitle(APPLICATION_NAME)
-        self.setWindowFlags(
-            Qt.WindowType.Window | Qt.WindowType.FramelessWindowHint
-        )
+        self.setWindowFlags(Qt.WindowType.Window | Qt.WindowType.FramelessWindowHint)
         self.setProperty(
             "surfaceRole",
             SurfaceRole.BACKGROUND.value,
@@ -78,7 +76,6 @@ class AppShell(QWidget):
         self._register_tabs()
         self._build_top_navigation()
         self.set_active_tab(DEFAULT_TAB)
-
 
     def _build_shell(self) -> None:
         """Construct the persistent shell regions."""
@@ -93,7 +90,6 @@ class AppShell(QWidget):
         self.main_layout.addWidget(self.top_bar)
         self.main_layout.addWidget(self.workspace, 1)
 
-
     def _build_top_bar(self) -> None:
         """Construct the persistent primary navigation bar."""
 
@@ -106,7 +102,7 @@ class AppShell(QWidget):
         self.top_bar.setFixedHeight(
             self.metrics.top_bar_height,
         )
-        
+
         self.top_bar_layout = QHBoxLayout(self.top_bar)
         self.top_bar_layout.setContentsMargins(
             self.metrics.space_10,
@@ -114,24 +110,21 @@ class AppShell(QWidget):
             self.metrics.space_10,
             self.metrics.space_10,
         )
-        self.top_bar_layout.setSpacing(
-            self.metrics.space_20
-        )
-        
+        self.top_bar_layout.setSpacing(self.metrics.space_20)
+
         self.tab_button_group = QButtonGroup(self)
         self.tab_button_group.setExclusive(True)
-        
-        
+
     def _build_workspace(self) -> None:
         """Construct the sidebar and tab-content workspace."""
-        
+
         self.workspace = QWidget()
         self.workspace.setObjectName("workspace")
         self.workspace.setProperty(
             "surfaceRole",
             SurfaceRole.BACKGROUND.value,
         )
-        
+
         self.workspace_layout = QHBoxLayout(self.workspace)
         self.workspace_layout.setContentsMargins(
             self.metrics.space_20,
@@ -139,9 +132,7 @@ class AppShell(QWidget):
             self.metrics.space_20,
             self.metrics.space_20,
         )
-        self.workspace_layout.setSpacing(
-            self.metrics.space_20
-        )
+        self.workspace_layout.setSpacing(self.metrics.space_20)
 
         self._build_sidebar()
         self._build_content_area()
@@ -152,7 +143,6 @@ class AppShell(QWidget):
             1,
         )
 
-
     def _build_sidebar(self) -> None:
         """Construct the persistent sidebar and changing bar area."""
 
@@ -162,9 +152,7 @@ class AppShell(QWidget):
             "surfaceRole",
             SurfaceRole.PANEL.value,
         )
-        self.sidebar.setFixedWidth(
-            self.metrics.sidebar_width
-        )
+        self.sidebar.setFixedWidth(self.metrics.sidebar_width)
 
         self.sidebar_layout = QVBoxLayout(self.sidebar)
         self.sidebar_layout.setContentsMargins(
@@ -192,7 +180,6 @@ class AppShell(QWidget):
             1,
         )
 
-
     def _build_sidebar_header(self) -> None:
         """Construct the static sidebar header."""
 
@@ -204,9 +191,7 @@ class AppShell(QWidget):
             TextRole.USERNAME.value,
         )
 
-        self.subtitle_label = QLabel(
-            "Veni, veni, venias, ne me mori facias."
-        )
+        self.subtitle_label = QLabel("Veni, veni, venias, ne me mori facias.")
         self.subtitle_label.setProperty(
             "textRole",
             TextRole.CAPTION.value,
@@ -214,9 +199,7 @@ class AppShell(QWidget):
         self.subtitle_label.setWordWrap(True)
 
         self.header_divider = QFrame()
-        self.header_divider.setObjectName(
-            "sidebarHeaderDivider"
-        )
+        self.header_divider.setObjectName("sidebarHeaderDivider")
         self.header_divider.setFrameShape(
             QFrame.Shape.NoFrame,
         )
@@ -244,7 +227,6 @@ class AppShell(QWidget):
             self.header_divider,
         )
 
-
     def _build_content_area(self) -> None:
         """Construct the changing primary tab area."""
 
@@ -256,7 +238,6 @@ class AppShell(QWidget):
             "surfaceRole",
             SurfaceRole.PANEL.value,
         )
-
 
     def _register_tabs(self) -> None:
         """Create and register every primary tab/bar pair."""
@@ -286,15 +267,12 @@ class AppShell(QWidget):
             self.bar_stack.addWidget(pair.bar)
             self.content_stack.addWidget(pair.tab)
 
-
     def _build_top_navigation(self) -> None:
         """Create the top-level tab buttons."""
 
         for tab_id in TAB_ORDER:
             button = QPushButton(TAB_LABELS[tab_id])
-            button.setObjectName(
-                f"{tab_id.value}TabButton"
-            )
+            button.setObjectName(f"{tab_id.value}TabButton")
             button.setCheckable(True)
             button.setProperty(
                 "buttonVariant",
@@ -318,7 +296,6 @@ class AppShell(QWidget):
                 1,
             )
 
-
     def _handle_tab_button(
         self,
         tab_id: TabId,
@@ -327,7 +304,6 @@ class AppShell(QWidget):
         """Handle a top-level navigation-button click."""
 
         self.set_active_tab(tab_id)
-
 
     def set_active_tab(
         self,
