@@ -311,6 +311,25 @@ def _button_styles(palette: ThemePalette, metrics: UiMetrics) -> str:
         QPushButton[buttonVariant="theme-option"] {{
             border: {metrics.border_thin}px solid {palette.border};
         }}
+        
+        QPushButton[buttonVariant="link"] {{
+            background-color: transparent;
+            color: {palette.accent};
+            border: 0;
+            border-radius: 0;
+            padding: 0;
+            text-decoration: underline;
+        }}
+
+        QPushButton[buttonVariant="link"]:hover {{
+            background-color: transparent;
+            color: {palette.accent_hover};
+        }}
+
+        QPushButton[buttonVariant="link"]:pressed {{
+            background-color: transparent;
+            color: {palette.accent_pressed};
+        }}
     """
 
 

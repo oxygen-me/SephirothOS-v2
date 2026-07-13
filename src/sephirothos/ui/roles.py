@@ -21,6 +21,7 @@ class ButtonVariant(StrEnum):
     PRIMARY = "primary"
     ACCENT_OUTLINE = "accent-outline"
     THEME_OPTION = "theme-option"
+    LINK = "link"
 
 
 class TextRole(StrEnum):

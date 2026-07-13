@@ -5,21 +5,26 @@ from __future__ import annotations
 from collections.abc import Sequence
 from random import choice, randrange
 
+from PySide6.QtCore import Qt, Signal
 from PySide6.QtWidgets import (
     QFrame,
     QHBoxLayout,
     QLabel,
     QPushButton,
+    QScrollArea,
     QVBoxLayout,
     QWidget,
 )
 
 from sephirothos.content.quotes import QUOTES, Quote
 from sephirothos.content.tips import TIPS
+from sephirothos.services.announcements import Announcement
 from sephirothos.ui.metrics import UiMetrics
 from sephirothos.ui.roles import (
     ButtonVariant,
     DividerRole,
+    ScrollRole,
+    SurfaceRole,
     TextRole,
 )
 from sephirothos.ui.widgets.card import Card
@@ -254,3 +259,195 @@ class QuoteCard(Card):
         self.main_layout.addStretch()
         self.main_layout.addWidget(self.divider)
         self.main_layout.addLayout(self.footer_layout)
+
+
+MAX_VISIBLE_ANNOUNCEMENTS = 10
+
+
+class _AnnouncementEntry(QWidget):
+    """Visual representation of one dashboard announcement."""
+
+    def __init__(
+        self,
+        announcement: Announcement,
+        metrics: UiMetrics,
+        parent: QWidget | None = None,
+    ) -> None:
+        super().__init__(parent)
+
+        self.setProperty(
+            "surfaceRole",
+            SurfaceRole.TRANSPARENT.value,
+        )
+
+        self.main_layout = QVBoxLayout(self)
+        self.main_layout.setContentsMargins(0, 0, 0, 0)
+        self.main_layout.setSpacing(metrics.space_5)
+
+        self.title_label = QLabel(announcement.title)
+        self.title_label.setWordWrap(True)
+        self.title_label.setProperty(
+            "textRole",
+            TextRole.BODY.value,
+        )
+
+        self.body_label = QLabel(announcement.body)
+        self.body_label.setWordWrap(True)
+        self.body_label.setProperty(
+            "textRole",
+            TextRole.BODY_MUTED.value,
+        )
+
+        local_time = announcement.published_at.astimezone()
+        formatted_date = local_time.strftime(
+            "%B %d, %Y",
+        ).replace(" 0", " ")
+
+        self.date_label = QLabel(formatted_date)
+        self.date_label.setProperty(
+            "textRole",
+            TextRole.CAPTION.value,
+        )
+
+        self.main_layout.addWidget(self.title_label)
+        self.main_layout.addWidget(self.body_label)
+        self.main_layout.addWidget(self.date_label)
+
+
+class AnnouncementsCard(Card):
+    """Display the ten newest applicable announcements."""
+
+    view_all_requested = Signal()
+
+    def __init__(
+        self,
+        metrics: UiMetrics,
+        announcements: Sequence[Announcement] = (),
+        parent: QWidget | None = None,
+    ) -> None:
+        super().__init__(metrics, parent)
+
+        self._metrics = metrics
+        self._announcements: tuple[Announcement, ...] = ()
+
+        self._build_ui()
+        self.set_announcements(announcements)
+
+    def _build_ui(self) -> None:
+        self.title_label = QLabel("Announcements")
+        self.title_label.setProperty(
+            "textRole",
+            TextRole.CARD_TITLE.value,
+        )
+
+        self.scroll_area = QScrollArea()
+        self.scroll_area.setProperty(
+            "scrollRole",
+            ScrollRole.DEFAULT.value,
+        )
+        self.scroll_area.setWidgetResizable(True)
+        self.scroll_area.setFrameShape(QFrame.Shape.NoFrame)
+        self.scroll_area.setHorizontalScrollBarPolicy(
+            Qt.ScrollBarPolicy.ScrollBarAlwaysOff,
+        )
+        self.scroll_area.setVerticalScrollBarPolicy(
+            Qt.ScrollBarPolicy.ScrollBarAsNeeded,
+        )
+
+        self.scroll_content = QWidget()
+        self.scroll_content.setProperty(
+            "surfaceRole",
+            SurfaceRole.TRANSPARENT.value,
+        )
+
+        self.announcement_layout = QVBoxLayout(
+            self.scroll_content,
+        )
+        self.announcement_layout.setContentsMargins(
+            0,
+            0,
+            self._metrics.space_5,
+            0,
+        )
+        self.announcement_layout.setSpacing(
+            self._metrics.space_15,
+        )
+
+        self.scroll_area.setWidget(self.scroll_content)
+
+        self.footer_layout = QHBoxLayout()
+        self.footer_layout.setContentsMargins(0, 0, 0, 0)
+        self.footer_layout.setSpacing(
+            self._metrics.space_10,
+        )
+
+        self.view_all_button = QPushButton(
+            "View all announcements",
+        )
+        self.view_all_button.setProperty(
+            "buttonVariant",
+            ButtonVariant.LINK.value,
+        )
+        self.view_all_button.setCursor(
+            Qt.CursorShape.PointingHandCursor,
+        )
+        self.view_all_button.clicked.connect(
+            self.view_all_requested.emit,
+        )
+
+        self.footer_layout.addWidget(self.view_all_button)
+        self.footer_layout.addStretch()
+
+        self.main_layout.addWidget(self.title_label)
+        self.main_layout.addWidget(self.scroll_area, 1)
+        self.main_layout.addLayout(self.footer_layout)
+
+    def set_announcements(
+        self,
+        announcements: Sequence[Announcement],
+    ) -> None:
+        """Replace the announcements displayed by the card."""
+
+        self._announcements = tuple(announcements)
+        self._clear_announcement_layout()
+
+        visible_announcements = self._announcements[:MAX_VISIBLE_ANNOUNCEMENTS]
+
+        if not visible_announcements:
+            empty_label = QLabel("No announcements available.")
+            empty_label.setProperty(
+                "textRole",
+                TextRole.BODY_MUTED.value,
+            )
+            self.announcement_layout.addWidget(empty_label)
+        else:
+            for index, announcement in enumerate(
+                visible_announcements,
+            ):
+                entry = _AnnouncementEntry(
+                    announcement,
+                    self._metrics,
+                )
+                self.announcement_layout.addWidget(entry)
+
+                if index < len(visible_announcements) - 1:
+                    divider = QFrame()
+                    divider.setFrameShape(QFrame.Shape.NoFrame)
+                    divider.setProperty(
+                        "dividerRole",
+                        DividerRole.DEFAULT.value,
+                    )
+                    divider.setFixedHeight(
+                        self._metrics.border_thin,
+                    )
+                    self.announcement_layout.addWidget(divider)
+
+        self.announcement_layout.addStretch()
+
+    def _clear_announcement_layout(self) -> None:
+        while self.announcement_layout.count():
+            item = self.announcement_layout.takeAt(0)
+            widget = item.widget()
+
+            if widget is not None:
+                widget.deleteLater()

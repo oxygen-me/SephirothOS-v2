@@ -14,7 +14,12 @@ from PySide6.QtWidgets import (
 from sephirothos.content.subtitles import HOME_SUBTITLES
 from sephirothos.ui.metrics import UiMetrics
 from sephirothos.ui.roles import SurfaceRole, TextRole
-from sephirothos.ui.tabs.home.pages.dashboard_cards import QuoteCard, SystemStatusCard, TipCard
+from sephirothos.ui.tabs.home.pages.dashboard_cards import (
+    AnnouncementsCard,
+    QuoteCard,
+    SystemStatusCard,
+    TipCard,
+)
 
 
 class DashboardPage(QWidget):
@@ -97,21 +102,115 @@ class DashboardPage(QWidget):
         self.header_layout.addStretch()
         self.header_layout.addLayout(self.clock_layout)
 
-        self.system_status_card = SystemStatusCard(self.metrics)
-        self.tip_card = TipCard(self.metrics)
-        self.quote_card = QuoteCard(self.metrics)
+        self.system_status_card = SystemStatusCard(
+            self.metrics,
+        )
+        self.tip_card = TipCard(
+            self.metrics,
+        )
+        self.quote_card = QuoteCard(
+            self.metrics,
+        )
+        self.announcements_card = AnnouncementsCard(
+            self.metrics,
+        )
 
-        self.card_layout = QHBoxLayout()
-        self.card_layout.setContentsMargins(0, 0, 0, 0)
-        self.card_layout.setSpacing(self.metrics.space_20)
+        # Entire area beneath the dashboard header.
+        self.dashboard_layout = QHBoxLayout()
+        self.dashboard_layout.setContentsMargins(0, 0, 0, 0)
+        self.dashboard_layout.setSpacing(
+            self.metrics.space_20,
+        )
 
-        self.card_layout.addWidget(self.system_status_card, 1)
-        self.card_layout.addWidget(self.tip_card, 1)
-        self.card_layout.addWidget(self.quote_card, 1)
+        # Left side: top and bottom card rows.
+        self.left_column_layout = QVBoxLayout()
+        self.left_column_layout.setContentsMargins(
+            0,
+            0,
+            0,
+            0,
+        )
+        self.left_column_layout.setSpacing(
+            self.metrics.space_20,
+        )
 
-        self.main_layout.addLayout(self.header_layout)
-        self.main_layout.addLayout(self.card_layout)
-        self.main_layout.addStretch()
+        self.top_left_layout = QHBoxLayout()
+        self.top_left_layout.setContentsMargins(
+            0,
+            0,
+            0,
+            0,
+        )
+        self.top_left_layout.setSpacing(
+            self.metrics.space_20,
+        )
+
+        self.bottom_left_layout = QHBoxLayout()
+        self.bottom_left_layout.setContentsMargins(
+            0,
+            0,
+            0,
+            0,
+        )
+        self.bottom_left_layout.setSpacing(
+            self.metrics.space_20,
+        )
+
+        # Right side: Performance and Storage will be added here.
+        self.right_column_layout = QVBoxLayout()
+        self.right_column_layout.setContentsMargins(
+            0,
+            0,
+            0,
+            0,
+        )
+        self.right_column_layout.setSpacing(
+            self.metrics.space_20,
+        )
+
+        self.top_left_layout.addWidget(
+            self.system_status_card,
+            1,
+        )
+        self.top_left_layout.addWidget(
+            self.tip_card,
+            1,
+        )
+        self.top_left_layout.addWidget(
+            self.quote_card,
+            1,
+        )
+
+        self.bottom_left_layout.addWidget(
+            self.announcements_card,
+            1,
+        )
+
+        self.left_column_layout.addLayout(
+            self.top_left_layout,
+            1,
+        )
+        self.left_column_layout.addLayout(
+            self.bottom_left_layout,
+            1,
+        )
+
+        self.dashboard_layout.addLayout(
+            self.left_column_layout,
+            3,
+        )
+        self.dashboard_layout.addLayout(
+            self.right_column_layout,
+            1,
+        )
+
+        self.main_layout.addLayout(
+            self.header_layout,
+        )
+        self.main_layout.addLayout(
+            self.dashboard_layout,
+            1,
+        )
 
     def _configure_clock(self) -> None:
         self.clock_timer = QTimer(self)
