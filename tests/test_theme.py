@@ -9,6 +9,7 @@ from sephirothos.services.theme import (
     UnknownThemeError,
 )
 from sephirothos.ui.metrics import UiMetrics
+from sephirothos.ui.styles import VOID_PALETTE
 
 
 class FakeThemeTarget:
@@ -67,8 +68,8 @@ def test_apply_current_sets_stylesheet() -> None:
     service.apply_current()
 
     assert len(target.stylesheets) == 1
-    assert "#17171B" in target.stylesheets[0]
-    assert "#8F4FFF" in target.stylesheets[0]
+    assert VOID_PALETTE.background in target.stylesheets[0]
+    assert VOID_PALETTE.accent in target.stylesheets[0]
 
 
 def test_setting_current_theme_does_not_reapply() -> None:
