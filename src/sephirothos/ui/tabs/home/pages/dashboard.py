@@ -1,6 +1,7 @@
 """Home dashboard page."""
 
 from datetime import datetime
+from random import choice
 
 from PySide6.QtCore import QTimer
 from PySide6.QtWidgets import (
@@ -10,8 +11,10 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
+from sephirothos.content.subtitles import HOME_SUBTITLES
 from sephirothos.ui.metrics import UiMetrics
 from sephirothos.ui.roles import SurfaceRole, TextRole
+from sephirothos.ui.tabs.home.pages.dashboard_cards import QuoteCard, SystemStatusCard, TipCard
 
 
 class DashboardPage(QWidget):
@@ -60,7 +63,7 @@ class DashboardPage(QWidget):
             TextRole.PAGE_TITLE.value,
         )
 
-        self.subtitle_label = QLabel("Always disliked Craig who lives in Oregon.")
+        self.subtitle_label = QLabel(choice(HOME_SUBTITLES))
         self.subtitle_label.setProperty(
             "textRole",
             TextRole.PAGE_SUBTITLE.value,
@@ -94,7 +97,20 @@ class DashboardPage(QWidget):
         self.header_layout.addStretch()
         self.header_layout.addLayout(self.clock_layout)
 
+        self.system_status_card = SystemStatusCard(self.metrics)
+        self.tip_card = TipCard(self.metrics)
+        self.quote_card = QuoteCard(self.metrics)
+
+        self.card_layout = QHBoxLayout()
+        self.card_layout.setContentsMargins(0, 0, 0, 0)
+        self.card_layout.setSpacing(self.metrics.space_20)
+
+        self.card_layout.addWidget(self.system_status_card, 1)
+        self.card_layout.addWidget(self.tip_card, 1)
+        self.card_layout.addWidget(self.quote_card, 1)
+
         self.main_layout.addLayout(self.header_layout)
+        self.main_layout.addLayout(self.card_layout)
         self.main_layout.addStretch()
 
     def _configure_clock(self) -> None:
