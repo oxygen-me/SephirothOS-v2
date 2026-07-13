@@ -1,0 +1,15 @@
+{
+    "schema_version": 1,
+    "announcements": [
+        {
+            "id": "alpha-1-development",
+            "title": "αlpha-1 is under construction.",
+            "body": "Everything is broken and I think I lost my left shoe. Please help.",
+            "published_at": "2026-07-13T1:15:00Z",
+            "enabled": true,
+            "minimum_version": "0.1.0a1",
+            "maximum_version": null,
+            "action_url": null
+        }
+    ]
+}
