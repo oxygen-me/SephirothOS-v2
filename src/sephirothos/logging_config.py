@@ -23,7 +23,7 @@ def configure_logging(
 ) -> Path:
     """Configure application logging and return the active log path."""
 
-    target_directory = directory or log_directory
+    target_directory = directory or log_directory()
     target_directory.mkdir(parents=True, exist_ok=True)
 
     log_path = target_directory / LOG_FILENAME

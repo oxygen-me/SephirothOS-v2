@@ -16,12 +16,7 @@ class HomeBar(QWidget):
         )
 
         layout = QVBoxLayout(self)
-        layout.setContentsMargins(
-            metrics.space_20,
-            metrics.space_20,
-            metrics.space_20,
-            metrics.space_20,
-        )
+        layout.setContentsMargins(0, 0, 0, 0)
         layout.setSpacing(metrics.space_10)
 
         title = QLabel("Home")
