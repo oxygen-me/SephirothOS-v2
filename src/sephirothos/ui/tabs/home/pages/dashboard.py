@@ -1,9 +1,10 @@
 """Home dashboard page."""
 
+import logging
 from datetime import datetime
 from random import choice
 
-from PySide6.QtCore import QTimer
+from PySide6.QtCore import QThreadPool, QTimer
 from PySide6.QtWidgets import (
     QHBoxLayout,
     QLabel,
@@ -12,6 +13,10 @@ from PySide6.QtWidgets import (
 )
 
 from sephirothos.content.subtitles import HOME_SUBTITLES
+from sephirothos.services.announcements import (
+    AnnouncementFeed,
+    AnnouncementService,
+)
 from sephirothos.ui.metrics import UiMetrics
 from sephirothos.ui.roles import SurfaceRole, TextRole
 from sephirothos.ui.tabs.home.pages.dashboard_cards import (
@@ -20,15 +25,24 @@ from sephirothos.ui.tabs.home.pages.dashboard_cards import (
     SystemStatusCard,
     TipCard,
 )
+from sephirothos.ui.workers import AnnouncementWorker
+
+logger = logging.getLogger(__name__)
 
 
 class DashboardPage(QWidget):
     """Primary Home dashboard."""
 
-    def __init__(self, metrics: UiMetrics) -> None:
+    def __init__(
+        self,
+        metrics: UiMetrics,
+        announcement_service: AnnouncementService | None = None,
+    ) -> None:
         super().__init__()
 
         self.metrics = metrics
+        self.announcement_service = announcement_service or AnnouncementService()
+        self._announcement_worker: AnnouncementWorker | None = None
 
         self.setProperty(
             "surfaceRole",
@@ -37,6 +51,7 @@ class DashboardPage(QWidget):
 
         self._build_ui()
         self._configure_clock()
+        self._start_announcement_load()
 
     def _build_ui(self) -> None:
         self.main_layout = QVBoxLayout(self)
@@ -230,3 +245,51 @@ class DashboardPage(QWidget):
 
         self.time_label.setText(formatted_time)
         self.date_label.setText(formatted_date)
+
+    def _start_announcement_load(self) -> None:
+        worker = AnnouncementWorker(
+            self.announcement_service,
+        )
+        worker.signals.loaded.connect(
+            self._apply_announcement_feed,
+        )
+        worker.signals.failed.connect(
+            self._handle_announcement_failure,
+        )
+        worker.signals.finished.connect(
+            self._release_announcement_worker,
+        )
+
+        self._announcement_worker = worker
+
+        QThreadPool.globalInstance().start(worker)
+
+    def _apply_announcement_feed(
+        self,
+        feed: object,
+    ) -> None:
+        if not isinstance(feed, AnnouncementFeed):
+            logger.error("Announcement worker returned an invalid result")
+            return
+
+        self.announcements_card.set_announcements(
+            feed.announcements,
+        )
+
+        logger.info(
+            "Loaded %d announcements from %s",
+            len(feed.announcements),
+            feed.source.value,
+        )
+
+    def _handle_announcement_failure(
+        self,
+        message: str,
+    ) -> None:
+        logger.warning(
+            "Announcements are unavailable: %s",
+            message,
+        )
+
+    def _release_announcement_worker(self) -> None:
+        self._announcement_worker = None

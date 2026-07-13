@@ -256,7 +256,9 @@ class AppShell(QWidget):
         self.tab_pairs = {
             TabId.HOME: TabPair(
                 bar=HomeBar(self.metrics),
-                tab=HomeTab(self.metrics),
+                tab=HomeTab(
+                    self.metrics,
+                ),
             ),
             TabId.APPS: TabPair(
                 bar=AppsBar(self.metrics),

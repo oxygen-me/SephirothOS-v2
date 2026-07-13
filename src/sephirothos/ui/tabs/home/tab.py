@@ -20,7 +20,10 @@ from sephirothos.ui.tabs.home.pages.dashboard import (
 class HomeTab(QWidget):
     """Own the Home tab's pages and page selection."""
 
-    def __init__(self, metrics: UiMetrics) -> None:
+    def __init__(
+        self,
+        metrics: UiMetrics,
+    ) -> None:
         super().__init__()
 
         self.metrics = metrics
@@ -45,7 +48,9 @@ class HomeTab(QWidget):
         )
 
         self.pages: dict[HomePageId, QWidget] = {
-            HomePageId.DASHBOARD: DashboardPage(self.metrics),
+            HomePageId.DASHBOARD: DashboardPage(
+                metrics=self.metrics,
+            ),
         }
 
         for page in self.pages.values():
