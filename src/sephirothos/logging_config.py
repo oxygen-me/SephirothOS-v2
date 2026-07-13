@@ -52,7 +52,7 @@ def configure_logging(
     logger.addHandler(file_handler)
 
     if console and sys.stderr is not None:
-        console_handler = logging.StreamHandler(sys.stderr)
+        console_handler = logging.StreamHandler(sys.stdout)
         console_handler.setLevel(level)
         console_handler.setFormatter(formatter)
         logger.addHandler(console_handler)
