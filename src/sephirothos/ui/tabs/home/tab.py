@@ -45,9 +45,7 @@ class HomeTab(QWidget):
         )
 
         self.pages: dict[HomePageId, QWidget] = {
-            HomePageId.DASHBOARD: DashboardPage(
-                self.metrics
-            ),
+            HomePageId.DASHBOARD: DashboardPage(self.metrics),
         }
 
         for page in self.pages.values():
@@ -59,6 +57,4 @@ class HomeTab(QWidget):
         self,
         page_id: HomePageId,
     ) -> None:
-        self.page_stack.setCurrentWidget(
-            self.pages[page_id]
-        )
+        self.page_stack.setCurrentWidget(self.pages[page_id])

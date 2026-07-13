@@ -77,6 +77,16 @@ class AppShell(QWidget):
         self._build_top_navigation()
         self.set_active_tab(DEFAULT_TAB)
 
+        home_pair = self.tab_pairs[TabId.HOME]
+
+        if not isinstance(home_pair.bar, HomeBar):
+            raise TypeError("Home bar registration is invalid.")
+
+        if not isinstance(home_pair.tab, HomeTab):
+            raise TypeError("Home tab registration is invalid.")
+
+        home_pair.bar.page_requested.connect(home_pair.tab.set_active_page)
+
     def _build_shell(self) -> None:
         """Construct the persistent shell regions."""
 

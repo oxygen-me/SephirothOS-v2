@@ -54,17 +54,13 @@ class DashboardPage(QWidget):
             self.metrics.space_10,
         )
 
-        self.title_label = QLabel(
-            "Welcome to Sephiroth's House"
-        )
+        self.title_label = QLabel("Welcome to Sephiroth's House")
         self.title_label.setProperty(
             "textRole",
             TextRole.PAGE_TITLE.value,
         )
 
-        self.subtitle_label = QLabel(
-            "Always disliked Craig who lives in Oregon."
-        )
+        self.subtitle_label = QLabel("Always disliked Craig who lives in Oregon.")
         self.subtitle_label.setProperty(
             "textRole",
             TextRole.PAGE_SUBTITLE.value,
@@ -115,9 +111,7 @@ class DashboardPage(QWidget):
         now = datetime.now()
 
         formatted_time = now.strftime("%I:%M %p").lstrip("0")
-        formatted_date = now.strftime(
-            "%A, %B %d, %Y"
-        ).replace(" 0", " ")
+        formatted_date = now.strftime("%A, %B %d, %Y").replace(" 0", " ")
 
         self.time_label.setText(formatted_time)
         self.date_label.setText(formatted_date)

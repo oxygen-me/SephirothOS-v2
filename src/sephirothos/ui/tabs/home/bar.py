@@ -52,18 +52,14 @@ class HomeBar(QWidget):
             TextRole.SECTION_TITLE.value,
         )
 
-        self.dashboard_button = QPushButton(
-            HOME_PAGE_LABELS[HomePageId.DASHBOARD]
-        )
+        self.dashboard_button = QPushButton(HOME_PAGE_LABELS[HomePageId.DASHBOARD])
         self.dashboard_button.setCheckable(True)
         self.dashboard_button.setProperty(
             "buttonVariant",
             ButtonVariant.NAVIGATION.value,
         )
         self.dashboard_button.clicked.connect(
-            lambda _checked=False: self.page_requested.emit(
-                HomePageId.DASHBOARD
-            )
+            lambda _checked=False: self.page_requested.emit(HomePageId.DASHBOARD)
         )
 
         self.page_buttons = {
