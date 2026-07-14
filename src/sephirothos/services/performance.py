@@ -120,8 +120,9 @@ class PerformanceService:
         ) as error:
             raise PerformanceError("Could not read system performance information.") from error
 
-        self._piss_percentage = self._clamp_percentage(
-            self._piss_percentage + self._randomizer.uniform(-5.0, 5.0)
+        self._piss_percentage = self._randomizer.uniform(
+            0.0,
+            100.0,
         )
 
         return PerformanceSnapshot(
