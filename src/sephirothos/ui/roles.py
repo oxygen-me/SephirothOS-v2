@@ -51,6 +51,17 @@ class Tone(StrEnum):
     ERROR = "error"
 
 
+class ProgressRole(StrEnum):
+    DEFAULT = "default"
+
+
+class ProgressVariant(StrEnum):
+    CPU = "cpu"
+    MEMORY = "memory"
+    DISK = "disk"
+    PISS = "piss"
+
+
 class DividerRole(StrEnum):
     DEFAULT = "default"
     STRONG = "strong"
@@ -72,10 +83,6 @@ class InputRole(StrEnum):
 
 
 class TableRole(StrEnum):
-    DEFAULT = "default"
-
-
-class ProgressRole(StrEnum):
     DEFAULT = "default"
 
 

@@ -17,13 +17,24 @@ from sephirothos.services.announcements import (
     AnnouncementFeed,
     AnnouncementService,
 )
+from sephirothos.services.performance import (
+    PerformanceError,
+    PerformanceService,
+)
+from sephirothos.services.storage import (
+    StorageError,
+    StorageService,
+)
 from sephirothos.ui.metrics import UiMetrics
 from sephirothos.ui.roles import SurfaceRole, TextRole
 from sephirothos.ui.tabs.home.pages.dashboard_cards import (
     AnnouncementsCard,
+    PerformanceCard,
     QuoteCard,
+    StorageCard,
     SystemStatusCard,
     TipCard,
+    TopAppsCard,
 )
 from sephirothos.ui.workers import AnnouncementWorker
 
@@ -37,11 +48,15 @@ class DashboardPage(QWidget):
         self,
         metrics: UiMetrics,
         announcement_service: AnnouncementService | None = None,
+        storage_service: StorageService | None = None,
+        performance_service: PerformanceService | None = None,
     ) -> None:
         super().__init__()
 
         self.metrics = metrics
         self.announcement_service = announcement_service or AnnouncementService()
+        self.storage_service = storage_service or StorageService()
+        self.performance_service = performance_service or PerformanceService()
         self._announcement_worker: AnnouncementWorker | None = None
 
         self.setProperty(
@@ -51,6 +66,8 @@ class DashboardPage(QWidget):
 
         self._build_ui()
         self._configure_clock()
+        self._configure_storage()
+        self._configure_performance()
         self._start_announcement_load()
 
     def _build_ui(self) -> None:
@@ -129,6 +146,13 @@ class DashboardPage(QWidget):
         self.announcements_card = AnnouncementsCard(
             self.metrics,
         )
+        self.top_apps_card = TopAppsCard(self.metrics)
+        self.performance_card = PerformanceCard(
+            self.metrics,
+        )
+        self.storage_card = StorageCard(
+            self.metrics,
+        )
 
         # Entire area beneath the dashboard header.
         self.dashboard_layout = QHBoxLayout()
@@ -183,6 +207,15 @@ class DashboardPage(QWidget):
             self.metrics.space_20,
         )
 
+        self.right_column_layout.addWidget(
+            self.performance_card,
+            3,
+        )
+        self.right_column_layout.addWidget(
+            self.storage_card,
+            1,
+        )
+
         self.top_left_layout.addWidget(
             self.system_status_card,
             1,
@@ -198,6 +231,11 @@ class DashboardPage(QWidget):
 
         self.bottom_left_layout.addWidget(
             self.announcements_card,
+            1,
+        )
+
+        self.bottom_left_layout.addWidget(
+            self.top_apps_card,
             1,
         )
 
@@ -293,3 +331,48 @@ class DashboardPage(QWidget):
 
     def _release_announcement_worker(self) -> None:
         self._announcement_worker = None
+
+    def _configure_storage(self) -> None:
+        self.storage_timer = QTimer(self)
+        self.storage_timer.setInterval(30_000)
+        self.storage_timer.timeout.connect(
+            self._update_storage,
+        )
+
+        self._update_storage()
+        self.storage_timer.start()
+
+    def _update_storage(self) -> None:
+        try:
+            snapshot = self.storage_service.snapshot()
+        except StorageError:
+            logger.warning(
+                "Could not refresh storage information",
+                exc_info=True,
+            )
+            return
+
+        self.storage_card.set_storage(snapshot)
+
+    def _configure_performance(self) -> None:
+        self.performance_timer = QTimer(self)
+        self.performance_timer.setInterval(1000)
+        self.performance_timer.timeout.connect(
+            self._update_performance,
+        )
+
+        # PerformanceService was primed during construction.
+        # Wait one second before taking the first meaningful sample.
+        self.performance_timer.start()
+
+    def _update_performance(self) -> None:
+        try:
+            snapshot = self.performance_service.snapshot()
+        except PerformanceError:
+            logger.warning(
+                "Could not refresh performance information",
+                exc_info=True,
+            )
+            return
+
+        self.performance_card.set_performance(snapshot)

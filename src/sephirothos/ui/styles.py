@@ -12,22 +12,34 @@ class ThemePalette:
     """Semantic colors used to generate the application stylesheet."""
 
     background: str
+
     surface: str
     surface_raised: str
+
     text_primary: str
     text_secondary: str
     text_disabled: str
+
     accent: str
     accent_hover: str
     accent_pressed: str
+
+    progress_cpu: str
+    progress_memory: str
+    progress_disk: str
+    progress_piss: str
+
     success: str
     warning: str
     error: str
+
     hover: str
     selected: str
     focus: str
+
     border: str
     border_strong: str
+
     glow: str
 
 
@@ -41,6 +53,10 @@ VOID_PALETTE = ThemePalette(
     accent="#8F4FFF",
     accent_hover="#A66EFF",
     accent_pressed="#7341D9",
+    progress_cpu="#38BDF8",
+    progress_memory="#ff6229",
+    progress_disk="#63E45F",
+    progress_piss="#FFFF00",
     success="#63E45F",
     warning="#F2C94C",
     error="#E45F5F",
@@ -318,7 +334,6 @@ def _button_styles(palette: ThemePalette, metrics: UiMetrics) -> str:
             border: 0;
             border-radius: 0;
             padding: 0;
-            text-decoration: underline;
         }}
 
         QPushButton[buttonVariant="link"]:hover {{
@@ -548,5 +563,21 @@ def _progress_styles(palette: ThemePalette, metrics: UiMetrics) -> str:
 
         QProgressBar[progressRole="default"][tone="error"]::chunk {{
             background-color: {palette.error};
+        }}
+        
+        QProgressBar[progressRole="default"][progressVariant="cpu"]::chunk {{
+            background-color: {palette.progress_cpu};
+        }}
+
+        QProgressBar[progressRole="default"][progressVariant="memory"]::chunk {{
+            background-color: {palette.progress_memory};
+        }}
+
+        QProgressBar[progressRole="default"][progressVariant="disk"]::chunk {{
+            background-color: {palette.progress_disk};
+        }}
+
+        QProgressBar[progressRole="default"][progressVariant="piss"]::chunk {{
+            background-color: {palette.progress_piss};
         }}
     """
