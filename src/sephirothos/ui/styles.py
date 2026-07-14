@@ -2,9 +2,29 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 from sephirothos.ui.metrics import UiMetrics
+
+
+@dataclass(frozen=True, slots=True)
+class AccentPalette:
+    """Interactive colors belonging to one accent family."""
+
+    base: str
+    hover: str
+    pressed: str
+    focus: str
+    glow: str
+
+
+PURPLE_ACCENT_PALETTE = AccentPalette(
+    base="#8F4FFF",
+    hover="#A66EFF",
+    pressed="#7341D9",
+    focus="#B388FF",
+    glow="rgba(143, 79, 255, 0.20)",
+)
 
 
 @dataclass(frozen=True, slots=True)
@@ -50,11 +70,11 @@ VOID_PALETTE = ThemePalette(
     text_primary="#F5F5F7",
     text_secondary="#9A9AA3",
     text_disabled="#66666F",
-    accent="#8F4FFF",
-    accent_hover="#A66EFF",
-    accent_pressed="#7341D9",
+    accent=PURPLE_ACCENT_PALETTE.base,
+    accent_hover=PURPLE_ACCENT_PALETTE.hover,
+    accent_pressed=PURPLE_ACCENT_PALETTE.pressed,
     progress_cpu="#38BDF8",
-    progress_memory="#ff6229",
+    progress_memory="#FF6229",
     progress_disk="#63E45F",
     progress_piss="#FFFF00",
     success="#63E45F",
@@ -62,10 +82,10 @@ VOID_PALETTE = ThemePalette(
     error="#E45F5F",
     hover="#202126",
     selected="#17171B",
-    focus="#B388FF",
+    focus=PURPLE_ACCENT_PALETTE.focus,
     border="#2A2B31",
     border_strong="#41434D",
-    glow="rgba(143, 79, 255, 0.20)",
+    glow=PURPLE_ACCENT_PALETTE.glow,
 )
 
 
@@ -93,7 +113,6 @@ def _base_styles(palette: ThemePalette, metrics: UiMetrics) -> str:
     return f"""
         * {{
             color: {palette.text_primary};
-            font-family: "Segoe UI";
             font-size: {metrics.font_body}px;
         }}
 
@@ -427,6 +446,39 @@ def _input_styles(palette: ThemePalette, metrics: UiMetrics) -> str:
         QCheckBox[checkRole="default"]::indicator:pressed {{
             background-color: {palette.selected};
         }}
+        
+                QSlider[inputRole="scale"]::groove:horizontal {{
+            height: {metrics.progress_height}px;
+            background-color: {palette.border};
+            border: 0;
+        }}
+
+        QSlider[inputRole="scale"]::sub-page:horizontal {{
+            background-color: {palette.accent};
+            border: 0;
+        }}
+
+        QSlider[inputRole="scale"]::add-page:horizontal {{
+            background-color: {palette.border};
+            border: 0;
+        }}
+
+        QSlider[inputRole="scale"]::handle:horizontal {{
+            width: {metrics.space_20}px;
+            height: {metrics.space_20}px;
+            margin: -{metrics.space_10}px 0;
+            background-color: {palette.accent};
+            border: {metrics.border_strong}px solid {palette.focus};
+            border-radius: {metrics.space_10}px;
+        }}
+
+        QSlider[inputRole="scale"]::handle:horizontal:hover {{
+            background-color: {palette.accent_hover};
+        }}
+
+        QSlider[inputRole="scale"]::handle:horizontal:pressed {{
+            background-color: {palette.accent_pressed};
+        }}
     """
 
 
@@ -581,3 +633,19 @@ def _progress_styles(palette: ThemePalette, metrics: UiMetrics) -> str:
             background-color: {palette.progress_piss};
         }}
     """
+
+
+def apply_accent_palette(
+    palette: ThemePalette,
+    accent: AccentPalette,
+) -> ThemePalette:
+    """Return a theme palette with an accent family applied."""
+
+    return replace(
+        palette,
+        accent=accent.base,
+        accent_hover=accent.hover,
+        accent_pressed=accent.pressed,
+        focus=accent.focus,
+        glow=accent.glow,
+    )

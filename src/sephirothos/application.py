@@ -5,6 +5,7 @@ from __future__ import annotations
 import logging
 
 from PySide6.QtCore import QCoreApplication
+from PySide6.QtGui import QFont
 from PySide6.QtWidgets import QApplication
 
 from sephirothos.config import AppConfig, ConfigStore
@@ -41,10 +42,14 @@ class SephirothApplication:
         self.config = self.config_store.load()
 
         logger.info(
-            "Loaded configuration with theme=%s scale=%.2f",
-            self.config.theme_id,
-            self.config.display_scale,
+            "Loaded configuration with theme=%s accent=%s scale=%.2f font=%s",
+            self.config.appearance.theme_id,
+            self.config.appearance.accent_id,
+            self.config.appearance.display_scale,
+            self.config.appearance.font_family,
         )
+
+        self._configure_font()
 
         self.event_bus = EventBus()
         self.display_scale = self._create_display_scale(self.config)
@@ -53,7 +58,8 @@ class SephirothApplication:
         self.theme = ThemeService(
             target=self.qt_application,
             metrics=self.metrics,
-            initial_theme=self.config.theme_id,
+            initial_theme=self.config.appearance.theme_id,
+            initial_accent=self.config.appearance.accent_id,
         )
 
         self.shell = AppShell(
@@ -92,4 +98,20 @@ class SephirothApplication:
     def _create_display_scale(
         config: AppConfig,
     ) -> DisplayScaleService:
-        return DisplayScaleService(config.display_scale)
+        return DisplayScaleService(
+            config.appearance.display_scale,
+        )
+
+    def _configure_font(self) -> None:
+        """Configure the default Qt application font."""
+
+        font_family = self.config.appearance.font_family
+
+        self.qt_application.setFont(
+            QFont(font_family),
+        )
+
+        logger.info(
+            "Configured application font family=%s",
+            font_family,
+        )

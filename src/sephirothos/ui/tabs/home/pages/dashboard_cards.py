@@ -389,7 +389,7 @@ class AnnouncementsCard(Card):
         )
 
         self.view_all_button = QPushButton(
-            "View all announcements",
+            "View all announcements ",
         )
         self.view_all_button.setProperty(
             "buttonVariant",

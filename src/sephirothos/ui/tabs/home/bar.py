@@ -2,6 +2,7 @@
 
 from PySide6.QtCore import Signal
 from PySide6.QtWidgets import (
+    QButtonGroup,
     QLabel,
     QPushButton,
     QVBoxLayout,
@@ -65,6 +66,12 @@ class HomeBar(QWidget):
         self.page_buttons = {
             HomePageId.DASHBOARD: self.dashboard_button,
         }
+
+        self.page_button_group = QButtonGroup(self)
+        self.page_button_group.setExclusive(True)
+        self.page_button_group.addButton(
+            self.dashboard_button,
+        )
 
         self.main_layout.addWidget(self.section_label)
         self.main_layout.addWidget(self.dashboard_button)

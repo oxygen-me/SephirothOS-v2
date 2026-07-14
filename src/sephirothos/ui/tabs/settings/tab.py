@@ -1,35 +1,78 @@
 """Settings tab."""
 
-from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QLabel, QVBoxLayout, QWidget
+from PySide6.QtWidgets import (
+    QStackedWidget,
+    QVBoxLayout,
+    QWidget,
+)
 
+from sephirothos.config import AppearanceConfig
 from sephirothos.ui.metrics import UiMetrics
-from sephirothos.ui.roles import SurfaceRole, TextRole
+from sephirothos.ui.roles import SurfaceRole
+from sephirothos.ui.tabs.settings.navigation import (
+    DEFAULT_SETTINGS_PAGE,
+    SETTINGS_PAGE_ORDER,
+    SettingsPageId,
+)
+from sephirothos.ui.tabs.settings.pages.appearance import (
+    AppearancePage,
+)
+from sephirothos.ui.tabs.settings.pages.general import (
+    GeneralPage,
+)
 
 
 class SettingsTab(QWidget):
-    def __init__(self, metrics: UiMetrics) -> None:
+    """Own the Settings tab's pages and page selection."""
+
+    def __init__(
+        self,
+        metrics: UiMetrics,
+        appearance: AppearanceConfig,
+    ) -> None:
         super().__init__()
+
+        self.metrics = metrics
+        self.appearance = appearance
 
         self.setProperty(
             "surfaceRole",
             SurfaceRole.TRANSPARENT.value,
         )
 
-        layout = QVBoxLayout(self)
-        layout.setContentsMargins(
-            metrics.space_20,
-            metrics.space_20,
-            metrics.space_20,
-            metrics.space_20,
-        )
-        layout.setSpacing(metrics.space_20)
+        self._build_ui()
+        self.set_active_page(DEFAULT_SETTINGS_PAGE)
 
-        title = QLabel("Settings")
-        title.setProperty(
-            "textRole",
-            TextRole.PAGE_TITLE.value,
-        )
-        title.setAlignment(Qt.AlignmentFlag.AlignCenter)
+    def _build_ui(self) -> None:
+        self.main_layout = QVBoxLayout(self)
+        self.main_layout.setContentsMargins(0, 0, 0, 0)
+        self.main_layout.setSpacing(0)
 
-        layout.addWidget(title)
+        self.page_stack = QStackedWidget()
+        self.page_stack.setProperty(
+            "surfaceRole",
+            SurfaceRole.TRANSPARENT.value,
+        )
+
+        self.pages: dict[SettingsPageId, QWidget] = {
+            SettingsPageId.GENERAL: GeneralPage(
+                metrics=self.metrics,
+            ),
+            SettingsPageId.APPEARANCE: AppearancePage(
+                metrics=self.metrics,
+                appearance=self.appearance,
+            ),
+        }
+
+        for page_id in SETTINGS_PAGE_ORDER:
+            self.page_stack.addWidget(
+                self.pages[page_id],
+            )
+
+        self.main_layout.addWidget(self.page_stack)
+
+    def set_active_page(
+        self,
+        page_id: SettingsPageId,
+    ) -> None:
+        self.page_stack.setCurrentWidget(self.pages[page_id])

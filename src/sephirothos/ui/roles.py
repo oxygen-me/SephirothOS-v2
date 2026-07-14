@@ -80,6 +80,7 @@ class InputRole(StrEnum):
     SEARCH = "search"
     EDITOR = "editor"
     COMBO = "combo"
+    SCALE = "scale"
 
 
 class TableRole(StrEnum):

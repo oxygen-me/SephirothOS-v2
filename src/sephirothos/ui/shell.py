@@ -78,16 +78,6 @@ class AppShell(QWidget):
         self._build_top_navigation()
         self.set_active_tab(DEFAULT_TAB)
 
-        home_pair = self.tab_pairs[TabId.HOME]
-
-        if not isinstance(home_pair.bar, HomeBar):
-            raise TypeError("Home bar registration is invalid.")
-
-        if not isinstance(home_pair.tab, HomeTab):
-            raise TypeError("Home tab registration is invalid.")
-
-        home_pair.bar.page_requested.connect(home_pair.tab.set_active_page)
-
     def _build_shell(self) -> None:
         """Construct the persistent shell regions."""
 
@@ -253,20 +243,34 @@ class AppShell(QWidget):
     def _register_tabs(self) -> None:
         """Create and register every primary tab/bar pair."""
 
+        home_bar = HomeBar(self.metrics)
+        home_tab = HomeTab(self.metrics)
+
+        settings_bar = SettingsBar(self.metrics)
+        settings_tab = SettingsTab(
+            self.metrics,
+            self.config.appearance,
+        )
+
+        home_bar.page_requested.connect(
+            home_tab.set_active_page,
+        )
+        settings_bar.page_requested.connect(
+            settings_tab.set_active_page,
+        )
+
         self.tab_pairs = {
             TabId.HOME: TabPair(
-                bar=HomeBar(self.metrics),
-                tab=HomeTab(
-                    self.metrics,
-                ),
+                bar=home_bar,
+                tab=home_tab,
             ),
             TabId.APPS: TabPair(
                 bar=AppsBar(self.metrics),
                 tab=AppsTab(self.metrics),
             ),
             TabId.SETTINGS: TabPair(
-                bar=SettingsBar(self.metrics),
-                tab=SettingsTab(self.metrics),
+                bar=settings_bar,
+                tab=settings_tab,
             ),
             TabId.CLI: TabPair(
                 bar=CliBar(self.metrics),
