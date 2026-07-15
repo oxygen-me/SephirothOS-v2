@@ -45,6 +45,7 @@ class UiMetrics:
     scrollbar_extent: int
     checkbox_extent: int
     progress_height: int
+    appearance_feature_card_height: int
 
     @classmethod
     def from_scale(
@@ -81,4 +82,5 @@ class UiMetrics:
             scrollbar_extent=px(8),
             checkbox_extent=px(20),
             progress_height=max(2, px(4)),
+            appearance_feature_card_height=px(400),
         )

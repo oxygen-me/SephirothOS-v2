@@ -252,6 +252,16 @@ class AppShell(QWidget):
             self.config.appearance,
         )
 
+        settings_tab.appearance_page.apply_requested.connect(
+            self.event_bus.appearance_apply_requested.emit,
+        )
+        self.event_bus.appearance_applied.connect(
+            settings_tab.appearance_page.mark_applied,
+        )
+        self.event_bus.appearance_apply_failed.connect(
+            settings_tab.appearance_page.mark_apply_failed,
+        )
+
         home_bar.page_requested.connect(
             home_tab.set_active_page,
         )

@@ -7,6 +7,7 @@ import math
 from PySide6.QtCore import QObject, Signal
 
 SUPPORTED_SCALE_FACTORS = (
+    0.8,
     1.0,
     1.1,
     1.25,

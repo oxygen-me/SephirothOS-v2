@@ -54,14 +54,16 @@ class SettingsTab(QWidget):
             SurfaceRole.TRANSPARENT.value,
         )
 
+        self.appearance_page = AppearancePage(
+            metrics=self.metrics,
+            appearance=self.appearance,
+        )
+
         self.pages: dict[SettingsPageId, QWidget] = {
             SettingsPageId.GENERAL: GeneralPage(
                 metrics=self.metrics,
             ),
-            SettingsPageId.APPEARANCE: AppearancePage(
-                metrics=self.metrics,
-                appearance=self.appearance,
-            ),
+            SettingsPageId.APPEARANCE: self.appearance_page,
         }
 
         for page_id in SETTINGS_PAGE_ORDER:

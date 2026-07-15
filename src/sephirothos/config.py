@@ -19,8 +19,6 @@ DEFAULT_THEME_ID = "void"
 DEFAULT_ACCENT_ID = "purple"
 DEFAULT_DISPLAY_SCALE = 1.0
 DEFAULT_FONT_FAMILY = "Segoe UI"
-DEFAULT_BACKGROUND_MODE = "solid"
-DEFAULT_WALLPAPER_FIT = "fill"
 
 
 class ConfigurationError(RuntimeError):

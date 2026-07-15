@@ -3,12 +3,19 @@
 from __future__ import annotations
 
 import logging
+import math
+from dataclasses import replace
 
 from PySide6.QtCore import QCoreApplication
 from PySide6.QtGui import QFont
 from PySide6.QtWidgets import QApplication
 
-from sephirothos.config import AppConfig, ConfigStore
+from sephirothos.config import (
+    AppConfig,
+    AppearanceConfig,
+    ConfigStore,
+    ConfigurationError,
+)
 from sephirothos.events import EventBus
 from sephirothos.logging_config import configure_logging
 from sephirothos.metadata import (
@@ -16,6 +23,7 @@ from sephirothos.metadata import (
     ORGANIZATION_NAME,
     VERSION,
 )
+from sephirothos.services.background_music import BackgroundMusicPlayer
 from sephirothos.services.display_scale import DisplayScaleService
 from sephirothos.services.theme import ThemeService
 from sephirothos.ui.metrics import UiMetrics
@@ -68,6 +76,13 @@ class SephirothApplication:
             metrics=self.metrics,
         )
 
+        self.background_music = BackgroundMusicPlayer(
+            parent=self.qt_application,
+        )
+        self.qt_application.aboutToQuit.connect(
+            self.background_music.stop,
+        )
+
         self._connect_events()
         self.theme.apply_current()
 
@@ -78,6 +93,8 @@ class SephirothApplication:
 
         logger.info("Showing fullscreen application shell")
         self.shell.showFullScreen()
+
+        self.background_music.play()
 
         exit_code = self.qt_application.exec()
 
@@ -92,6 +109,9 @@ class SephirothApplication:
     def _connect_events(self) -> None:
         self.event_bus.quit_requested.connect(
             self.qt_application.quit,
+        )
+        self.event_bus.appearance_apply_requested.connect(
+            self._apply_appearance,
         )
 
     @staticmethod
@@ -114,4 +134,58 @@ class SephirothApplication:
         logger.info(
             "Configured application font family=%s",
             font_family,
+        )
+
+    def _apply_appearance(
+        self,
+        appearance: AppearanceConfig,
+    ) -> None:
+        """Persist and apply an appearance draft."""
+
+        previous_appearance = self.config.appearance
+        applied = replace(appearance)
+
+        try:
+            self.config.appearance = applied
+            self.config_store.save(self.config)
+
+        except ConfigurationError:
+            self.config.appearance = previous_appearance
+
+            logger.exception("Could not save appearance configuration")
+            self.event_bus.appearance_apply_failed.emit("Could not save appearance settings.")
+            return
+
+        restart_required = not math.isclose(
+            self.display_scale.factor,
+            applied.display_scale,
+        )
+
+        self.qt_application.setFont(
+            QFont(applied.font_family),
+        )
+
+        theme_changed = self.theme.set_theme(
+            applied.theme_id,
+        )
+        accent_changed = self.theme.set_accent(
+            applied.accent_id,
+        )
+
+        if not theme_changed and not accent_changed:
+            # Reapply the stylesheet after changing the application font.
+            self.theme.apply_current()
+
+        logger.info(
+            "Applied appearance theme=%s accent=%s scale=%.2f font=%s restart_required=%s",
+            applied.theme_id,
+            applied.accent_id,
+            applied.display_scale,
+            applied.font_family,
+            restart_required,
+        )
+
+        self.event_bus.appearance_applied.emit(
+            replace(applied),
+            restart_required,
         )

@@ -8,6 +8,7 @@ from PySide6.QtCore import Signal
 from PySide6.QtWidgets import (
     QHBoxLayout,
     QLabel,
+    QPushButton,
     QScrollArea,
     QVBoxLayout,
     QWidget,
@@ -16,6 +17,7 @@ from PySide6.QtWidgets import (
 from sephirothos.config import AppearanceConfig
 from sephirothos.ui.metrics import UiMetrics
 from sephirothos.ui.roles import (
+    ButtonVariant,
     ScrollRole,
     SurfaceRole,
     TextRole,
@@ -35,6 +37,7 @@ class AppearancePage(QWidget):
     """Display and edit application appearance settings."""
 
     draft_changed = Signal(object)
+    apply_requested = Signal(object)
 
     def __init__(
         self,
@@ -138,6 +141,14 @@ class AppearancePage(QWidget):
             metrics=self.metrics,
             appearance=self._draft,
         )
+
+        self.theme_card.setMinimumHeight(
+            self.metrics.appearance_feature_card_height,
+        )
+        self.preview_card.setMinimumHeight(
+            self.metrics.appearance_feature_card_height,
+        )
+
         self.accent_card = AccentSelectionCard(
             metrics=self.metrics,
             current_accent=self._draft.accent_id,
@@ -209,6 +220,44 @@ class AppearancePage(QWidget):
             1,
         )
 
+        self.apply_layout = QHBoxLayout()
+        self.apply_layout.setContentsMargins(0, 0, 0, 0)
+        self.apply_layout.setSpacing(
+            self.metrics.space_20,
+        )
+
+        self.apply_status_label = QLabel()
+        self.apply_status_label.setProperty(
+            "textRole",
+            TextRole.CAPTION.value,
+        )
+
+        self.apply_button = QPushButton("Apply")
+        self.apply_button.setProperty(
+            "buttonVariant",
+            ButtonVariant.PRIMARY.value,
+        )
+        self.apply_button.setMinimumWidth(
+            self.metrics.space_50 * 2,
+        )
+        self.apply_button.setEnabled(False)
+
+        self.apply_layout.addWidget(
+            self.apply_status_label,
+        )
+        self.apply_layout.addStretch()
+        self.apply_layout.addWidget(
+            self.apply_button,
+        )
+
+        self.main_layout.addLayout(
+            self.apply_layout,
+        )
+
+        self.apply_button.clicked.connect(
+            self._request_apply,
+        )
+
     def _connect_events(self) -> None:
         self.theme_card.theme_selected.connect(
             self._set_theme,
@@ -221,6 +270,9 @@ class AppearancePage(QWidget):
         )
         self.font_card.font_selected.connect(
             self._set_font,
+        )
+        self.draft_changed.connect(
+            self.preview_card.set_appearance,
         )
 
     def _set_theme(
@@ -253,8 +305,9 @@ class AppearancePage(QWidget):
 
         self._draft = updated
 
-        self.preview_card.set_appearance(
-            self._draft,
+        self.apply_status_label.clear()
+        self.apply_button.setEnabled(
+            self._draft != self._saved,
         )
 
         self.draft_changed.emit(
@@ -276,3 +329,47 @@ class AppearancePage(QWidget):
         self._replace_draft(
             font_family=font_family,
         )
+
+    def _request_apply(self) -> None:
+        """Request application and persistence of the current draft."""
+
+        if self._draft == self._saved:
+            return
+
+        self.apply_button.setEnabled(False)
+        self.apply_button.setText("Applying...")
+        self.apply_status_label.clear()
+
+        self.apply_requested.emit(
+            replace(self._draft),
+        )
+
+    def mark_applied(
+        self,
+        appearance: AppearanceConfig,
+        restart_required: bool,
+    ) -> None:
+        """Record a successfully applied appearance."""
+
+        self._saved = replace(appearance)
+        self._draft = replace(appearance)
+
+        self.apply_button.setText("Apply")
+        self.apply_button.setEnabled(False)
+
+        if restart_required:
+            self.apply_status_label.setText("Restart required to apply display scale.")
+        else:
+            self.apply_status_label.setText("Appearance applied.")
+
+    def mark_apply_failed(
+        self,
+        message: str,
+    ) -> None:
+        """Restore the Apply button after persistence fails."""
+
+        self.apply_button.setText("Apply")
+        self.apply_button.setEnabled(
+            self._draft != self._saved,
+        )
+        self.apply_status_label.setText(message)

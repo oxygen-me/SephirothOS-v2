@@ -2,10 +2,9 @@
 
 from __future__ import annotations
 
-from dataclasses import replace
 from functools import partial
 
-from PySide6.QtCore import QRectF, Qt, Signal
+from PySide6.QtCore import Qt, Signal
 from PySide6.QtGui import (
     QColor,
     QFont,
@@ -95,7 +94,16 @@ class ThemeSelectionCard(AppearanceCard):
             TextRole.BODY_MUTED.value,
         )
 
-        self.option_layout = QHBoxLayout()
+        self.title_label.setSizePolicy(
+            QSizePolicy.Policy.Expanding,
+            QSizePolicy.Policy.Fixed,
+        )
+        self.description_label.setSizePolicy(
+            QSizePolicy.Policy.Expanding,
+            QSizePolicy.Policy.Fixed,
+        )
+
+        self.option_layout = QVBoxLayout()
         self.option_layout.setContentsMargins(0, 0, 0, 0)
         self.option_layout.setSpacing(metrics.space_10)
 
@@ -128,12 +136,13 @@ class ThemeSelectionCard(AppearanceCard):
 
             self.button_group.addButton(button)
             self.buttons[theme_id] = button
-            self.option_layout.addWidget(button, 1)
+            self.option_layout.addWidget(button)
 
         self.buttons[self._current_theme].setChecked(True)
 
         self.main_layout.addWidget(self.title_label)
         self.main_layout.addWidget(self.description_label)
+        self.main_layout.addStretch()
         self.main_layout.addLayout(self.option_layout)
 
     def _select_theme(
@@ -625,7 +634,7 @@ class ExtraSettingsCard(AppearanceCard):
 
 
 class AppearancePreview(QWidget):
-    """Paint a miniature representation of draft appearance settings."""
+    """Display real Qt widgets using draft appearance settings."""
 
     def __init__(
         self,
@@ -635,162 +644,120 @@ class AppearancePreview(QWidget):
     ) -> None:
         super().__init__(parent)
 
-        self._appearance = replace(appearance)
-        self._minimum_height = metrics.space_60 * 3
-        self._border_width = metrics.border_thin
-        self._radius = metrics.radius_medium
-
+        self.setObjectName(
+            "appearancePreview",
+        )
+        self.setAttribute(
+            Qt.WidgetAttribute.WA_StyledBackground,
+            True,
+        )
+        self.setSizePolicy(
+            QSizePolicy.Policy.Expanding,
+            QSizePolicy.Policy.Expanding,
+        )
         self.setMinimumHeight(
-            self._minimum_height,
+            metrics.space_60 * 4,
+        )
+
+        self._build_ui()
+        self._styler = AppearancePreviewStyler(
+            root=self,
+            main_layout=self.main_layout,
+            control_layout=self.control_layout,
+        )
+        self.set_appearance(appearance)
+
+    def _build_ui(self) -> None:
+        self.main_layout = QVBoxLayout(self)
+
+        # The preview helper owns these values because they change
+        # according to the draft scale.
+        self.main_layout.setContentsMargins(
+            0,
+            0,
+            0,
+            0,
+        )
+        self.main_layout.setSpacing(0)
+
+        self.title_label = QLabel(
+            "SephirothOS Preview",
+        )
+        self.title_label.setObjectName(
+            "appearancePreviewTitle",
+        )
+        self.title_label.setSizePolicy(
+            QSizePolicy.Policy.Expanding,
+            QSizePolicy.Policy.Fixed,
+        )
+
+        self.body_label = QLabel(
+            "Text, spacing, controls, and accent colors are rendered from the current draft."
+        )
+        self.body_label.setObjectName(
+            "appearancePreviewBody",
+        )
+        self.body_label.setWordWrap(True)
+        self.body_label.setSizePolicy(
+            QSizePolicy.Policy.Expanding,
+            QSizePolicy.Policy.Fixed,
+        )
+
+        self.control_layout = QHBoxLayout()
+        self.control_layout.setContentsMargins(
+            0,
+            0,
+            0,
+            0,
+        )
+        self.control_layout.setSpacing(0)
+
+        self.primary_button = QPushButton(
+            "Primary Action",
+        )
+        self.primary_button.setObjectName(
+            "appearancePreviewPrimary",
+        )
+
+        self.secondary_button = QPushButton(
+            "Secondary Action",
+        )
+        self.secondary_button.setObjectName(
+            "appearancePreviewSecondary",
+        )
+
+        self.control_layout.addWidget(
+            self.primary_button,
+        )
+        self.control_layout.addWidget(
+            self.secondary_button,
+        )
+        self.control_layout.addStretch()
+
+        self.main_layout.addWidget(
+            self.title_label,
+        )
+        self.main_layout.addWidget(
+            self.body_label,
+        )
+        self.main_layout.addStretch()
+        self.main_layout.addLayout(
+            self.control_layout,
         )
 
     def set_appearance(
         self,
         appearance: AppearanceConfig,
     ) -> None:
-        """Replace the previewed settings and repaint."""
+        """Apply a new draft to the real preview widgets."""
 
-        self._appearance = replace(appearance)
-        self.update()
-
-    def paintEvent(
-        self,
-        event: QPaintEvent,
-    ) -> None:
-        del event
-
-        palette = resolve_palette(
-            self._appearance.theme_id,
-            self._appearance.accent_id,
-        )
-
-        painter = QPainter(self)
-        painter.setRenderHint(
-            QPainter.RenderHint.Antialiasing,
-            True,
-        )
-
-        outer = QRectF(self.rect()).adjusted(
-            self._border_width,
-            self._border_width,
-            -self._border_width,
-            -self._border_width,
-        )
-
-        painter.setPen(
-            QPen(
-                QColor(palette.border_strong),
-                self._border_width,
-            )
-        )
-        painter.setBrush(
-            QColor(palette.background),
-        )
-        painter.drawRoundedRect(
-            outer,
-            self._radius,
-            self._radius,
-        )
-
-        unit = max(
-            1,
-            round(10 * self._appearance.display_scale),
-        )
-
-        top_bar = QRectF(
-            outer.left(),
-            outer.top(),
-            outer.width(),
-            unit * 3,
-        )
-        painter.fillRect(
-            top_bar,
-            QColor(palette.surface),
-        )
-
-        body_top = top_bar.bottom()
-        sidebar_width = outer.width() * 0.24
-
-        sidebar = QRectF(
-            outer.left(),
-            body_top,
-            sidebar_width,
-            outer.bottom() - body_top,
-        )
-        painter.fillRect(
-            sidebar,
-            QColor(palette.surface),
-        )
-
-        content = QRectF(
-            sidebar.right() + unit,
-            body_top + unit,
-            outer.right() - sidebar.right() - (unit * 2),
-            outer.bottom() - body_top - (unit * 2),
-        )
-
-        painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(
-            QColor(palette.surface_raised),
-        )
-        painter.drawRoundedRect(
-            content,
-            self._radius,
-            self._radius,
-        )
-
-        font = QFont(
-            self._appearance.font_family,
-        )
-        font.setPixelSize(
-            max(
-                1,
-                round(12 * self._appearance.display_scale),
-            )
-        )
-        font.setBold(True)
-
-        painter.setFont(font)
-        painter.setPen(
-            QColor(palette.text_primary),
-        )
-        painter.drawText(
-            content.adjusted(
-                unit,
-                unit,
-                -unit,
-                -unit,
-            ),
-            Qt.AlignmentFlag.AlignTop | Qt.AlignmentFlag.AlignLeft,
-            "Preview",
-        )
-
-        button_width = max(
-            unit * 6,
-            content.width() * 0.25,
-        )
-        button_height = unit * 3
-
-        button = QRectF(
-            content.right() - button_width - unit,
-            content.bottom() - button_height - unit,
-            button_width,
-            button_height,
-        )
-
-        painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(
-            QColor(palette.accent),
-        )
-        painter.drawRoundedRect(
-            button,
-            self._radius,
-            self._radius,
+        self._styler.apply(
+            appearance,
         )
 
 
 class AppearancePreviewCard(AppearanceCard):
-    """Display a miniature preview of draft appearance settings."""
+    """Display real widgets using draft appearance settings."""
 
     def __init__(
         self,
@@ -805,11 +772,19 @@ class AppearancePreviewCard(AppearanceCard):
             "textRole",
             TextRole.CARD_TITLE.value,
         )
+        self.title_label.setSizePolicy(
+            QSizePolicy.Policy.Expanding,
+            QSizePolicy.Policy.Fixed,
+        )
 
         self.description_label = QLabel("Preview appearance changes before saving them.")
         self.description_label.setProperty(
             "textRole",
             TextRole.BODY_MUTED.value,
+        )
+        self.description_label.setSizePolicy(
+            QSizePolicy.Policy.Expanding,
+            QSizePolicy.Policy.Fixed,
         )
 
         self.preview = AppearancePreview(
@@ -817,8 +792,12 @@ class AppearancePreviewCard(AppearanceCard):
             appearance=appearance,
         )
 
-        self.main_layout.addWidget(self.title_label)
-        self.main_layout.addWidget(self.description_label)
+        self.main_layout.addWidget(
+            self.title_label,
+        )
+        self.main_layout.addWidget(
+            self.description_label,
+        )
         self.main_layout.addWidget(
             self.preview,
             1,
@@ -831,3 +810,132 @@ class AppearancePreviewCard(AppearanceCard):
         self.preview.set_appearance(
             appearance,
         )
+
+
+class AppearancePreviewStyler:
+    """Apply draft appearance settings to the preview subtree."""
+
+    def __init__(
+        self,
+        root: QWidget,
+        main_layout: QVBoxLayout,
+        control_layout: QHBoxLayout,
+    ) -> None:
+        self._root = root
+        self._main_layout = main_layout
+        self._control_layout = control_layout
+
+    def apply(
+        self,
+        appearance: AppearanceConfig,
+    ) -> None:
+        """Apply an appearance draft without changing the real application."""
+
+        palette = resolve_palette(
+            appearance.theme_id,
+            appearance.accent_id,
+        )
+
+        px = self._pixel_scaler(
+            appearance.display_scale,
+        )
+
+        outer_margin = px(20)
+        section_spacing = px(20)
+        control_spacing = px(10)
+
+        self._main_layout.setContentsMargins(
+            outer_margin,
+            outer_margin,
+            outer_margin,
+            outer_margin,
+        )
+        self._main_layout.setSpacing(
+            section_spacing,
+        )
+        self._control_layout.setSpacing(
+            control_spacing,
+        )
+
+        font = QFont(
+            appearance.font_family,
+        )
+        font.setPixelSize(px(16))
+        self._root.setFont(font)
+
+        self._root.setStyleSheet(
+            f"""
+            QWidget#appearancePreview {{
+                background-color: {palette.background};
+                border: {px(1)}px solid {palette.border_strong};
+                border-radius: {px(8)}px;
+            }}
+
+            QLabel#appearancePreviewTitle {{
+                background-color: transparent;
+                color: {palette.text_primary};
+                border: 0;
+                font-size: {px(24)}px;
+                font-weight: 600;
+            }}
+
+            QLabel#appearancePreviewBody {{
+                background-color: transparent;
+                color: {palette.text_secondary};
+                border: 0;
+                font-size: {px(16)}px;
+                font-weight: 400;
+            }}
+
+            QPushButton#appearancePreviewPrimary {{
+                background-color: {palette.accent};
+                color: {palette.text_primary};
+                border: 0;
+                border-radius: {px(8)}px;
+                padding: {px(10)}px {px(20)}px;
+                font-size: {px(16)}px;
+                font-weight: 600;
+            }}
+
+            QPushButton#appearancePreviewPrimary:hover {{
+                background-color: {palette.accent_hover};
+            }}
+
+            QPushButton#appearancePreviewPrimary:pressed {{
+                background-color: {palette.accent_pressed};
+            }}
+
+            QPushButton#appearancePreviewSecondary {{
+                background-color: {palette.surface};
+                color: {palette.text_primary};
+                border: {px(1)}px solid {palette.border_strong};
+                border-radius: {px(8)}px;
+                padding: {px(10)}px {px(20)}px;
+                font-size: {px(16)}px;
+                font-weight: 500;
+            }}
+
+            QPushButton#appearancePreviewSecondary:hover {{
+                background-color: {palette.hover};
+            }}
+
+            QPushButton#appearancePreviewSecondary:pressed {{
+                background-color: {palette.selected};
+            }}
+            """
+        )
+
+        self._root.updateGeometry()
+        self._root.update()
+
+    @staticmethod
+    def _pixel_scaler(
+        factor: float,
+    ):
+        def scale(value: int | float) -> int:
+            return max(
+                1,
+                int((value * factor) + 0.5),
+            )
+
+        return scale

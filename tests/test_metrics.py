@@ -43,7 +43,7 @@ def test_default_metrics_preserve_typography_scale() -> None:
         assert getattr(metrics, name) == expected
 
 
-@pytest.mark.parametrize("factor", [1.1, 1.25, 1.5, 1.75, 2.0])
+@pytest.mark.parametrize("factor", [0.8, 1.1, 1.25, 1.5, 1.75, 2.0])
 def test_spacing_uses_display_scale(factor: float) -> None:
     scale = DisplayScaleService(factor)
     metrics = UiMetrics.from_scale(scale)
@@ -52,7 +52,7 @@ def test_spacing_uses_display_scale(factor: float) -> None:
         assert getattr(metrics, name) == scale.scale_pixels(base_value)
 
 
-@pytest.mark.parametrize("factor", [1.1, 1.25, 1.5, 1.75, 2.0])
+@pytest.mark.parametrize("factor", [0.8, 1.1, 1.25, 1.5, 1.75, 2.0])
 def test_typography_uses_display_scale(factor: float) -> None:
     scale = DisplayScaleService(factor)
     metrics = UiMetrics.from_scale(scale)
@@ -92,3 +92,19 @@ def test_component_geometry_is_scaled() -> None:
     assert enlarged.scrollbar_extent > default.scrollbar_extent
     assert enlarged.checkbox_extent > default.checkbox_extent
     assert enlarged.progress_height > default.progress_height
+
+    assert enlarged.appearance_feature_card_height > default.appearance_feature_card_height
+
+
+def test_scale_below_default_reduces_geometry() -> None:
+    default = UiMetrics.from_scale(
+        DisplayScaleService(1.0),
+    )
+    reduced = UiMetrics.from_scale(
+        DisplayScaleService(0.8),
+    )
+
+    assert reduced.space_20 < default.space_20
+    assert reduced.font_body < default.font_body
+    assert reduced.top_bar_height < default.top_bar_height
+    assert reduced.sidebar_width < default.sidebar_width

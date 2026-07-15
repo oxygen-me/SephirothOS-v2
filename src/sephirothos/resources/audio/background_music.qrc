@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/bgm">
+        <file>BundledSoundtrack1.mp3</file>
+        <file>BundledSoundtrack2.mp3</file>
+        <file>Shopiroth.mp3</file>
+    </qresource>
+</RCC>
